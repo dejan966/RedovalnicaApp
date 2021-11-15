@@ -4,7 +4,6 @@ using System.Text;
 
 namespace RedovalnicaData
 {
-    //mogoc bi blo bols dat kraj->sola->razred->predmet->ucenec, ucitelj->ocene
     public class Kraj
     {
         public string ImeK { get; set; }
@@ -36,7 +35,7 @@ namespace RedovalnicaData
         }
     }
     
-    public class Oseba:Sola
+    public class Oseba:Kraj
     {
         public string Ime { get; set; }
         public string Priimek { get; set; }
@@ -58,7 +57,7 @@ namespace RedovalnicaData
             Naslov = naslov;
             Email = email;
         }
-        public Oseba(string ime, string priimek, char spol, string datum_r, string naslov, string email,string imeK, string imeS):base(imeS)
+        public Oseba(string ime, string priimek, char spol, string datum_r, string naslov, string email,string kraj):base(kraj)
         {
             Ime = ime;
             Priimek = priimek;
@@ -66,13 +65,12 @@ namespace RedovalnicaData
             Datum_R = datum_r;
             Naslov = naslov;
             Email = email;
-            ImeK = imeK;
         }
     }
     public class Ucenec:Oseba
     {
         //public string Razred { get; set; }
-        public Ucenec(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string sola) : base(ime, priimek, spol, datum_r, naslov, email,sola, kraj)
+        public Ucenec(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj) : base(ime, priimek, spol, datum_r, naslov, email, kraj)
         {
             
         }
@@ -83,12 +81,12 @@ namespace RedovalnicaData
         {
 
         }
-        public Ucitelj(string ime, string priimek, char spol, string datum_r, string naslov, string email,string sola, string kraj) : base(ime, priimek, spol, datum_r, naslov, email, sola, kraj)
+        public Ucitelj(string ime, string priimek, char spol, string datum_r, string naslov, string email,string kraj) : base(ime, priimek, spol, datum_r, naslov, email, kraj)
         {
             
         }
     }
-    public class Razred : Ucitelj
+    /*public class Razred : Ucitelj
     {
         public Razred()
         {
@@ -113,5 +111,5 @@ namespace RedovalnicaData
         {
             ImeP = predmet;
         }
-    }
+    }*/
 }
