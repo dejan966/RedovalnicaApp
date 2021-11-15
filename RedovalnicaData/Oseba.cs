@@ -4,7 +4,19 @@ using System.Text;
 
 namespace RedovalnicaData
 {
-    public class Kraj
+    public class Drzava
+    {
+        public string ImeD { get; set; }
+        public Drzava()
+        {
+
+        }
+        public Drzava(string imeD)
+        {
+            ImeD = imeD;
+        }
+    }
+    public class Kraj:Drzava
     {
         public string ImeK { get; set; }
         public string Post_St { get; set; }
@@ -18,20 +30,37 @@ namespace RedovalnicaData
         {
             ImeK = imek;
         }
+        public Kraj(string imek, string imed):base(imed)
+        {
+            ImeK = imek;
+        }
 
     }
     public class Sola:Kraj
     {
         public string ImeS { get; set; }
+        public string Kratica { get; set; }
+        public string Naslov{ get; set; }
+        public string Telefon { get; set; }
+        public string Email { get; set; }
+        public string Davcna { get; set; }
 
         public Sola()
         {
-
 
         }
         public Sola(string imes)
         {
             ImeS = imes;
+        }
+        public Sola(string ime, string kratica, string naslov, string telefon, string email, string davcna, string kraj):base(kraj)
+        {
+            ImeS = ime;
+            Kratica = kratica;
+            Naslov = naslov;
+            Telefon = telefon;
+            Email = email;
+            Davcna = davcna;
         }
     }
     
@@ -69,21 +98,43 @@ namespace RedovalnicaData
     }
     public class Ucenec:Oseba
     {
-        //public string Razred { get; set; }
+        public string Razred { get; set; }
+        public string UcSola { get; set; }
+        public string UcTelefon { get; set; }
+        public Ucenec()
+        {
+
+        }
         public Ucenec(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj) : base(ime, priimek, spol, datum_r, naslov, email, kraj)
         {
-            
+
+        }
+        public Ucenec(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string razred, string imeSola) : base(ime, priimek, spol, datum_r, naslov, email, kraj)
+        {
+            Razred = razred;
+            UcSola = imeSola;
         }
     }
     public class Ucitelj : Oseba
     {
+        public string USola { get; set; }
+        public string Telefon { get; set; }
+        public string UEmail{ get; set; }
+        public string SolskiEmail { get; set; }
+
         public Ucitelj()
         {
 
         }
-        public Ucitelj(string ime, string priimek, char spol, string datum_r, string naslov, string email,string kraj) : base(ime, priimek, spol, datum_r, naslov, email, kraj)
+        public Ucitelj(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj) : base(ime, priimek, spol, datum_r, naslov, email, kraj)
         {
-            
+
+        }
+        public Ucitelj(string ime, string priimek, char spol, string datum_r, string naslov, string email,string kraj, string imeSola, string telefon, string solskiEmail) : base(ime, priimek, spol, datum_r, naslov, email, kraj)
+        {
+            USola = imeSola;
+            Telefon = telefon;
+            SolskiEmail = solskiEmail;
         }
     }
     /*public class Razred : Ucitelj
