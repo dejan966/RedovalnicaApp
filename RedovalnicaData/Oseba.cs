@@ -137,7 +137,29 @@ namespace RedovalnicaData
             SolskiEmail = solskiEmail;
         }
     }
-    /*public class Razred : Ucitelj
+    public class Ocena : Ucenec
+    {
+        public string UOcena { get; set; }
+        public string DatumOcena { get; set; }
+        public string OPredmet { get; set; }
+        public string OUcitelj { get; set; }
+        public Ocena()
+        {
+
+        }
+        public Ocena(string uOcena)
+        {
+            UOcena = uOcena;
+        }
+        public Ocena(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string razred, string sola, string predmet, string ucitelj, string uOcena, string datum) : base(ime, priimek, spol, datum_r, naslov, email, kraj, razred, sola)
+        {
+            OPredmet = predmet;
+            OUcitelj = ucitelj;
+            UOcena = uOcena;
+            DatumOcena = datum;
+        }
+    }
+    public class Razred
     {
         public Razred()
         {
@@ -146,21 +168,14 @@ namespace RedovalnicaData
         public string ImeR { get; set; }
         public int St { get; set; }
         
-        public Razred(string ime, string priimek, char spol, string datum_r, string naslov, string email, string sola, string kraj, string razred) : base(ime, priimek, spol, datum_r, naslov, email, sola, kraj)
-        {
-            ImeR = razred;
-        }
     }
-    public class Predmet: Razred
+    public class Predmet
     {
         public string ImeP { get; set; }
         public Predmet()
         {
 
         }
-        public Predmet(string ime, string priimek, char spol, string datum_r, string naslov, string email, string sola, string kraj, string razred, string predmet) : base(ime, priimek, spol, datum_r, naslov, email, sola, kraj, razred)
-        {
-            ImeP = predmet;
-        }
-    }*/
+        
+    }
 }
