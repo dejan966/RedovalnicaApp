@@ -163,7 +163,6 @@ namespace RedovalnicaData
             SolskiEmail = solskiEmail;
         }
     }*/
-    
     public class Razred:Oseba
     {
         //Solsko leto bo blo na vrhu programa pa bom v WHERE delu selectu solsko leto enako temu
@@ -174,42 +173,88 @@ namespace RedovalnicaData
         {
 
         }
-        public Razred(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string razred, string sola): base(ime, priimek, spol, datum_r, naslov, email, kraj, sola)
+        public Razred(string imeR, int st)
+        {
+            ImeR = imeR;
+            St = st;
+        }
+        public Razred(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string razred, string sola, string telefon): base(ime, priimek, spol, datum_r, naslov, email, kraj, sola, telefon)
         {
             ImeR = razred;
         }
     }
-    //bom da predmet inherita od razred pa ocena od razredov, mogoc tud da razred inherita od osebe
-    public class Predmet:Ocena
+    public class Predmet:Razred
     {
         public string ImeP { get; set; }
+        public string KraticaP { get; set; }
         public Predmet()
         {
 
         }
+        public Predmet(string imeP, string kratica)
+        {
+            ImeP = imeP;
+            KraticaP = kratica;
+        }
+        public Predmet(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string razred, string sola, string telefon, string imeP) : base(ime, priimek, spol, datum_r, naslov, email, kraj, sola, telefon, razred)
+        {
+            ImeP = imeP;
+        }
 
     }
-    public class Ocena : Razred
+    public class Ocena : Predmet
     {
         public string UOcena { get; set; }
+        public int StO { get; set; }
         public string DatumOcena { get; set; }
-        public string OPredmet { get; set; }
-        public string OUcitelj { get; set; }
         public Ocena()
         {
 
         }
-        public Ocena(string uOcena)
+        public Ocena(string uOcena, int stO)
         {
             UOcena = uOcena;
+            StO = stO;
         }
-        public Ocena(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string razred, string sola, string predmet, string ucitelj, string uOcena, string datum) : base(ime, priimek, spol, datum_r, naslov, email, kraj, razred, sola)
+        public Ocena(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string razred, string sola, string telefon, string predmet, string uOcena, string datum) : base(ime, priimek, spol, datum_r, naslov, email, kraj, sola, telefon, razred, predmet)
         {
-            OPredmet = predmet;
-            OUcitelj = ucitelj;
             UOcena = uOcena;
             DatumOcena = datum;
         }
     }
-    
+
+    public class UreIzvedbe:Ocena
+    {
+        public string VrstaUr { get; set; }
+        public string DatumCas { get; set; }
+        public UreIzvedbe()
+        {
+
+        }
+        public UreIzvedbe(string vrstaUr, string datumCas)
+        {
+            VrstaUr = vrstaUr;
+            DatumCas = datumCas;
+        }
+        public UreIzvedbe(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string razred, string sola, string telefon, string predmet, string uOcena, string datum, string datumCas) : base(ime, priimek, spol, datum_r, naslov, email, kraj, sola, telefon, razred, predmet, datum, uOcena)
+        {
+            DatumCas = datumCas;
+        }
+    }
+    public class Prisotnost:UreIzvedbe
+    {
+        public string Opomba { get; set; }
+        public Prisotnost()
+        {
+
+        }
+        public Prisotnost(string opomba)
+        {
+            Opomba = opomba;
+        }
+        public Prisotnost(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string razred, string sola, string telefon, string predmet, string uOcena, string datum, string datumCas, string opomba) : base(ime, priimek, spol, datum_r, naslov, email, kraj, sola, telefon, razred, predmet, datum, uOcena, datumCas)
+        {
+            Opomba = opomba;
+        }
+    }
 }
