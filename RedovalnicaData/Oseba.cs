@@ -49,17 +49,17 @@ namespace RedovalnicaData
         {
 
         }
-        public Sola(string imes)
+        public Sola(string imeS)
         {
-            ImeS = imes;
+            ImeS = imeS;
         }
-        public Sola(string imes, string imek):base(imek)
+        public Sola(string imeK, string imeS):base(imeK)
         {
-            ImeS = imes;
+            ImeS = imeS;
         }
-        public Sola(string ime, string kratica, string naslov, string telefon, string email, string davcna, string kraj):base(kraj)
+        public Sola(string imeS, string kratica, string naslov, string telefon, string email, string davcna, string kraj):base(kraj)
         {
-            ImeS = ime;
+            ImeS = imeS;
             Kratica = kratica;
             Naslov = naslov;
             Telefon = telefon;
@@ -68,53 +68,64 @@ namespace RedovalnicaData
         }
     }
     
-    public class Oseba:Kraj
+    public class Oseba:Sola
     {
+        //default osebe
         public string Ime { get; set; }
         public string Priimek { get; set; }
         public char Spol { get; set; }
         public string Datum_R { get; set; }
-        public string Naslov { get; set; }
-        public string Email { get; set; }
+        public string NaslovO { get; set; }
+        public string EmailO { get; set; }
+        //ucenci
+        public string UcTelefon { get; set; }
+        //ucitelji
+        public string UTelefon { get; set; }
+        public string USolskiEmail { get; set; }
 
         public Oseba()
         {
 
         }
-        public Oseba(string ime, string priimek, char spol, string datum_r, string naslov, string email)
+        public Oseba(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj)
         {
             Ime = ime;
             Priimek = priimek;
             Spol = spol;
             Datum_R = datum_r;
-            Naslov = naslov;
-            Email = email;
+            NaslovO = naslov;
+            EmailO = email;
+            ImeK = kraj;
         }
-        public Oseba(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj) : base(kraj)
+        //ucenci
+        public Oseba(string ime, string priimek, char spol, string datum_r, string naslov, string email,string kraj, string sola, string telefon):base(kraj, sola)
         {
             Ime = ime;
             Priimek = priimek;
             Spol = spol;
             Datum_R = datum_r;
-            Naslov = naslov;
-            Email = email;
+            NaslovO = naslov;
+            EmailO = email;
+            UcTelefon = telefon;
         }
-        public Oseba(string ime, string priimek, char spol, string datum_r, string naslov, string email,string kraj, string sola):base(kraj, sola)
+        //ucitelji
+        public Oseba(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string imeSola, string telefon, string sMail) : base(kraj, imeSola)
         {
             Ime = ime;
             Priimek = priimek;
             Spol = spol;
             Datum_R = datum_r;
-            Naslov = naslov;
-            Email = email;
+            NaslovO = naslov;
+            EmailO = email;
+            UTelefon = telefon;
+            USolskiEmail = sMail;
         }
     }
-    public class Ucenec:Oseba
+
+    /*public class Ucenec:Oseba
     {
         public string Razred { get; set; }
-        //Solsko leto bo blo na vrhu pa bom v WHERE delu selectu solsko leto enako temu
-        //SELECT id FROM razred WHERE ime = bla bla AND id_solska_leta = (SELECT id FROM solska_leta WHERE solsko_leto = bla bla)
-        //public string UcSola { get; set; }
+        public string UcSola { get; set; }
         public string UcTelefon { get; set; }
         public Ucenec()
         {
@@ -124,13 +135,15 @@ namespace RedovalnicaData
         {
 
         }
-        public Ucenec(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string razred, string imeSola) : base(ime, priimek, spol, datum_r, naslov, email, kraj, imeSola)
+        public Ucenec(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string razred, string imeSola) : base(ime, priimek, spol, datum_r, naslov, email, kraj)
         {
+            UcSola = imeSola;
             Razred = razred;
         }
     }
     public class Ucitelj : Oseba
     {
+        public string USola { get; set; }
         public string Telefon { get; set; }
         public string UEmail{ get; set; }
         public string SolskiEmail { get; set; }
@@ -143,16 +156,18 @@ namespace RedovalnicaData
         {
 
         }
-        public Ucitelj(string ime, string priimek, char spol, string datum_r, string naslov, string email,string kraj, string imeSola, string telefon, string solskiEmail) : base(ime, priimek, spol, datum_r, naslov, email, kraj, imeSola)
+        public Ucitelj(string ime, string priimek, char spol, string datum_r, string naslov, string email,string kraj, string imeSola, string telefon, string solskiEmail) : base(ime, priimek, spol, datum_r, naslov, email, kraj)
         {
-            //USola = imeSola;
+            USola = imeSola;
             Telefon = telefon;
             SolskiEmail = solskiEmail;
         }
-    }
+    }*/
     
-    public class Razred:Ucitelj
+    public class Razred:Oseba
     {
+        //Solsko leto bo blo na vrhu programa pa bom v WHERE delu selectu solsko leto enako temu
+        //SELECT id FROM razred WHERE ime = bla bla AND id_solska_leta = (SELECT id FROM solska_leta WHERE solsko_leto = bla bla
         public string ImeR { get; set; }
         public int St { get; set; }
         public Razred()
@@ -162,10 +177,18 @@ namespace RedovalnicaData
         public Razred(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj, string razred, string sola): base(ime, priimek, spol, datum_r, naslov, email, kraj, sola)
         {
             ImeR = razred;
-            
         }
     }
-    //bom da predmet inherita od razred pa ocena od predmetov, mogoc tud da razred inherita od osebe
+    //bom da predmet inherita od razred pa ocena od razredov, mogoc tud da razred inherita od osebe
+    public class Predmet:Ocena
+    {
+        public string ImeP { get; set; }
+        public Predmet()
+        {
+
+        }
+
+    }
     public class Ocena : Razred
     {
         public string UOcena { get; set; }
@@ -188,13 +211,5 @@ namespace RedovalnicaData
             DatumOcena = datum;
         }
     }
-    public class Predmet
-    {
-        public string ImeP { get; set; }
-        public Predmet()
-        {
-
-        }
-        
-    }
+    
 }
