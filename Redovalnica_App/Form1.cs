@@ -18,9 +18,9 @@ namespace Redovalnica_App
         {
             InitializeComponent();
 
-            
-            RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            label1.Text = rd.ReturnIme();
+            /* dela
+             * RedovalnicaDatabase rd = new RedovalnicaDatabase();
+               label1.Text = rd.ReturnPredmet();*/
         }
     }
 }

@@ -10,27 +10,27 @@ namespace RedovalnicaData
         private NpgsqlConnection conn;
         public RedovalnicaDatabase()
         {
-            conn = new NpgsqlConnection("Server=ella.db.elephantsql.com; User Id=finomhzd; Password=qDjavv-S5TXm78zV2dGflti1PiZZlcer; Database=finomhzd;");
+            conn = new NpgsqlConnection("Server=ella.db.elephantsql.com; User Id=finomhzd; Password=qDjavv-S5TXm78zV2dGfIti1PiZZlcer; Database=finomhzd;");
         }
         
-        public string ReturnIme()
+        public string ReturnPredmet()
         {
-            string ime = "";
+            string predmet = "";
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT ime FROM osebe LIMIT 1;", conn);
+                NpgsqlCommand com = new NpgsqlCommand("SELECT predmet FROM Predmeti LIMIT 1;", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
                 while (bralnik.Read())
                 {
                     string name = bralnik.GetString(0);
-                    ime = name;
+                    predmet = name;
                 }
                 com.Dispose();
                 conn.Close();
                 
             }
-            return ime;
+            return predmet;
         }
     }
 }
