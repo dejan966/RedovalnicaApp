@@ -16,5 +16,11 @@ namespace Redovalnica_App
         {
             InitializeComponent();
         }
+
+        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+        //mogoc bom tree view uporabu za prisotnost
     }
 }

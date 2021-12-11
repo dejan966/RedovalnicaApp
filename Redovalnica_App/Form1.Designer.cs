@@ -32,7 +32,7 @@ namespace Redovalnica_App
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Btn_Prijava = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -59,17 +59,19 @@ namespace Redovalnica_App
             // 
             this.textBox2.Location = new System.Drawing.Point(121, 160);
             this.textBox2.Name = "textBox2";
+            this.textBox2.PasswordChar = '*';
             this.textBox2.Size = new System.Drawing.Size(153, 22);
             this.textBox2.TabIndex = 2;
             // 
-            // button1
+            // Btn_Prijava
             // 
-            this.button1.Location = new System.Drawing.Point(143, 208);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 28);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Prijava";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Btn_Prijava.Location = new System.Drawing.Point(143, 208);
+            this.Btn_Prijava.Name = "Btn_Prijava";
+            this.Btn_Prijava.Size = new System.Drawing.Size(75, 28);
+            this.Btn_Prijava.TabIndex = 3;
+            this.Btn_Prijava.Text = "Prijava";
+            this.Btn_Prijava.UseVisualStyleBackColor = true;
+            this.Btn_Prijava.Click += new System.EventHandler(this.Btn_Prijava_Click);
             // 
             // label2
             // 
@@ -96,13 +98,14 @@ namespace Redovalnica_App
             this.ClientSize = new System.Drawing.Size(358, 269);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Btn_Prijava);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Prijava";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,7 +116,7 @@ namespace Redovalnica_App
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Btn_Prijava;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
     }

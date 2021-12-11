@@ -124,12 +124,17 @@ namespace RedovalnicaData
     {
         public string UcSola { get; set; }
         public string Telefon { get; set; }
-        public string UEmail{ get; set; }
         public string SolskiEmail { get; set; }
+        public string Geslo { get; set; }
 
         public Ucitelj()
         {
 
+        }
+        public Ucitelj(string sEmail, string geslo)
+        {
+            SolskiEmail = sEmail;
+            Geslo = geslo;
         }
         public Ucitelj(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj) : base(ime, priimek, spol, datum_r, naslov, email, kraj)
         {

@@ -12,25 +12,17 @@ namespace RedovalnicaData
         {
             conn = new NpgsqlConnection("Server=ella.db.elephantsql.com; User Id=finomhzd; Password=qDjavv-S5TXm78zV2dGfIti1PiZZlcer; Database=finomhzd;");
         }
-        
-        public string ReturnPredmet()
+        public bool PreveriPrijavo(Ucitelj uc)
         {
-            string predmet = "";
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT predmet FROM Predmeti LIMIT 1;", conn);
+                NpgsqlCommand com = new NpgsqlCommand("SELECT solski_email, geslo FROM Ucitelji WHERE(solski_email = '" + uc.SolskiEmail + "') AND (geslo = '" + uc.Geslo + "');", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
-                while (bralnik.Read())
-                {
-                    string name = bralnik.GetString(0);
-                    predmet = name;
-                }
-                com.Dispose();
-                conn.Close();
-                
+                if (!bralnik.HasRows)
+                    return false;
             }
-            return predmet;
+            return true;
         }
     }
 }
