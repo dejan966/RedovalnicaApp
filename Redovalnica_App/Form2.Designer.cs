@@ -31,17 +31,22 @@ namespace Redovalnica_App
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.SolskoLeto_Combobox = new System.Windows.Forms.ComboBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.Predmet_ComboBox = new System.Windows.Forms.ComboBox();
+            this.Razred_Combobox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.Btn_Confirm = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -57,34 +62,47 @@ namespace Redovalnica_App
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.comboBox3);
-            this.tabPage1.Controls.Add(this.treeView1);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.comboBox2);
-            this.tabPage1.Controls.Add(this.comboBox1);
+            this.tabPage1.Controls.Add(this.monthCalendar1);
+            this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(807, 441);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Preverjanje prisotnosti";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(23, 121);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(81, 17);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Šolsko leto:";
+            // 
+            // SolskoLeto_Combobox
+            // 
+            this.SolskoLeto_Combobox.FormattingEnabled = true;
+            this.SolskoLeto_Combobox.Location = new System.Drawing.Point(119, 118);
+            this.SolskoLeto_Combobox.Name = "SolskoLeto_Combobox";
+            this.SolskoLeto_Combobox.Size = new System.Drawing.Size(148, 24);
+            this.SolskoLeto_Combobox.TabIndex = 6;
+            this.SolskoLeto_Combobox.SelectionChangeCommitted += new System.EventHandler(this.SolskoLeto_Combobox_SelectionChangeCommitted);
             // 
             // treeView1
             // 
             this.treeView1.CheckBoxes = true;
-            this.treeView1.Location = new System.Drawing.Point(39, 190);
+            this.treeView1.Location = new System.Drawing.Point(26, 161);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(192, 227);
+            this.treeView1.Size = new System.Drawing.Size(241, 234);
             this.treeView1.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 107);
+            this.label3.Location = new System.Drawing.Point(23, 74);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 17);
             this.label3.TabIndex = 4;
@@ -93,27 +111,29 @@ namespace Redovalnica_App
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 60);
+            this.label2.Location = new System.Drawing.Point(23, 27);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 17);
             this.label2.TabIndex = 3;
             this.label2.Text = "Razred:";
             // 
-            // comboBox2
+            // Predmet_ComboBox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(114, 104);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(148, 24);
-            this.comboBox2.TabIndex = 2;
+            this.Predmet_ComboBox.FormattingEnabled = true;
+            this.Predmet_ComboBox.Location = new System.Drawing.Point(119, 71);
+            this.Predmet_ComboBox.Name = "Predmet_ComboBox";
+            this.Predmet_ComboBox.Size = new System.Drawing.Size(148, 24);
+            this.Predmet_ComboBox.TabIndex = 2;
+            this.Predmet_ComboBox.SelectionChangeCommitted += new System.EventHandler(this.Predmet_ComboBox_SelectionChangeCommitted);
             // 
-            // comboBox1
+            // Razred_Combobox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(114, 57);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(148, 24);
-            this.comboBox1.TabIndex = 1;
+            this.Razred_Combobox.FormattingEnabled = true;
+            this.Razred_Combobox.Location = new System.Drawing.Point(119, 24);
+            this.Razred_Combobox.Name = "Razred_Combobox";
+            this.Razred_Combobox.Size = new System.Drawing.Size(148, 24);
+            this.Razred_Combobox.TabIndex = 1;
+            this.Razred_Combobox.SelectionChangeCommitted += new System.EventHandler(this.Razred_Combobox_SelectionChangeCommitted);
             // 
             // label1
             // 
@@ -134,22 +154,47 @@ namespace Redovalnica_App
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // comboBox3
+            // groupBox1
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(114, 151);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(148, 24);
-            this.comboBox3.TabIndex = 6;
+            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.Btn_Confirm);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.treeView1);
+            this.groupBox1.Controls.Add(this.Razred_Combobox);
+            this.groupBox1.Controls.Add(this.SolskoLeto_Combobox);
+            this.groupBox1.Controls.Add(this.Predmet_ComboBox);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Location = new System.Drawing.Point(24, 15);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(412, 412);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Prisotnost";
             // 
-            // label4
+            // monthCalendar1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 154);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(81, 17);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Šolsko leto:";
+            this.monthCalendar1.Location = new System.Drawing.Point(484, 203);
+            this.monthCalendar1.Name = "monthCalendar1";
+            this.monthCalendar1.TabIndex = 9;
+            // 
+            // Btn_Confirm
+            // 
+            this.Btn_Confirm.Location = new System.Drawing.Point(321, 140);
+            this.Btn_Confirm.Name = "Btn_Confirm";
+            this.Btn_Confirm.Size = new System.Drawing.Size(75, 34);
+            this.Btn_Confirm.TabIndex = 10;
+            this.Btn_Confirm.Text = "Potrdi";
+            this.Btn_Confirm.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(321, 229);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 34);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // Form2
             // 
@@ -165,6 +210,8 @@ namespace Redovalnica_App
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -177,10 +224,14 @@ namespace Redovalnica_App
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox Predmet_ComboBox;
+        private System.Windows.Forms.ComboBox Razred_Combobox;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox SolskoLeto_Combobox;
+        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button Btn_Confirm;
     }
 }
