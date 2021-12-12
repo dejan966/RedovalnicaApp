@@ -109,7 +109,61 @@ namespace RedovalnicaData
             return solska_leta;
         }
 
-        public List<Ucenec> ReturnUcence(string razred, string predmet, string solsko_leto)
+        public List<Ucenec> ReturnUcenci_Razred(string razred)
+        {
+            List<Ucenec> ucenci = new List<Ucenec>();
+
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi WHERE(r.razred = '" + razred + "') ", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                if (bralnik.HasRows)
+                {
+                    while (bralnik.Read())
+                    {
+                        string ime = bralnik.GetString(0);
+                        string priimek = bralnik.GetString(1);
+                        Ucenec u = new Ucenec(ime, priimek);
+                        ucenci.Add(u);
+                    }
+                }
+
+                com.Dispose();
+                conn.Close();
+            }
+
+            return ucenci;
+        }
+
+        public List<Ucenec> ReturnUcenci_Razred_Predmet(string razred, string predmet)
+        {
+            List<Ucenec> ucenci = new List<Ucenec>();
+
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN razredi_predmeti rp ON rp.id_razredi = r.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti WHERE(r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "')", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                if (bralnik.HasRows)
+                {
+                    while (bralnik.Read())
+                    {
+                        string ime = bralnik.GetString(0);
+                        string priimek = bralnik.GetString(1);
+                        Ucenec u = new Ucenec(ime, priimek);
+                        ucenci.Add(u);
+                    }
+                }
+
+                com.Dispose();
+                conn.Close();
+            }
+
+            return ucenci;
+        }
+
+        public List<Ucenec> ReturnUcenci_Razred_Predmet_SolskoLeto(string razred, string predmet, string solsko_leto)
         {
             List<Ucenec> ucenci = new List<Ucenec>();
 
