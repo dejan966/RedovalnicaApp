@@ -147,19 +147,19 @@ namespace RedovalnicaData
             SolskiEmail = solskiEmail;
         }
     }
-    public class Solska_Leta
+    public class Solsko_Leto
     {
-        public string Solsko_Leto { get; set; }
-        public Solska_Leta()
+        public string SLeto { get; set; }
+        public Solsko_Leto()
         {
 
         }
-        public Solska_Leta(string solsko_leto)
+        public Solsko_Leto(string solsko_leto)
         {
-            Solsko_Leto = solsko_leto;
+            SLeto = solsko_leto;
         }
     }
-    public class Razred:Solska_Leta
+    public class Razred: Solsko_Leto
     {
         //Solsko leto bo blo na vrhu programa pa bom v WHERE delu selectu solsko leto enako temu
         //SELECT id FROM razred WHERE ime = bla bla AND id_solska_leta = (SELECT id FROM solska_leta WHERE solsko_leto = bla bla
@@ -168,6 +168,10 @@ namespace RedovalnicaData
         public Razred()
         {
 
+        }
+        public Razred(string imeR)
+        {
+            ImeR = imeR;
         }
         public Razred(string imeR, int st)
         {
@@ -189,13 +193,15 @@ namespace RedovalnicaData
         {
 
         }
+        public Predmet(string imeP)
+        {
+            ImeP = imeP;
+        }
         public Predmet(string imeP, string kratica)
         {
             ImeP = imeP;
             KraticaP = kratica;
         }
-        
-
     }
     public class Ocena : Predmet
     {
