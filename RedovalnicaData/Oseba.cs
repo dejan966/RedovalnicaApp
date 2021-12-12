@@ -89,6 +89,11 @@ namespace RedovalnicaData
         {
 
         }
+        public Oseba(string ime, string priimek)
+        {
+            Ime = ime;
+            Priimek = priimek;
+        }
         public Oseba(string ime, string priimek, char spol, string datum_r, string naslov, string email, string kraj):base(kraj)
         {
             Ime = ime;
@@ -107,6 +112,10 @@ namespace RedovalnicaData
         public string USola { get; set; }
         public string UcTelefon { get; set; }
         public Ucenec()
+        {
+
+        }
+        public Ucenec(string ime, string priimek):base(ime, priimek)
         {
 
         }

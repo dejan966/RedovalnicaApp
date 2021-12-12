@@ -28,6 +28,28 @@ namespace RedovalnicaData
             return true;
         }
 
+        public List<Ucenec> ReturnVseUcence()
+        {
+            List<Ucenec> ucenci = new List<Ucenec>();
+
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                while (bralnik.Read())
+                {
+                    string ime = bralnik.GetString(0);
+                    string priimek = bralnik.GetString(1);
+                    Ucenec u = new Ucenec(ime,priimek);
+                    ucenci.Add(u);
+                }
+                com.Dispose();
+                conn.Close();
+            }
+
+            return ucenci;
+        }
         public List<Razred> ReturnVseRazrede()
         {
             List<Razred> razredi = new List<Razred>();
@@ -59,8 +81,8 @@ namespace RedovalnicaData
                 while (bralnik.Read())
                 {
                     string predmet = bralnik.GetString(0);
-                    Predmet r = new Predmet(predmet);
-                    predmeti.Add(r);
+                    Predmet p = new Predmet(predmet);
+                    predmeti.Add(p);
                 }
                 com.Dispose();
                 conn.Close();
@@ -78,13 +100,15 @@ namespace RedovalnicaData
                 while (bralnik.Read())
                 {
                     string sLeto = bralnik.GetString(0);
-                    Solsko_Leto r = new Solsko_Leto(sLeto);
-                    solska_leta.Add(r);
+                    Solsko_Leto s = new Solsko_Leto(sLeto);
+                    solska_leta.Add(s);
                 }
                 com.Dispose();
                 conn.Close();
             }
             return solska_leta;
         }
+
+
     }
 }

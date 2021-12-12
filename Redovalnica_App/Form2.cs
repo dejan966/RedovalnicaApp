@@ -47,8 +47,12 @@ namespace Redovalnica_App
 
             treeView1.Nodes.Add("Učenci");
 
-            //foreach
-            treeView1.Nodes[0].Nodes.Add("Jan");
+            RedovalnicaDatabase u = new RedovalnicaDatabase();
+            foreach(Ucenec item in u.ReturnVseUcence())
+            {
+                treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+            }
+            
         }
         //mogoc bom tree view uporabu za prisotnost ali datagridview
     }
