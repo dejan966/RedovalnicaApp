@@ -63,53 +63,6 @@ namespace Redovalnica_App
             {
                 treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
             }
-            
-        }
-        private void Predmet_ComboBox_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            if (Razred_Combobox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
-            {
-                treeView1.Nodes.Clear();
-                treeView1.Nodes.Add("Učenci");
-                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_SolskoLeto(Razred_Combobox.Text, Predmet_ComboBox.Text, SolskoLeto_Combobox.Text))
-                {
-                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-                }
-            }
-        }
-
-        private void SolskoLeto_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            if (Predmet_ComboBox.Text != "-Select-" && Razred_Combobox.Text != "-Select-")
-            {
-                treeView1.Nodes.Clear();
-                treeView1.Nodes.Add("Učenci");
-                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_SolskoLeto(Razred_Combobox.Text, Predmet_ComboBox.Text, SolskoLeto_Combobox.Text))
-                {
-                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-                }
-            }
-        }
-
-        private void Razred_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            if (Predmet_ComboBox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
-            {
-                treeView1.Nodes.Clear();
-                treeView1.Nodes.Add("Učenci");
-                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_SolskoLeto(Razred_Combobox.Text, Predmet_ComboBox.Text, SolskoLeto_Combobox.Text))
-                {
-                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-                }
-            }
-        }
-
-        private void Vrsta_Ur_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-
         }
 
         private void Razred_Combobox_KeyDown(object sender, KeyEventArgs e)
@@ -130,6 +83,18 @@ namespace Redovalnica_App
         private void Vrsta_Ur_Combobox_KeyDown(object sender, KeyEventArgs e)
         {
             e.SuppressKeyPress = true;
+        }
+
+        private void Btn_ConfirmSelection_Click(object sender, EventArgs e)
+        {
+            treeView1.Nodes.Clear();
+            treeView1.Nodes.Add("Učenci");
+
+            RedovalnicaDatabase rd = new RedovalnicaDatabase();
+            foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_SolskoLeto(Razred_Combobox.Text, Predmet_ComboBox.Text, SolskoLeto_Combobox.Text))
+            {
+                treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+            }
         }
     }
 }

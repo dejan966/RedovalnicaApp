@@ -33,8 +33,10 @@ namespace Redovalnica_App
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Vrsta_Ur_Combobox = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.Btn_Confirm = new System.Windows.Forms.Button();
+            this.Btn_ConfirmSelection = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.treeView1 = new System.Windows.Forms.TreeView();
@@ -44,8 +46,6 @@ namespace Redovalnica_App
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
-            this.Vrsta_Ur_Combobox = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -86,7 +86,7 @@ namespace Redovalnica_App
             this.groupBox1.Controls.Add(this.Vrsta_Ur_Combobox);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.Btn_Confirm);
+            this.groupBox1.Controls.Add(this.Btn_ConfirmSelection);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.treeView1);
@@ -101,23 +101,42 @@ namespace Redovalnica_App
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Prisotnost";
             // 
+            // Vrsta_Ur_Combobox
+            // 
+            this.Vrsta_Ur_Combobox.FormattingEnabled = true;
+            this.Vrsta_Ur_Combobox.Location = new System.Drawing.Point(119, 64);
+            this.Vrsta_Ur_Combobox.Name = "Vrsta_Ur_Combobox";
+            this.Vrsta_Ur_Combobox.Size = new System.Drawing.Size(148, 24);
+            this.Vrsta_Ur_Combobox.TabIndex = 13;
+            this.Vrsta_Ur_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Vrsta_Ur_Combobox_KeyDown);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(23, 67);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(62, 17);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Vrsta ur:";
+            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(321, 229);
+            this.button2.Location = new System.Drawing.Point(301, 228);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 34);
+            this.button2.Size = new System.Drawing.Size(85, 48);
             this.button2.TabIndex = 11;
-            this.button2.Text = "button2";
+            this.button2.Text = "Potrdi prisotnost";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // Btn_Confirm
+            // Btn_ConfirmSelection
             // 
-            this.Btn_Confirm.Location = new System.Drawing.Point(321, 140);
-            this.Btn_Confirm.Name = "Btn_Confirm";
-            this.Btn_Confirm.Size = new System.Drawing.Size(75, 34);
-            this.Btn_Confirm.TabIndex = 10;
-            this.Btn_Confirm.Text = "Potrdi";
-            this.Btn_Confirm.UseVisualStyleBackColor = true;
+            this.Btn_ConfirmSelection.Location = new System.Drawing.Point(301, 77);
+            this.Btn_ConfirmSelection.Name = "Btn_ConfirmSelection";
+            this.Btn_ConfirmSelection.Size = new System.Drawing.Size(85, 34);
+            this.Btn_ConfirmSelection.TabIndex = 10;
+            this.Btn_ConfirmSelection.Text = "Potrdi";
+            this.Btn_ConfirmSelection.UseVisualStyleBackColor = true;
+            this.Btn_ConfirmSelection.Click += new System.EventHandler(this.Btn_ConfirmSelection_Click);
             // 
             // label2
             // 
@@ -152,7 +171,6 @@ namespace Redovalnica_App
             this.Razred_Combobox.Name = "Razred_Combobox";
             this.Razred_Combobox.Size = new System.Drawing.Size(148, 24);
             this.Razred_Combobox.TabIndex = 1;
-            this.Razred_Combobox.SelectionChangeCommitted += new System.EventHandler(this.Razred_Combobox_SelectionChangeCommitted);
             this.Razred_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Razred_Combobox_KeyDown);
             // 
             // SolskoLeto_Combobox
@@ -162,7 +180,6 @@ namespace Redovalnica_App
             this.SolskoLeto_Combobox.Name = "SolskoLeto_Combobox";
             this.SolskoLeto_Combobox.Size = new System.Drawing.Size(148, 24);
             this.SolskoLeto_Combobox.TabIndex = 6;
-            this.SolskoLeto_Combobox.SelectionChangeCommitted += new System.EventHandler(this.SolskoLeto_Combobox_SelectionChangeCommitted);
             this.SolskoLeto_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SolskoLeto_Combobox_KeyDown);
             // 
             // Predmet_ComboBox
@@ -172,7 +189,6 @@ namespace Redovalnica_App
             this.Predmet_ComboBox.Name = "Predmet_ComboBox";
             this.Predmet_ComboBox.Size = new System.Drawing.Size(148, 24);
             this.Predmet_ComboBox.TabIndex = 2;
-            this.Predmet_ComboBox.SelectionChangeCommitted += new System.EventHandler(this.Predmet_ComboBox_SelectionChangeCommitted);
             this.Predmet_ComboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Predmet_ComboBox_KeyDown);
             // 
             // label3
@@ -198,29 +214,10 @@ namespace Redovalnica_App
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(807, 441);
+            this.tabPage2.Size = new System.Drawing.Size(823, 464);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 67);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(62, 17);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Vrsta ur:";
-            // 
-            // Vrsta_Ur_Combobox
-            // 
-            this.Vrsta_Ur_Combobox.FormattingEnabled = true;
-            this.Vrsta_Ur_Combobox.Location = new System.Drawing.Point(119, 64);
-            this.Vrsta_Ur_Combobox.Name = "Vrsta_Ur_Combobox";
-            this.Vrsta_Ur_Combobox.Size = new System.Drawing.Size(148, 24);
-            this.Vrsta_Ur_Combobox.TabIndex = 13;
-            this.Vrsta_Ur_Combobox.SelectionChangeCommitted += new System.EventHandler(this.Vrsta_Ur_Combobox_SelectionChangeCommitted);
-            this.Vrsta_Ur_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Vrsta_Ur_Combobox_KeyDown);
             // 
             // Form2
             // 
@@ -258,7 +255,7 @@ namespace Redovalnica_App
         private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button Btn_Confirm;
+        private System.Windows.Forms.Button Btn_ConfirmSelection;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox Vrsta_Ur_Combobox;
     }
