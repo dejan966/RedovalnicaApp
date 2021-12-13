@@ -14,10 +14,19 @@ namespace Redovalnica_App
 {
     public partial class Form2 : Form
     {
+        //nared da se preveri na keri šoli je učitelj da ne bo vrglo vse razrede ki obstajajo v bazi
         //removanje izbranih nodes - treeView1.Nodes.Remove(treeView1.SelectedNode);
+        //Prisotnost za nazaj morm preverit vrednosti v comboboxih
+        //za današnjo prisotnost preverim če mam kej v treeview selectano
+        static string uMail;
         public Form2()
         {
             InitializeComponent();
+        }
+
+        public static void MailUcitelja(string mail)
+        {
+            uMail = mail;
         }
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
@@ -27,12 +36,15 @@ namespace Redovalnica_App
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            //nared da se preveri na keri šoli je učitelj da ne bo vrglo vse razrede ki obstajajo v bazi
+            RedovalnicaDatabase rb = new RedovalnicaDatabase();
+            label1.Text = "Prijavljeni ste kot " + rb.ReturnImePriimekUcenca(uMail);
+            
+            //MessageBox.Show(monthCalendar1.TodayDate.ToString());
             Razred_Combobox.Text = "-Select-";
             Vrsta_Ur_Combobox.Text = "-Select-";
             SolskoLeto_Combobox.Text = "-Select-";
             Predmet_Combobox.Text = "-Select-";
-
+            
             RedovalnicaDatabase r = new RedovalnicaDatabase();
             foreach (Razred item in r.ReturnVseRazrede())
             {
@@ -85,7 +97,7 @@ namespace Redovalnica_App
             e.SuppressKeyPress = true;
         }
 
-        private void Btn_ConfirmSelection_Click(object sender, EventArgs e)
+        private void Btn_PrisotnostZaNazaj_Click(object sender, EventArgs e)
         {
             treeView1.Nodes.Clear();
             treeView1.Nodes.Add("Učenci");
@@ -95,6 +107,11 @@ namespace Redovalnica_App
             {
                 treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
             }
+        }
+
+        private void Btn_PotrdiDanasnjoPrisotnost_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

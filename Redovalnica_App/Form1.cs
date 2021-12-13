@@ -34,6 +34,7 @@ namespace Redovalnica_App
                 if (a == null)
                     a = new Form2();
 
+                Form2.MailUcitelja(textBox1.Text);
                 a.Show();
                 Hide();
             }  

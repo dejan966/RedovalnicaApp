@@ -35,8 +35,8 @@ namespace Redovalnica_App
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Predmet_Combobox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.Btn_ConfirmSelection = new System.Windows.Forms.Button();
+            this.Btn_PotrdiDanasnjoPrisotnost = new System.Windows.Forms.Button();
+            this.Btn_PrisotnostZaNazaj = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.treeView1 = new System.Windows.Forms.TreeView();
@@ -85,8 +85,8 @@ namespace Redovalnica_App
             // 
             this.groupBox1.Controls.Add(this.Predmet_Combobox);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.Btn_ConfirmSelection);
+            this.groupBox1.Controls.Add(this.Btn_PotrdiDanasnjoPrisotnost);
+            this.groupBox1.Controls.Add(this.Btn_PrisotnostZaNazaj);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.treeView1);
@@ -119,24 +119,27 @@ namespace Redovalnica_App
             this.label5.TabIndex = 12;
             this.label5.Text = "Predmet:";
             // 
-            // button2
+            // Btn_PotrdiDanasnjoPrisotnost
             // 
-            this.button2.Location = new System.Drawing.Point(301, 228);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(85, 48);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Potrdi prisotnost";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Btn_PotrdiDanasnjoPrisotnost.Enabled = false;
+            this.Btn_PotrdiDanasnjoPrisotnost.Location = new System.Drawing.Point(302, 124);
+            this.Btn_PotrdiDanasnjoPrisotnost.Name = "Btn_PotrdiDanasnjoPrisotnost";
+            this.Btn_PotrdiDanasnjoPrisotnost.Size = new System.Drawing.Size(93, 48);
+            this.Btn_PotrdiDanasnjoPrisotnost.TabIndex = 11;
+            this.Btn_PotrdiDanasnjoPrisotnost.Text = "Potrdi prisotnost";
+            this.Btn_PotrdiDanasnjoPrisotnost.UseVisualStyleBackColor = true;
+            this.Btn_PotrdiDanasnjoPrisotnost.Click += new System.EventHandler(this.Btn_PotrdiDanasnjoPrisotnost_Click);
             // 
-            // Btn_ConfirmSelection
+            // Btn_PrisotnostZaNazaj
             // 
-            this.Btn_ConfirmSelection.Location = new System.Drawing.Point(301, 77);
-            this.Btn_ConfirmSelection.Name = "Btn_ConfirmSelection";
-            this.Btn_ConfirmSelection.Size = new System.Drawing.Size(85, 34);
-            this.Btn_ConfirmSelection.TabIndex = 10;
-            this.Btn_ConfirmSelection.Text = "Potrdi";
-            this.Btn_ConfirmSelection.UseVisualStyleBackColor = true;
-            this.Btn_ConfirmSelection.Click += new System.EventHandler(this.Btn_ConfirmSelection_Click);
+            this.Btn_PrisotnostZaNazaj.Enabled = false;
+            this.Btn_PrisotnostZaNazaj.Location = new System.Drawing.Point(302, 243);
+            this.Btn_PrisotnostZaNazaj.Name = "Btn_PrisotnostZaNazaj";
+            this.Btn_PrisotnostZaNazaj.Size = new System.Drawing.Size(93, 61);
+            this.Btn_PrisotnostZaNazaj.TabIndex = 10;
+            this.Btn_PrisotnostZaNazaj.Text = "Preveri prisotnost za nazaj";
+            this.Btn_PrisotnostZaNazaj.UseVisualStyleBackColor = true;
+            this.Btn_PrisotnostZaNazaj.Click += new System.EventHandler(this.Btn_PrisotnostZaNazaj_Click);
             // 
             // label2
             // 
@@ -158,7 +161,6 @@ namespace Redovalnica_App
             // 
             // treeView1
             // 
-            this.treeView1.CheckBoxes = true;
             this.treeView1.Location = new System.Drawing.Point(26, 187);
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(241, 238);
@@ -254,8 +256,8 @@ namespace Redovalnica_App
         private System.Windows.Forms.ComboBox SolskoLeto_Combobox;
         private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button Btn_ConfirmSelection;
+        private System.Windows.Forms.Button Btn_PotrdiDanasnjoPrisotnost;
+        private System.Windows.Forms.Button Btn_PrisotnostZaNazaj;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox Predmet_Combobox;
     }
