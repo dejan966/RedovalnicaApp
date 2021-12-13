@@ -109,6 +109,26 @@ namespace RedovalnicaData
             return solska_leta;
         }
 
+        public List<Vrsta_Ur> ReturnVseVrsteUr()
+        {
+            List<Vrsta_Ur> vrste_ur = new List<Vrsta_Ur>();
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT vrsta_ure FROM vrste_ur", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                while (bralnik.Read())
+                {
+                    string vUre = bralnik.GetString(0);
+                    Vrsta_Ur s = new Vrsta_Ur(vUre);
+                    vrste_ur.Add(s);
+                }
+                com.Dispose();
+                conn.Close();
+            }
+            return vrste_ur;
+        }
+
         public List<Ucenec> ReturnUcenci_Razred(string razred)
         {
             List<Ucenec> ucenci = new List<Ucenec>();

@@ -31,6 +31,7 @@ namespace Redovalnica_App
             Razred_Combobox.Text = "-Select-";
             Predmet_ComboBox.Text = "-Select-";
             SolskoLeto_Combobox.Text = "-Select-";
+            Vrsta_Ur_Combobox.Text = "-Select-";
 
             RedovalnicaDatabase r = new RedovalnicaDatabase();
             foreach (Razred item in r.ReturnVseRazrede())
@@ -50,8 +51,13 @@ namespace Redovalnica_App
                 SolskoLeto_Combobox.Items.Add(item.SLeto);
             }
 
-            treeView1.Nodes.Add("Učenci");
+            RedovalnicaDatabase v = new RedovalnicaDatabase();
+            foreach(Vrsta_Ur item in v.ReturnVseVrsteUr())
+            {
+                Vrsta_Ur_Combobox.Items.Add(item.Ura);
+            }
 
+            treeView1.Nodes.Add("Učenci");
             RedovalnicaDatabase u = new RedovalnicaDatabase();
             foreach(Ucenec item in u.ReturnVseUcence())
             {
@@ -62,35 +68,68 @@ namespace Redovalnica_App
         private void Predmet_ComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            treeView1.Nodes.Clear();
-            treeView1.Nodes.Add("Učenci");
-            foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet(Razred_Combobox.Text, Predmet_ComboBox.Text))
+            if (Razred_Combobox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
             {
-                treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                treeView1.Nodes.Clear();
+                treeView1.Nodes.Add("Učenci");
+                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_SolskoLeto(Razred_Combobox.Text, Predmet_ComboBox.Text, SolskoLeto_Combobox.Text))
+                {
+                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                }
             }
         }
 
         private void SolskoLeto_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            treeView1.Nodes.Clear();
-            treeView1.Nodes.Add("Učenci");
-            foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_SolskoLeto(Razred_Combobox.Text, Predmet_ComboBox.Text, SolskoLeto_Combobox.Text))
+            if (Predmet_ComboBox.Text != "-Select-" && Razred_Combobox.Text != "-Select-")
             {
-                treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                treeView1.Nodes.Clear();
+                treeView1.Nodes.Add("Učenci");
+                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_SolskoLeto(Razred_Combobox.Text, Predmet_ComboBox.Text, SolskoLeto_Combobox.Text))
+                {
+                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                }
             }
         }
 
         private void Razred_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            
-            treeView1.Nodes.Clear();
-            treeView1.Nodes.Add("Učenci");
-            foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_Combobox.Text))
+            if (Predmet_ComboBox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
             {
-                treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                treeView1.Nodes.Clear();
+                treeView1.Nodes.Add("Učenci");
+                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_SolskoLeto(Razred_Combobox.Text, Predmet_ComboBox.Text, SolskoLeto_Combobox.Text))
+                {
+                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                }
             }
+        }
+
+        private void Vrsta_Ur_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Razred_Combobox_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void Predmet_ComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void SolskoLeto_Combobox_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void Vrsta_Ur_Combobox_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
         }
     }
 }

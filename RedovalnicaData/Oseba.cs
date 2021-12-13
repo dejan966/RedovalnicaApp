@@ -228,16 +228,16 @@ namespace RedovalnicaData
         }
        
     }
-    public class Vrste_Ur
+    public class Vrsta_Ur
     {
-        public string Vrsta_Ur { get; set; }
-        public Vrste_Ur()
+        public string Ura { get; set; }
+        public Vrsta_Ur()
         {
 
         }
-        public Vrste_Ur(string vrsta_ur)
+        public Vrsta_Ur(string vrsta_ur)
         {
-            Vrsta_Ur = vrsta_ur;
+            Ura = vrsta_ur;
         }
     }
     public class UreIzvedbe:Ocena
