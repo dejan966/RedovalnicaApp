@@ -33,7 +33,7 @@ namespace Redovalnica_App
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Vrsta_Ur_Combobox = new System.Windows.Forms.ComboBox();
+            this.Predmet_Combobox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.Btn_ConfirmSelection = new System.Windows.Forms.Button();
@@ -42,7 +42,7 @@ namespace Redovalnica_App
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.Razred_Combobox = new System.Windows.Forms.ComboBox();
             this.SolskoLeto_Combobox = new System.Windows.Forms.ComboBox();
-            this.Predmet_ComboBox = new System.Windows.Forms.ComboBox();
+            this.Vrsta_Ur_Combobox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -83,7 +83,7 @@ namespace Redovalnica_App
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.Vrsta_Ur_Combobox);
+            this.groupBox1.Controls.Add(this.Predmet_Combobox);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.Btn_ConfirmSelection);
@@ -92,7 +92,7 @@ namespace Redovalnica_App
             this.groupBox1.Controls.Add(this.treeView1);
             this.groupBox1.Controls.Add(this.Razred_Combobox);
             this.groupBox1.Controls.Add(this.SolskoLeto_Combobox);
-            this.groupBox1.Controls.Add(this.Predmet_ComboBox);
+            this.groupBox1.Controls.Add(this.Vrsta_Ur_Combobox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(24, 15);
             this.groupBox1.Name = "groupBox1";
@@ -101,23 +101,23 @@ namespace Redovalnica_App
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Prisotnost";
             // 
-            // Vrsta_Ur_Combobox
+            // Predmet_Combobox
             // 
-            this.Vrsta_Ur_Combobox.FormattingEnabled = true;
-            this.Vrsta_Ur_Combobox.Location = new System.Drawing.Point(119, 64);
-            this.Vrsta_Ur_Combobox.Name = "Vrsta_Ur_Combobox";
-            this.Vrsta_Ur_Combobox.Size = new System.Drawing.Size(148, 24);
-            this.Vrsta_Ur_Combobox.TabIndex = 13;
-            this.Vrsta_Ur_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Vrsta_Ur_Combobox_KeyDown);
+            this.Predmet_Combobox.FormattingEnabled = true;
+            this.Predmet_Combobox.Location = new System.Drawing.Point(119, 64);
+            this.Predmet_Combobox.Name = "Predmet_Combobox";
+            this.Predmet_Combobox.Size = new System.Drawing.Size(148, 24);
+            this.Predmet_Combobox.TabIndex = 13;
+            this.Predmet_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Vrsta_Ur_Combobox_KeyDown);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(23, 67);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(62, 17);
+            this.label5.Size = new System.Drawing.Size(65, 17);
             this.label5.TabIndex = 12;
-            this.label5.Text = "Vrsta ur:";
+            this.label5.Text = "Predmet:";
             // 
             // button2
             // 
@@ -182,23 +182,23 @@ namespace Redovalnica_App
             this.SolskoLeto_Combobox.TabIndex = 6;
             this.SolskoLeto_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SolskoLeto_Combobox_KeyDown);
             // 
-            // Predmet_ComboBox
+            // Vrsta_Ur_Combobox
             // 
-            this.Predmet_ComboBox.FormattingEnabled = true;
-            this.Predmet_ComboBox.Location = new System.Drawing.Point(119, 104);
-            this.Predmet_ComboBox.Name = "Predmet_ComboBox";
-            this.Predmet_ComboBox.Size = new System.Drawing.Size(148, 24);
-            this.Predmet_ComboBox.TabIndex = 2;
-            this.Predmet_ComboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Predmet_ComboBox_KeyDown);
+            this.Vrsta_Ur_Combobox.FormattingEnabled = true;
+            this.Vrsta_Ur_Combobox.Location = new System.Drawing.Point(119, 104);
+            this.Vrsta_Ur_Combobox.Name = "Vrsta_Ur_Combobox";
+            this.Vrsta_Ur_Combobox.Size = new System.Drawing.Size(148, 24);
+            this.Vrsta_Ur_Combobox.TabIndex = 2;
+            this.Vrsta_Ur_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Predmet_ComboBox_KeyDown);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(23, 107);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 17);
+            this.label3.Size = new System.Drawing.Size(62, 17);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Predmet:";
+            this.label3.Text = "Vrsta ur:";
             // 
             // label1
             // 
@@ -247,7 +247,7 @@ namespace Redovalnica_App
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox Predmet_ComboBox;
+        private System.Windows.Forms.ComboBox Vrsta_Ur_Combobox;
         private System.Windows.Forms.ComboBox Razred_Combobox;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Label label4;
@@ -257,6 +257,6 @@ namespace Redovalnica_App
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button Btn_ConfirmSelection;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox Vrsta_Ur_Combobox;
+        private System.Windows.Forms.ComboBox Predmet_Combobox;
     }
 }

@@ -29,9 +29,9 @@ namespace Redovalnica_App
         {
             //nared da se preveri na keri šoli je učitelj da ne bo vrglo vse razrede ki obstajajo v bazi
             Razred_Combobox.Text = "-Select-";
-            Predmet_ComboBox.Text = "-Select-";
-            SolskoLeto_Combobox.Text = "-Select-";
             Vrsta_Ur_Combobox.Text = "-Select-";
+            SolskoLeto_Combobox.Text = "-Select-";
+            Predmet_Combobox.Text = "-Select-";
 
             RedovalnicaDatabase r = new RedovalnicaDatabase();
             foreach (Razred item in r.ReturnVseRazrede())
@@ -42,7 +42,7 @@ namespace Redovalnica_App
             RedovalnicaDatabase p = new RedovalnicaDatabase();
             foreach (Predmet item in p.ReturnVsePredmete())
             {
-                Predmet_ComboBox.Items.Add(item.ImeP);
+                Predmet_Combobox.Items.Add(item.ImeP);
             }
 
             RedovalnicaDatabase s = new RedovalnicaDatabase();
@@ -91,7 +91,7 @@ namespace Redovalnica_App
             treeView1.Nodes.Add("Učenci");
 
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_SolskoLeto(Razred_Combobox.Text, Predmet_ComboBox.Text, SolskoLeto_Combobox.Text))
+            foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto(Razred_Combobox.Text, Predmet_Combobox.Text, Vrsta_Ur_Combobox.Text, SolskoLeto_Combobox.Text))
             {
                 treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
             }

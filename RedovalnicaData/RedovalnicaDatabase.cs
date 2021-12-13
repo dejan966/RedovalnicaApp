@@ -129,68 +129,14 @@ namespace RedovalnicaData
             return vrste_ur;
         }
 
-        public List<Ucenec> ReturnUcenci_Razred(string razred)
+        public List<Ucenec> ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto(string razred, string predmet, string vrsta_ure, string solsko_leto)
         {
             List<Ucenec> ucenci = new List<Ucenec>();
 
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi WHERE(r.razred = '" + razred + "') ", conn);
-                NpgsqlDataReader bralnik = com.ExecuteReader();
-                if (bralnik.HasRows)
-                {
-                    while (bralnik.Read())
-                    {
-                        string ime = bralnik.GetString(0);
-                        string priimek = bralnik.GetString(1);
-                        Ucenec u = new Ucenec(ime, priimek);
-                        ucenci.Add(u);
-                    }
-                }
-
-                com.Dispose();
-                conn.Close();
-            }
-
-            return ucenci;
-        }
-
-        public List<Ucenec> ReturnUcenci_Razred_Predmet(string razred, string predmet)
-        {
-            List<Ucenec> ucenci = new List<Ucenec>();
-
-            using (conn)
-            {
-                conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN razredi_predmeti rp ON rp.id_razredi = r.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti WHERE(r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "')", conn);
-                NpgsqlDataReader bralnik = com.ExecuteReader();
-                if (bralnik.HasRows)
-                {
-                    while (bralnik.Read())
-                    {
-                        string ime = bralnik.GetString(0);
-                        string priimek = bralnik.GetString(1);
-                        Ucenec u = new Ucenec(ime, priimek);
-                        ucenci.Add(u);
-                    }
-                }
-
-                com.Dispose();
-                conn.Close();
-            }
-
-            return ucenci;
-        }
-
-        public List<Ucenec> ReturnUcenci_Razred_Predmet_SolskoLeto(string razred, string predmet, string solsko_leto)
-        {
-            List<Ucenec> ucenci = new List<Ucenec>();
-
-            using (conn)
-            {
-                conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN razredi_predmeti rp ON rp.id_razredi = r.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti INNER JOIN solska_leta s ON r.id_solska_leta = s.id_solska_leta WHERE(r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "') AND (s.solsko_leto = '" + solsko_leto + "') ", conn);
+                NpgsqlCommand com = new NpgsqlCommand("SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN razredi_predmeti rp ON rp.id_razredi = r.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti INNER JOIN solska_leta s ON r.id_solska_leta = s.id_solska_leta INNER JOIN ure_izvedb ui ON ui.id_razredi_predmeti = rp.id_razredi_predmeti INNER JOIN vrste_ur vu ON vu.id_vrste_ur = ui.id_vrste_ur WHERE(r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "') AND (s.solsko_leto = '" + solsko_leto + "') AND (vu.vrsta_ure = '" + vrsta_ure + "');", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
                 if (bralnik.HasRows)
                 {
