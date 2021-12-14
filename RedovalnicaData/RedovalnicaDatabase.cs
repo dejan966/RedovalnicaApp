@@ -200,5 +200,78 @@ namespace RedovalnicaData
 
             return ucenci;
         }
+
+        public void InsertRazrediPredmeti(string predmet, string razred, string ucitelj)
+        {
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT p.predmet, r.razred, o.ime || ' ' || o.priimek FROM osebe o INNER JOIN ucitelji u on o.id_osebe = u.id_osebe INNER JOIN razredi_predmeti rp on u.id_ucitelji = rp.id_ucitelji INNER JOIN razredi r on rp.id_razredi = r.id_razredi INNER JOIN predmeti p on rp.id_predmeti = p.id_predmeti WHERE (p.predmet = '" + predmet + "') AND (r.razred = '" + razred + "') AND ();", conn);
+                NpgsqlDataReader bralnik =  com.ExecuteReader();
+                if (!bralnik.HasRows)
+                {
+                    NpgsqlCommand com2 = new NpgsqlCommand("INSERT INTO razredi_predmeti (id_predmeti, id_razredi, id_ucitelji) VALUES ((SELECT id_predmeti FROM predmeti WHERE predmet = '" + predmet + "'), (SELECT id_razred FROM razred WHERE razred = '" + razred + "'), (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucitelj + "'));", conn);
+                    com2.ExecuteNonQuery();
+                    com2.Dispose();
+                }
+                com.Dispose();
+                conn.Close();
+            }
+        }
+
+        public int IDRazrediPredmeti(string predmet, string razred, string ucitelj)
+        {
+            int id = 1;
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT id_razredi_predmeti FROM razredi_predmeti WHERE (id_predmeti = (SELECT id_predmeti FROM predmeti WHERE predmet = '" + predmet + "')) AND (id_razredi = (SELECT id_razred FROM razred WHERE razred = '" + razred + "')) AND (id_ucitelji = (SELECT id_ucitelji FROM ucitelji WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucitelj + "'))))", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                while (bralnik.Read())
+                {
+                    id = bralnik.GetInt32(0);
+                }
+            }
+            return id;
+        }
+        public void InsertUreIzvedb(int idRazredPredmet, string vrsta_ure, string datum)
+        {
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO ure_izvedb(id_razredi_predmeti, id_vrste_ur, datum_cas) VALUES ('" + idRazredPredmet + "', (SELECT id_vrste_ur FROM vrsta_ur WHERE vrsta_ure = '" + vrsta_ure + "'), datum_cas LIKE '" + datum + "');", conn);
+                com.ExecuteNonQuery();
+                com.Dispose();
+                conn.Close();
+            }
+        }
+        public int IDUreIzvedb(int idRazredPredmet, string vrsta_ure, string datum)
+        {
+            int id = 1;
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT id_ure_izvedb FROM ure_izvedb WHERE (id_razredi_predmeti = '" + idRazredPredmet + "') AND (id_vrste_ur = (SELECT id_vrste_ur FROM vrsta_ur WHERE vrsta_ure = '" + vrsta_ure + "')) AND (datum_cas LIKE '" + datum + "');", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                while (bralnik.Read())
+                {
+                    id = bralnik.GetInt32(0);
+                }
+                com.Dispose();
+                conn.Close();
+            }
+            return id;
+        }
+        public void InsertPrisotnosti(string ucenec, int idUraIzvedbe, string opomba)
+        {
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO prisotnosti(id_ucenci, id_ure_izvedb, opomba) VALUES((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucenec + "'))), '" + idUraIzvedbe + "', '" + opomba + "')", conn);
+                com.ExecuteNonQuery();
+                com.Dispose();
+                conn.Close();
+            }
+        }
     }
 }

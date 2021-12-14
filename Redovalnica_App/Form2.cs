@@ -19,6 +19,7 @@ namespace Redovalnica_App
         //Prisotnost za nazaj morm preverit vrednosti v comboboxih
         //za današnjo prisotnost preverim če mam kej v treeview selectano
         static string uMail;
+        static string imePriimekUcitelja;
         public Form2()
         {
             InitializeComponent();
@@ -37,7 +38,8 @@ namespace Redovalnica_App
         private void Form2_Load(object sender, EventArgs e)
         {
             RedovalnicaDatabase rb = new RedovalnicaDatabase();
-            label1.Text = "Prijavljeni ste kot " + rb.ReturnImePriimekUcenca(uMail);
+            imePriimekUcitelja = rb.ReturnImePriimekUcenca(uMail);
+            label1.Text = "Prijavljeni ste kot " + imePriimekUcitelja;
             
             //MessageBox.Show(monthCalendar1.TodayDate.ToString());
             Razred_Combobox.Text = "-Select-";
@@ -111,7 +113,14 @@ namespace Redovalnica_App
 
         private void Btn_PotrdiDanasnjoPrisotnost_Click(object sender, EventArgs e)
         {
-            
+            //izberes razred v comboboxu in ti vrze vse ucence v tem razredu
+            RedovalnicaDatabase rd = new RedovalnicaDatabase();
+            //rd.InsertRazrediPredmeti(Razred_Combobox.Text, Predmet_Combobox.Text, imePriimekUcitelja);
+            //int idRazredPredmet = rd.IDRazrediPredmeti(Razred_Combobox.Text, Predmet_Combobox.Text, imePriimekUcitelja);
+            //rd.InsertUreIzvedb
+            //int idUreIzvedb = rd.IDUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox.Text, datum);
+            /*dal bom ucence v array pa bom s for zanko insertu v 
+            rd.InsertPrisotnosti(ucenec, idUreIzvedb, opomba);*/
         }
     }
 }
