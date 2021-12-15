@@ -119,17 +119,23 @@ namespace Redovalnica_App
 
         private void Btn_PotrdiDanasnjoPrisotnost_Click(object sender, EventArgs e)
         {
-            //preverim če mam kej v treeview selectano
+            //preverim če mam kej učencev v treeview selectano
             if (Razred_Combobox.Text != "-Select-" && Predmet_Combobox.Text != "-Select-" && Vrsta_Ur_Combobox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
             {
                 RedovalnicaDatabase rp = new RedovalnicaDatabase();
                 rp.InsertRazrediPredmeti(Predmet_Combobox.Text, Razred_Combobox.Text, SolskoLeto_Combobox.Text, imePriimekUcitelja);
+                
                 RedovalnicaDatabase ra = new RedovalnicaDatabase();
                 int idRazredPredmet = ra.IDRazrediPredmeti(Predmet_Combobox.Text, Razred_Combobox.Text, SolskoLeto_Combobox.Text, imePriimekUcitelja);
                 MessageBox.Show(idRazredPredmet.ToString());
+                
                 RedovalnicaDatabase ru = new RedovalnicaDatabase();
                 //ru.InsertUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox, datum);
+
+                RedovalnicaDatabase rd = new RedovalnicaDatabase();
                 //int idUreIzvedb = rd.IDUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox.Text, datum);
+
+                RedovalnicaDatabase re = new RedovalnicaDatabase();
                 /*dal bom ucence v array pa bom s for zanko insertu v 
                 rd.InsertPrisotnosti(ucenec, idUreIzvedb, opomba);*/
             }
@@ -139,10 +145,11 @@ namespace Redovalnica_App
 
         private void Razred_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            //ko izberem razred v treeview izpise ucence v razredu - query je vredu ampak ne deluje combobox pravilno
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
             foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_Combobox.Text))
             {
-                //preverit morem a vrne ucence funkcija
+                //preverim a vrne ucence funkcija
                 treeView1.Nodes.Clear();
                 treeView1.Nodes.Add("Učenci");
                 if(item.Ime != "" && item.Priimek != "")
@@ -159,6 +166,18 @@ namespace Redovalnica_App
                     treeView1.Nodes.Add("Učenci");
                     treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
                 }*/
+            }
+        }
+
+        private void SolskoLeto_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            //ko izberem solsko leto pokaze v comboboxu od razreda kere razredi obstajajo v tem solskem letu - query je vredu ampak ne deluje combobox pravilno
+            Razred_Combobox.Items.Clear();
+            Razred_Combobox.Text = "";
+            RedovalnicaDatabase rd = new RedovalnicaDatabase();
+            foreach (Razred item in rd.ReturnRazred_SolskoLeto(SolskoLeto_Combobox.Text))
+            {
+                Razred_Combobox.Items.Add(item.ImeR);
             }
         }
     }

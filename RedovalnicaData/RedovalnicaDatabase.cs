@@ -181,6 +181,34 @@ namespace RedovalnicaData
 
             return ucenci;
         }
+        public List<Razred> ReturnRazred_SolskoLeto(string solskoLeto)
+        {
+            List<Razred> razredi = new List<Razred>();
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT r.razred FROM razredi r INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta WHERE (sl.solsko_leto = '" + solskoLeto + "')", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                if (bralnik.HasRows)
+                {
+                    while (bralnik.Read())
+                    {
+                        string r = bralnik.GetString(0);
+                        Razred u = new Razred(r);
+                        razredi.Add(u);
+                    }
+                }
+                else
+                {
+                    Razred u = new Razred("");
+                    razredi.Add(u);
+                }
+                bralnik.Close();
+                com.Dispose();
+                conn.Close();
+            }
+            return razredi;
+        } 
         public List<Ucenec> ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto(string razred, string predmet, string vrsta_ure, string solsko_leto)
         {
             List<Ucenec> ucenci = new List<Ucenec>();

@@ -181,6 +181,7 @@ namespace Redovalnica_App
             this.SolskoLeto_Combobox.Name = "SolskoLeto_Combobox";
             this.SolskoLeto_Combobox.Size = new System.Drawing.Size(148, 24);
             this.SolskoLeto_Combobox.TabIndex = 6;
+            this.SolskoLeto_Combobox.SelectionChangeCommitted += new System.EventHandler(this.SolskoLeto_Combobox_SelectionChangeCommitted);
             this.SolskoLeto_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SolskoLeto_Combobox_KeyDown);
             // 
             // Vrsta_Ur_Combobox
