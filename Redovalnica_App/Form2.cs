@@ -16,8 +16,6 @@ namespace Redovalnica_App
     {
         //nared da se preveri na keri šoli je učitelj da ne bo vrglo vse razrede ki obstajajo v bazi
         //removanje izbranih nodes - treeView1.Nodes.Remove(treeView1.SelectedNode);
-        //Prisotnost za nazaj morm preverit vrednosti v comboboxih
-        
         static string uMail;
         static string imePriimekUcitelja;
         public Form2()
@@ -41,7 +39,6 @@ namespace Redovalnica_App
             imePriimekUcitelja = rb.ReturnImePriimekUcitelja(uMail);
             label1.Text = "Prijavljeni ste kot " + imePriimekUcitelja;
             
-            //MessageBox.Show(monthCalendar1.TodayDate.ToString());
             Razred_Combobox.Text = "-Select-";
             Vrsta_Ur_Combobox.Text = "-Select-";
             SolskoLeto_Combobox.Text = "-Select-";
@@ -72,11 +69,8 @@ namespace Redovalnica_App
             }
 
             treeView1.Nodes.Add("Učenci");
-            /*RedovalnicaDatabase u = new RedovalnicaDatabase();
-            foreach(Ucenec item in u.ReturnVseUcence())
-            {
-                treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-            }*/
+            /*string vDate = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
+            MessageBox.Show(vDate);*/
         }
 
         private void Razred_Combobox_KeyDown(object sender, KeyEventArgs e)
@@ -101,13 +95,15 @@ namespace Redovalnica_App
 
         private void Btn_PrisotnostZaNazaj_Click(object sender, EventArgs e)
         {
+            //treba se mal fixat da bo lahk primerjalo datume -> resitev(spremenim podatkovni tip datumcas v tabeli ure_izvedbe v varchar
+            string date = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
             if (Razred_Combobox.Text != "-Select-" && Predmet_Combobox.Text != "-Select-" && Vrsta_Ur_Combobox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
             {
                 treeView1.Nodes.Clear();
                 treeView1.Nodes.Add("Učenci");
 
                 RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto(Razred_Combobox.Text, Predmet_Combobox.Text, Vrsta_Ur_Combobox.Text, SolskoLeto_Combobox.Text))
+                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto(Razred_Combobox.Text, Predmet_Combobox.Text, Vrsta_Ur_Combobox.Text, SolskoLeto_Combobox.Text, date))
                 {
                     treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
                 }
@@ -119,7 +115,8 @@ namespace Redovalnica_App
 
         private void Btn_PotrdiDanasnjoPrisotnost_Click(object sender, EventArgs e)
         {
-            //preverim če mam kej učencev v treeview selectano
+            //selectam ucence v treeview za prisotnost
+            string date = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
             if (Razred_Combobox.Text != "-Select-" && Predmet_Combobox.Text != "-Select-" && Vrsta_Ur_Combobox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
             {
                 RedovalnicaDatabase rp = new RedovalnicaDatabase();

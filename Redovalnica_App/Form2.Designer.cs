@@ -31,7 +31,6 @@ namespace Redovalnica_App
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Predmet_Combobox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -46,6 +45,7 @@ namespace Redovalnica_App
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -64,7 +64,7 @@ namespace Redovalnica_App
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.monthCalendar1);
+            this.tabPage1.Controls.Add(this.dateTimePicker1);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
@@ -74,12 +74,6 @@ namespace Redovalnica_App
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Preverjanje prisotnosti";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // monthCalendar1
-            // 
-            this.monthCalendar1.Location = new System.Drawing.Point(522, 243);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 9;
             // 
             // groupBox1
             // 
@@ -221,6 +215,13 @@ namespace Redovalnica_App
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(518, 258);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(231, 22);
+            this.dateTimePicker1.TabIndex = 9;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -254,11 +255,11 @@ namespace Redovalnica_App
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox SolskoLeto_Combobox;
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button Btn_PotrdiDanasnjoPrisotnost;
         private System.Windows.Forms.Button Btn_PrisotnostZaNazaj;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox Predmet_Combobox;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }
