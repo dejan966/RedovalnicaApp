@@ -17,7 +17,7 @@ namespace Redovalnica_App
         //nared da se preveri na keri šoli je učitelj da ne bo vrglo vse razrede ki obstajajo v bazi
         //removanje izbranih nodes - treeView1.Nodes.Remove(treeView1.SelectedNode);
         //Prisotnost za nazaj morm preverit vrednosti v comboboxih
-        //za današnjo prisotnost preverim če mam kej v treeview selectano
+        
         static string uMail;
         static string imePriimekUcitelja;
         public Form2()
@@ -38,7 +38,7 @@ namespace Redovalnica_App
         private void Form2_Load(object sender, EventArgs e)
         {
             RedovalnicaDatabase rb = new RedovalnicaDatabase();
-            imePriimekUcitelja = rb.ReturnImePriimekUcenca(uMail);
+            imePriimekUcitelja = rb.ReturnImePriimekUcitelja(uMail);
             label1.Text = "Prijavljeni ste kot " + imePriimekUcitelja;
             
             //MessageBox.Show(monthCalendar1.TodayDate.ToString());
@@ -119,11 +119,13 @@ namespace Redovalnica_App
 
         private void Btn_PotrdiDanasnjoPrisotnost_Click(object sender, EventArgs e)
         {
+            //preverim če mam kej v treeview selectano
             if (Razred_Combobox.Text != "-Select-" && Predmet_Combobox.Text != "-Select-" && Vrsta_Ur_Combobox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
             {
                 RedovalnicaDatabase rp = new RedovalnicaDatabase();
-                rp.InsertRazrediPredmeti(Predmet_Combobox.Text, Razred_Combobox.Text, imePriimekUcitelja);
-                int idRazredPredmet = rp.IDRazrediPredmeti(Predmet_Combobox.Text, Razred_Combobox.Text, imePriimekUcitelja);
+                rp.InsertRazrediPredmeti(Predmet_Combobox.Text, Razred_Combobox.Text, SolskoLeto_Combobox.Text, imePriimekUcitelja);
+                RedovalnicaDatabase ra = new RedovalnicaDatabase();
+                int idRazredPredmet = ra.IDRazrediPredmeti(Predmet_Combobox.Text, Razred_Combobox.Text, SolskoLeto_Combobox.Text, imePriimekUcitelja);
                 MessageBox.Show(idRazredPredmet.ToString());
                 RedovalnicaDatabase ru = new RedovalnicaDatabase();
                 //ru.InsertUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox, datum);

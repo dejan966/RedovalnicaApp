@@ -22,13 +22,14 @@ namespace RedovalnicaData
                 if (!bralnik.HasRows)
                     return false;
 
+                bralnik.Close();
                 com.Dispose();
                 conn.Close();
             }
             return true;
         }
 
-        public string ReturnImePriimekUcenca(string email)
+        public string ReturnImePriimekUcitelja(string email)
         {
             string ime_priimek = "";
 
@@ -42,6 +43,7 @@ namespace RedovalnicaData
                     string imePriimek = bralnik.GetString(0);
                     ime_priimek = imePriimek;
                 }
+                bralnik.Close();
                 com.Dispose();
                 conn.Close();
             }
@@ -64,6 +66,7 @@ namespace RedovalnicaData
                     Ucenec u = new Ucenec(ime,priimek);
                     ucenci.Add(u);
                 }
+                bralnik.Close();
                 com.Dispose();
                 conn.Close();
             }
@@ -84,6 +87,7 @@ namespace RedovalnicaData
                     Razred r = new Razred(razred);
                     razredi.Add(r);
                 }
+                bralnik.Close();
                 com.Dispose();
                 conn.Close();
             }
@@ -104,6 +108,7 @@ namespace RedovalnicaData
                     Predmet p = new Predmet(predmet);
                     predmeti.Add(p);
                 }
+                bralnik.Close();
                 com.Dispose();
                 conn.Close();
             }
@@ -123,6 +128,7 @@ namespace RedovalnicaData
                     Solsko_Leto s = new Solsko_Leto(sLeto);
                     solska_leta.Add(s);
                 }
+                bralnik.Close();
                 com.Dispose();
                 conn.Close();
             }
@@ -143,6 +149,7 @@ namespace RedovalnicaData
                     Vrsta_Ur s = new Vrsta_Ur(vUre);
                     vrste_ur.Add(s);
                 }
+                bralnik.Close();
                 com.Dispose();
                 conn.Close();
             }
@@ -167,7 +174,7 @@ namespace RedovalnicaData
                         ucenci.Add(u);
                     }
                 }
-
+                bralnik.Close();
                 com.Dispose();
                 conn.Close();
             }
@@ -193,7 +200,7 @@ namespace RedovalnicaData
                         ucenci.Add(u);
                     }
                 }
-                
+                bralnik.Close();
                 com.Dispose();
                 conn.Close();
             }
@@ -201,7 +208,7 @@ namespace RedovalnicaData
             return ucenci;
         }
 
-        public void InsertRazrediPredmeti(string predmet, string razred, string ucitelj)
+        public void InsertRazrediPredmeti(string predmet, string razred, string solskoLeto, string ucitelj)
         {
             using (conn)
             {
@@ -210,27 +217,35 @@ namespace RedovalnicaData
                 NpgsqlDataReader bralnik =  com.ExecuteReader();
                 if (!bralnik.HasRows)
                 {
-                    NpgsqlCommand com2 = new NpgsqlCommand("INSERT INTO razredi_predmeti (id_predmeti, id_razredi, id_ucitelji) VALUES ((SELECT id_predmeti FROM predmeti WHERE predmet = '" + predmet + "'), (SELECT id_razred FROM razred WHERE razred = '" + razred + "'), (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucitelj + "'));", conn);
-                    com2.ExecuteNonQuery();
-                    com2.Dispose();
+                    using (NpgsqlConnection conn2 = new NpgsqlConnection("Server=ella.db.elephantsql.com; User Id=finomhzd; Password=qDjavv-S5TXm78zV2dGfIti1PiZZlcer; Database=finomhzd;"))
+                    {
+                        conn2.Open();
+                        NpgsqlCommand com2 = new NpgsqlCommand("INSERT INTO razredi_predmeti (id_predmeti, id_razredi, id_ucitelji) VALUES ((SELECT id_predmeti FROM predmeti WHERE predmet = '" + predmet + "'), (SELECT r.id_razredi FROM razredi r INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta WHERE (r.razred = '" + razred + "') AND (sl.solsko_leto = '" + solskoLeto + "')), (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucitelj + "'));", conn2);
+                        com2.ExecuteNonQuery();
+                        com2.Dispose();
+                        conn2.Close();
+                    }
+                        
                 }
+                bralnik.Close();
                 com.Dispose();
                 conn.Close();
             }
         }
 
-        public int IDRazrediPredmeti(string predmet, string razred, string ucitelj)
+        public int IDRazrediPredmeti(string predmet, string razred, string solskoLeto, string ucitelj)
         {
             int id = 1;
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT id_razredi_predmeti FROM razredi_predmeti WHERE (id_predmeti = (SELECT id_predmeti FROM predmeti WHERE predmet = '" + predmet + "')) AND (id_razredi = (SELECT id_razred FROM razred WHERE razred = '" + razred + "')) AND (id_ucitelji = (SELECT id_ucitelji FROM ucitelji WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucitelj + "'))))", conn);
+                NpgsqlCommand com = new NpgsqlCommand("SELECT id_razredi_predmeti FROM razredi_predmeti WHERE (id_predmeti = (SELECT id_predmeti FROM predmeti WHERE predmet = '" + predmet + "')) AND (id_razredi = (SELECT r.id_razredi FROM razredi r INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta WHERE (r.razred = '" + razred + "') AND (sl.solsko_leto = '" + solskoLeto + "'))) AND (id_ucitelji = (SELECT id_ucitelji FROM ucitelji WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucitelj + "'))));", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
                 while (bralnik.Read())
                 {
                     id = bralnik.GetInt32(0);
                 }
+                bralnik.Close();
             }
             return id;
         }
@@ -257,6 +272,7 @@ namespace RedovalnicaData
                 {
                     id = bralnik.GetInt32(0);
                 }
+                bralnik.Close();
                 com.Dispose();
                 conn.Close();
             }
