@@ -121,7 +121,6 @@ namespace Redovalnica_App
             // 
             // Btn_PotrdiDanasnjoPrisotnost
             // 
-            this.Btn_PotrdiDanasnjoPrisotnost.Enabled = false;
             this.Btn_PotrdiDanasnjoPrisotnost.Location = new System.Drawing.Point(302, 124);
             this.Btn_PotrdiDanasnjoPrisotnost.Name = "Btn_PotrdiDanasnjoPrisotnost";
             this.Btn_PotrdiDanasnjoPrisotnost.Size = new System.Drawing.Size(93, 48);
@@ -132,7 +131,6 @@ namespace Redovalnica_App
             // 
             // Btn_PrisotnostZaNazaj
             // 
-            this.Btn_PrisotnostZaNazaj.Enabled = false;
             this.Btn_PrisotnostZaNazaj.Location = new System.Drawing.Point(302, 243);
             this.Btn_PrisotnostZaNazaj.Name = "Btn_PrisotnostZaNazaj";
             this.Btn_PrisotnostZaNazaj.Size = new System.Drawing.Size(93, 61);
@@ -173,6 +171,7 @@ namespace Redovalnica_App
             this.Razred_Combobox.Name = "Razred_Combobox";
             this.Razred_Combobox.Size = new System.Drawing.Size(148, 24);
             this.Razred_Combobox.TabIndex = 1;
+            this.Razred_Combobox.SelectionChangeCommitted += new System.EventHandler(this.Razred_Combobox_SelectionChangeCommitted);
             this.Razred_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Razred_Combobox_KeyDown);
             // 
             // SolskoLeto_Combobox

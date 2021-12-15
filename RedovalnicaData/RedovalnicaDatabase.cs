@@ -206,7 +206,7 @@ namespace RedovalnicaData
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT p.predmet, r.razred, o.ime || ' ' || o.priimek FROM osebe o INNER JOIN ucitelji u on o.id_osebe = u.id_osebe INNER JOIN razredi_predmeti rp on u.id_ucitelji = rp.id_ucitelji INNER JOIN razredi r on rp.id_razredi = r.id_razredi INNER JOIN predmeti p on rp.id_predmeti = p.id_predmeti WHERE (p.predmet = '" + predmet + "') AND (r.razred = '" + razred + "') AND ();", conn);
+                NpgsqlCommand com = new NpgsqlCommand("SELECT p.predmet, r.razred, o.ime || ' ' || o.priimek FROM osebe o INNER JOIN ucitelji u on o.id_osebe = u.id_osebe INNER JOIN razredi_predmeti rp on u.id_ucitelji = rp.id_ucitelji INNER JOIN razredi r on rp.id_razredi = r.id_razredi INNER JOIN predmeti p on rp.id_predmeti = p.id_predmeti WHERE (p.predmet = '" + predmet + "') AND (r.razred = '" + razred + "') AND (ime || ' ' || priimek = '" + ucitelj + "');", conn);
                 NpgsqlDataReader bralnik =  com.ExecuteReader();
                 if (!bralnik.HasRows)
                 {

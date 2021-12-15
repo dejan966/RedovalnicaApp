@@ -72,11 +72,11 @@ namespace Redovalnica_App
             }
 
             treeView1.Nodes.Add("Učenci");
-            RedovalnicaDatabase u = new RedovalnicaDatabase();
+            /*RedovalnicaDatabase u = new RedovalnicaDatabase();
             foreach(Ucenec item in u.ReturnVseUcence())
             {
                 treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-            }
+            }*/
         }
 
         private void Razred_Combobox_KeyDown(object sender, KeyEventArgs e)
@@ -101,26 +101,63 @@ namespace Redovalnica_App
 
         private void Btn_PrisotnostZaNazaj_Click(object sender, EventArgs e)
         {
-            treeView1.Nodes.Clear();
-            treeView1.Nodes.Add("Učenci");
-
-            RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto(Razred_Combobox.Text, Predmet_Combobox.Text, Vrsta_Ur_Combobox.Text, SolskoLeto_Combobox.Text))
+            if (Razred_Combobox.Text != "-Select-" && Predmet_Combobox.Text != "-Select-" && Vrsta_Ur_Combobox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
             {
-                treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                treeView1.Nodes.Clear();
+                treeView1.Nodes.Add("Učenci");
+
+                RedovalnicaDatabase rd = new RedovalnicaDatabase();
+                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto(Razred_Combobox.Text, Predmet_Combobox.Text, Vrsta_Ur_Combobox.Text, SolskoLeto_Combobox.Text))
+                {
+                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                }
             }
+            else
+                MessageBox.Show("Morate izbrati vrednosti v Comboboxih", "Opozorilo");
+            
         }
 
         private void Btn_PotrdiDanasnjoPrisotnost_Click(object sender, EventArgs e)
         {
-            //izberes razred v comboboxu in ti vrze vse ucence v tem razredu
+            if (Razred_Combobox.Text != "-Select-" && Predmet_Combobox.Text != "-Select-" && Vrsta_Ur_Combobox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
+            {
+                RedovalnicaDatabase rp = new RedovalnicaDatabase();
+                rp.InsertRazrediPredmeti(Predmet_Combobox.Text, Razred_Combobox.Text, imePriimekUcitelja);
+                int idRazredPredmet = rp.IDRazrediPredmeti(Predmet_Combobox.Text, Razred_Combobox.Text, imePriimekUcitelja);
+                MessageBox.Show(idRazredPredmet.ToString());
+                RedovalnicaDatabase ru = new RedovalnicaDatabase();
+                //ru.InsertUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox, datum);
+                //int idUreIzvedb = rd.IDUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox.Text, datum);
+                /*dal bom ucence v array pa bom s for zanko insertu v 
+                rd.InsertPrisotnosti(ucenec, idUreIzvedb, opomba);*/
+            }
+            else
+                MessageBox.Show("Morate izbrati vrednosti v Comboboxih", "Opozorilo");
+        }
+
+        private void Razred_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            //rd.InsertRazrediPredmeti(Razred_Combobox.Text, Predmet_Combobox.Text, imePriimekUcitelja);
-            //int idRazredPredmet = rd.IDRazrediPredmeti(Razred_Combobox.Text, Predmet_Combobox.Text, imePriimekUcitelja);
-            //rd.InsertUreIzvedb
-            //int idUreIzvedb = rd.IDUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox.Text, datum);
-            /*dal bom ucence v array pa bom s for zanko insertu v 
-            rd.InsertPrisotnosti(ucenec, idUreIzvedb, opomba);*/
+            foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_Combobox.Text))
+            {
+                //preverit morem a vrne ucence funkcija
+                treeView1.Nodes.Clear();
+                treeView1.Nodes.Add("Učenci");
+                if(item.Ime != "" && item.Priimek != "")
+                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                else
+                {
+                    treeView1.Nodes.Clear();
+                    treeView1.Nodes.Add("Učenci");
+                }
+                /*if(treeView1.Nodes.ToString() == "Učenec")
+                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                else
+                {
+                    treeView1.Nodes.Add("Učenci");
+                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                }*/
+            }
         }
     }
 }
