@@ -144,7 +144,7 @@ namespace Redovalnica_App
         {
             //ko izberem razred v treeview izpise ucence v razredu - query je vredu ampak ne deluje combobox pravilno
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_Combobox.Text))
+            foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_Combobox.SelectedItem.ToString()))
             {
                 //preverim a vrne ucence funkcija
                 treeView1.Nodes.Clear();
@@ -172,7 +172,7 @@ namespace Redovalnica_App
             Razred_Combobox.Items.Clear();
             Razred_Combobox.Text = "";
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            foreach (Razred item in rd.ReturnRazred_SolskoLeto(SolskoLeto_Combobox.Text))
+            foreach (Razred item in rd.ReturnRazred_SolskoLeto(SolskoLeto_Combobox.SelectedItem.ToString()))
             {
                 Razred_Combobox.Items.Add(item.ImeR);
             }
