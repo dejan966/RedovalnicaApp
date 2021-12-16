@@ -257,13 +257,16 @@ namespace RedovalnicaData
     }
     public class Prisotnost:UreIzvedbe
     {
+        public string UraIzvedbe { get; set; }
+        public string Ucenec { get; set; }
         public string Opomba { get; set; }
         public Prisotnost()
         {
 
         }
-        public Prisotnost(string opomba)
+        public Prisotnost(string ucenec, string uraizvedbe, string opomba)
         {
+            Ucenec = ucenec;
             Opomba = opomba;
         }
         

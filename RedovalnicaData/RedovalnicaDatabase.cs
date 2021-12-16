@@ -233,6 +233,11 @@ namespace RedovalnicaData
                         ucenci.Add(u);
                     }
                 }
+                else
+                {
+                    Ucenec u = new Ucenec("", "");
+                    ucenci.Add(u);
+                }
                 bralnik.Close();
                 com.Dispose();
                 conn.Close();
@@ -287,7 +292,7 @@ namespace RedovalnicaData
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO ure_izvedb(id_razredi_predmeti, id_vrste_ur, datum_cas) VALUES ('" + idRazredPredmet + "', (SELECT id_vrste_ur FROM vrsta_ur WHERE vrsta_ure = '" + vrsta_ure + "'), datum_cas LIKE '" + datum + "');", conn);
+                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO ure_izvedb(id_razredi_predmeti, id_vrste_ur, datum_cas) VALUES ('" + idRazredPredmet + "', (SELECT id_vrste_ur FROM vrste_ur WHERE vrsta_ure = '" + vrsta_ure + "'), '" + datum + "');", conn);
                 com.ExecuteNonQuery();
                 com.Dispose();
                 conn.Close();
@@ -299,7 +304,7 @@ namespace RedovalnicaData
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT id_ure_izvedb FROM ure_izvedb WHERE (id_razredi_predmeti = '" + idRazredPredmet + "') AND (id_vrste_ur = (SELECT id_vrste_ur FROM vrsta_ur WHERE vrsta_ure = '" + vrsta_ure + "')) AND (datum_cas LIKE '" + datum + "');", conn);
+                NpgsqlCommand com = new NpgsqlCommand("SELECT id_ure_izvedb FROM ure_izvedb WHERE (id_razredi_predmeti = '" + idRazredPredmet + "') AND (id_vrste_ur = (SELECT id_vrste_ur FROM vrste_ur WHERE vrsta_ure = '" + vrsta_ure + "')) AND (datum_cas LIKE '%" + datum + "%');", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
                 while (bralnik.Read())
                 {

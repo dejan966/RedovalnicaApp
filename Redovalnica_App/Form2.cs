@@ -100,7 +100,7 @@ namespace Redovalnica_App
                 treeView1.Nodes.Add("Učenci");
 
                 RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto(Razred_Combobox.Text, Predmet_Combobox.Text, Vrsta_Ur_Combobox.Text, SolskoLeto_Combobox.Text, date))
+                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto(Razred_Combobox.SelectedItem.ToString(), Predmet_Combobox.SelectedItem.ToString(), Vrsta_Ur_Combobox.SelectedItem.ToString(), SolskoLeto_Combobox.SelectedItem.ToString(), date))
                 {
                     treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
                 }
@@ -113,21 +113,23 @@ namespace Redovalnica_App
         private void Btn_PotrdiDanasnjoPrisotnost_Click(object sender, EventArgs e)
         {
             //selectam ucence v treeview za prisotnost
-            string date = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
+            string Idate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string Sdate = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
             if (Razred_Combobox.Text != "-Select-" && Predmet_Combobox.Text != "-Select-" && Vrsta_Ur_Combobox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
             {
                 RedovalnicaDatabase rp = new RedovalnicaDatabase();
-                rp.InsertRazrediPredmeti(Predmet_Combobox.Text, Razred_Combobox.Text, SolskoLeto_Combobox.Text, imePriimekUcitelja);
+                rp.InsertRazrediPredmeti(Predmet_Combobox.SelectedItem.ToString(), Razred_Combobox.SelectedItem.ToString(), SolskoLeto_Combobox.SelectedItem.ToString(), imePriimekUcitelja);
                 
                 RedovalnicaDatabase ra = new RedovalnicaDatabase();
-                int idRazredPredmet = ra.IDRazrediPredmeti(Predmet_Combobox.Text, Razred_Combobox.Text, SolskoLeto_Combobox.Text, imePriimekUcitelja);
+                int idRazredPredmet = ra.IDRazrediPredmeti(Predmet_Combobox.SelectedItem.ToString(), Razred_Combobox.SelectedItem.ToString(), SolskoLeto_Combobox.SelectedItem.ToString(), imePriimekUcitelja);
                 MessageBox.Show(idRazredPredmet.ToString());
                 
-                RedovalnicaDatabase ru = new RedovalnicaDatabase();
-                //ru.InsertUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox.SelectedItem.ToString(), datum);
+                /*RedovalnicaDatabase ru = new RedovalnicaDatabase();
+                ru.InsertUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox.SelectedItem.ToString(), Idate);
 
                 RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                //int idUreIzvedb = rd.IDUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox.SelectedItem.ToString(), datum);
+                int idUreIzvedb = rd.IDUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox.SelectedItem.ToString(), Sdate);
+                MessageBox.Show(idUreIzvedb.ToString());*/
 
                 RedovalnicaDatabase re = new RedovalnicaDatabase();
                 /*dal bom ucence v array pa bom s for zanko insertu v 
@@ -139,26 +141,30 @@ namespace Redovalnica_App
 
         private void Razred_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            //ko izberem razred v treeview izpise ucence v razredu - query je vredu ampak ne deluje combobox pravilno
-            RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_Combobox.SelectedItem.ToString(), SolskoLeto_Combobox.SelectedItem.ToString()))
+            if (SolskoLeto_Combobox.Text != "-Select-")
             {
-                //preverim a vrne ucence funkcija
-                treeView1.Nodes.Clear();
-                treeView1.Nodes.Add("Učenci");
-                if(item.Ime != "" && item.Priimek != "")
-                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-                else
+                RedovalnicaDatabase rd = new RedovalnicaDatabase();
+                foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_Combobox.SelectedItem.ToString(), SolskoLeto_Combobox.SelectedItem.ToString()))
                 {
+                    //preverim a vrne ucence funkcija
                     treeView1.Nodes.Clear();
                     treeView1.Nodes.Add("Učenci");
+                    if (item.Ime != "" && item.Priimek != "")
+                        treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                    else
+                    {
+                        treeView1.Nodes.Clear();
+                        treeView1.Nodes.Add("Učenci");
+                    }
                 }
             }
+            else
+                MessageBox.Show("Izberite še šolsko leto");
         }
 
         private void SolskoLeto_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            //ko izberem solsko leto pokaze v comboboxu od razreda kere razredi obstajajo v tem solskem letu - query je vredu ampak ne deluje combobox pravilno
+            //pokaže razrede glede na šolsko leto
             Razred_Combobox.Items.Clear();
             Razred_Combobox.Text = "";
             RedovalnicaDatabase rd = new RedovalnicaDatabase();

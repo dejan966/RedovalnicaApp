@@ -27,7 +27,7 @@ namespace Redovalnica_App
             Ucitelj u = new Ucitelj(Uemail, Ugeslo);
 
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            if (rd.PreveriPrijavo(u) == false)
+            if (!rd.PreveriPrijavo(u))
                 MessageBox.Show("Napačno geslo ali email", "Opozorilo");
             else
             {
