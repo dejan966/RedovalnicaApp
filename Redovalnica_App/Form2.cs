@@ -69,8 +69,6 @@ namespace Redovalnica_App
             }
 
             treeView1.Nodes.Add("Učenci");
-            /*string vDate = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
-            MessageBox.Show(vDate);*/
         }
 
         private void Razred_Combobox_KeyDown(object sender, KeyEventArgs e)
@@ -95,7 +93,6 @@ namespace Redovalnica_App
 
         private void Btn_PrisotnostZaNazaj_Click(object sender, EventArgs e)
         {
-            //treba se mal fixat da bo lahk primerjalo datume -> resitev(spremenim podatkovni tip datumcas v tabeli ure_izvedbe v varchar
             string date = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
             if (Razred_Combobox.Text != "-Select-" && Predmet_Combobox.Text != "-Select-" && Vrsta_Ur_Combobox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
             {
@@ -127,10 +124,10 @@ namespace Redovalnica_App
                 MessageBox.Show(idRazredPredmet.ToString());
                 
                 RedovalnicaDatabase ru = new RedovalnicaDatabase();
-                //ru.InsertUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox, datum);
+                //ru.InsertUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox.SelectedItem.ToString(), datum);
 
                 RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                //int idUreIzvedb = rd.IDUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox.Text, datum);
+                //int idUreIzvedb = rd.IDUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox.SelectedItem.ToString(), datum);
 
                 RedovalnicaDatabase re = new RedovalnicaDatabase();
                 /*dal bom ucence v array pa bom s for zanko insertu v 
@@ -144,7 +141,7 @@ namespace Redovalnica_App
         {
             //ko izberem razred v treeview izpise ucence v razredu - query je vredu ampak ne deluje combobox pravilno
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_Combobox.SelectedItem.ToString()))
+            foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_Combobox.SelectedItem.ToString(), SolskoLeto_Combobox.SelectedItem.ToString()))
             {
                 //preverim a vrne ucence funkcija
                 treeView1.Nodes.Clear();
@@ -156,13 +153,6 @@ namespace Redovalnica_App
                     treeView1.Nodes.Clear();
                     treeView1.Nodes.Add("Učenci");
                 }
-                /*if(treeView1.Nodes.ToString() == "Učenec")
-                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-                else
-                {
-                    treeView1.Nodes.Add("Učenci");
-                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-                }*/
             }
         }
 
