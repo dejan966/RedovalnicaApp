@@ -155,14 +155,14 @@ namespace RedovalnicaData
             }
             return vrste_ur;
         }
-        public List<Ucenec> ReturnUcenci_Razred(string razred)
+        public List<Ucenec> ReturnUcenci_Razred(string razred, string solskoleto)
         {
             List<Ucenec> ucenci = new List<Ucenec>();
 
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi WHERE(r.razred = '" + razred + "') ", conn);
+                NpgsqlCommand com = new NpgsqlCommand("SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN solska_leta sl on sl.id_solska_leta = r.id_solska_leta WHERE(r.razred = '" + razred + "') AND (sl.solsko_leto = '" + solskoleto + "');", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
                 if (bralnik.HasRows)
                 {
@@ -173,6 +173,11 @@ namespace RedovalnicaData
                         Ucenec u = new Ucenec(ime, priimek);
                         ucenci.Add(u);
                     }
+                }
+                else
+                {
+                    Ucenec u = new Ucenec("", "");
+                    ucenci.Add(u);
                 }
                 bralnik.Close();
                 com.Dispose();
