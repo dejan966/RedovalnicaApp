@@ -155,6 +155,28 @@ namespace RedovalnicaData
             }
             return vrste_ur;
         }
+        public List<Ocena> ReturnVseOcene()
+        {
+            List<Ocena> ocene = new List<Ocena>();
+
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT ocena_st FROM ocene", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                while (bralnik.Read())
+                {
+                    int stO = bralnik.GetInt32(0);
+                    Ocena s = new Ocena(stO);
+                    ocene.Add(s);
+                }
+                bralnik.Close();
+                com.Dispose();
+                conn.Close();
+            }
+
+            return ocene;
+        }
         public List<Ucenec> ReturnUcenci_Razred(string razred, string solskoleto)
         {
             List<Ucenec> ucenci = new List<Ucenec>();

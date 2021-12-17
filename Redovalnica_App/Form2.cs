@@ -38,57 +38,55 @@ namespace Redovalnica_App
             RedovalnicaDatabase rb = new RedovalnicaDatabase();
             imePriimekUcitelja = rb.ReturnImePriimekUcitelja(uMail);
             label1.Text = "Prijavljeni ste kot " + imePriimekUcitelja;
-            
+            label12.Text = "Prijavljeni ste kot " + imePriimekUcitelja;
+
+            //prisotnost
             Razred_ComboboxP.Text = "-Select-";
             Vrsta_Ur_ComboboxP.Text = "-Select-";
             SolskoLeto_ComboboxP.Text = "-Select-";
             Predmet_ComboboxP.Text = "-Select-";
-            
+
+            //ocene
+            Razred_ComboboxO.Text = "-Select-";
+            Predmet_ComboboxO.Text = "-Select-";
+            Vrsta_Ur_ComboboxO.Text = "-Select-";
+            SolskoLeto_ComboboxO.Text = "-Select-";
+            OcenaCombobox.Text = "-Select-";
+
             RedovalnicaDatabase r = new RedovalnicaDatabase();
             foreach (Razred item in r.ReturnVseRazrede())
             {
                 Razred_ComboboxP.Items.Add(item.ImeR);
+                Razred_ComboboxO.Items.Add(item.ImeR);
             }
 
             RedovalnicaDatabase p = new RedovalnicaDatabase();
             foreach (Predmet item in p.ReturnVsePredmete())
             {
                 Predmet_ComboboxP.Items.Add(item.ImeP);
+                Predmet_ComboboxO.Items.Add(item.ImeP);
             }
 
             RedovalnicaDatabase s = new RedovalnicaDatabase();
             foreach (Solsko_Leto item in s.ReturnVsaSolskaLeta())
             {
                 SolskoLeto_ComboboxP.Items.Add(item.SLeto);
+                SolskoLeto_ComboboxO.Items.Add(item.SLeto);
             }
 
             RedovalnicaDatabase v = new RedovalnicaDatabase();
             foreach(Vrsta_Ur item in v.ReturnVseVrsteUr())
             {
                 Vrsta_Ur_ComboboxP.Items.Add(item.Ura);
+                Vrsta_Ur_ComboboxO.Items.Add(item.Ura);
             }
 
+            RedovalnicaDatabase o = new RedovalnicaDatabase();
+            foreach (Ocena item in o.ReturnVseOcene())
+                OcenaCombobox.Items.Add(item.StO);
+
             treeView1.Nodes.Add("Učenci");
-        }
-
-        private void Razred_Combobox_KeyDown(object sender, KeyEventArgs e)
-        {
-            e.SuppressKeyPress = true;
-        }
-
-        private void Predmet_ComboBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            e.SuppressKeyPress = true;
-        }
-
-        private void SolskoLeto_Combobox_KeyDown(object sender, KeyEventArgs e)
-        {
-            e.SuppressKeyPress = true;
-        }
-
-        private void Vrsta_Ur_Combobox_KeyDown(object sender, KeyEventArgs e)
-        {
-            e.SuppressKeyPress = true;
+            treeView2.Nodes.Add("Učenci");
         }
 
         private void Btn_PrisotnostZaNazaj_Click(object sender, EventArgs e)
@@ -139,30 +137,45 @@ namespace Redovalnica_App
                 MessageBox.Show("Morate izbrati vrednosti v Comboboxih", "Opozorilo");
         }
 
-        private void Razred_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
+        private void Razred_ComboboxP_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            if (SolskoLeto_ComboboxP.Text != "-Select-")
+            RedovalnicaDatabase rd = new RedovalnicaDatabase();
+            foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString()))
             {
-                RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString()))
+                //preverim a vrne ucence funkcija
+                treeView1.Nodes.Clear();
+                treeView1.Nodes.Add("Učenci");
+                if (item.Ime != "" && item.Priimek != "")
+                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                else
                 {
-                    //preverim a vrne ucence funkcija
                     treeView1.Nodes.Clear();
                     treeView1.Nodes.Add("Učenci");
-                    if (item.Ime != "" && item.Priimek != "")
-                        treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-                    else
-                    {
-                        treeView1.Nodes.Clear();
-                        treeView1.Nodes.Add("Učenci");
-                    }
                 }
             }
-            else
-                MessageBox.Show("Izberite še šolsko leto");
         }
 
-        private void SolskoLeto_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
+        private void Vrsta_Ur_ComboboxP_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void Predmet_ComboboxP_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void Razred_ComboboxP_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void SolskoLeto_ComboboxP_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void SolskoLeto_ComboboxP_SelectionChangeCommitted(object sender, EventArgs e)
         {
             //pokaže razrede glede na šolsko leto
             Razred_ComboboxP.Items.Clear();
@@ -172,6 +185,60 @@ namespace Redovalnica_App
             {
                 Razred_ComboboxP.Items.Add(item.ImeR);
             }
+        }
+
+        private void Razred_ComboboxO_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            RedovalnicaDatabase rd = new RedovalnicaDatabase();
+            foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString()))
+            {
+                //preverim a vrne ucence funkcija
+                treeView2.Nodes.Clear();
+                treeView2.Nodes.Add("Učenci");
+                if (item.Ime != "" && item.Priimek != "")
+                    treeView2.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                else
+                {
+                    treeView2.Nodes.Clear();
+                    treeView2.Nodes.Add("Učenci");
+                }
+            }
+        }
+
+        private void SolskoLeto_ComboboxO_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            Razred_ComboboxO.Items.Clear();
+            Razred_ComboboxO.Text = "";
+            RedovalnicaDatabase rd = new RedovalnicaDatabase();
+            foreach (Razred item in rd.ReturnRazred_SolskoLeto(SolskoLeto_ComboboxO.SelectedItem.ToString()))
+            {
+                Razred_ComboboxO.Items.Add(item.ImeR);
+            }
+        }
+
+        private void SolskoLeto_ComboboxO_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void Razred_ComboboxO_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void Predmet_ComboboxO_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void Vrsta_Ur_ComboboxO_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
+        }
+
+        private void OcenaCombobox_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.SuppressKeyPress = true;
         }
     }
 }

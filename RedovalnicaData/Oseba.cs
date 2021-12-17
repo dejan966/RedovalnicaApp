@@ -221,6 +221,10 @@ namespace RedovalnicaData
         {
 
         }
+        public Ocena(int stO)
+        {
+            StO = stO;
+        }
         public Ocena(string uOcena, int stO)
         {
             UOcena = uOcena;
