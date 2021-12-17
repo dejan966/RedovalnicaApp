@@ -100,7 +100,8 @@ namespace Redovalnica_App
                 RedovalnicaDatabase rd = new RedovalnicaDatabase();
                 foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_Datum(Razred_ComboboxP.SelectedItem.ToString(), Predmet_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), date))
                 {
-                    treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                    if(item.Ime != "" && item.Priimek != "")
+                        treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
                 }
             }
             else
@@ -120,14 +121,12 @@ namespace Redovalnica_App
                 
                 RedovalnicaDatabase ra = new RedovalnicaDatabase();
                 int idRazredPredmet = ra.IDRazrediPredmeti(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), imePriimekUcitelja);
-                MessageBox.Show(idRazredPredmet.ToString());
                 
-                /*RedovalnicaDatabase ru = new RedovalnicaDatabase();
-                ru.InsertUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox.SelectedItem.ToString(), Idate);
+                RedovalnicaDatabase ru = new RedovalnicaDatabase();
+                ru.InsertUreIzvedb(idRazredPredmet, Vrsta_Ur_ComboboxP.SelectedItem.ToString(), Idate);
 
                 RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                int idUreIzvedb = rd.IDUreIzvedb(idRazredPredmet, Vrsta_Ur_Combobox.SelectedItem.ToString(), Sdate);
-                MessageBox.Show(idUreIzvedb.ToString());*/
+                int idUreIzvedb = rd.IDUreIzvedb(idRazredPredmet, Vrsta_Ur_ComboboxP.SelectedItem.ToString(), Sdate);
 
                 RedovalnicaDatabase re = new RedovalnicaDatabase();
                 /*dal bom ucence v array pa bom s for zanko insertu v 
@@ -139,12 +138,12 @@ namespace Redovalnica_App
 
         private void Razred_ComboboxP_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            treeView1.Nodes.Clear();
+            treeView1.Nodes.Add("Učenci");
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
             foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString()))
             {
                 //preverim a vrne ucence funkcija
-                treeView1.Nodes.Clear();
-                treeView1.Nodes.Add("Učenci");
                 if (item.Ime != "" && item.Priimek != "")
                     treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
                 else
@@ -189,12 +188,12 @@ namespace Redovalnica_App
 
         private void Razred_ComboboxO_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            treeView2.Nodes.Clear();
+            treeView2.Nodes.Add("Učenci");
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
             foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString()))
             {
                 //preverim a vrne ucence funkcija
-                treeView2.Nodes.Clear();
-                treeView2.Nodes.Add("Učenci");
                 if (item.Ime != "" && item.Priimek != "")
                     treeView2.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
                 else
@@ -239,6 +238,18 @@ namespace Redovalnica_App
         private void OcenaCombobox_KeyDown(object sender, KeyEventArgs e)
         {
             e.SuppressKeyPress = true;
+        }
+
+        private void Btn_InsertOcena_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show(treeView2.SelectedNode.ToString());
+            string datum = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
+
+            RedovalnicaDatabase r = new RedovalnicaDatabase();
+            int idRazredPredmet = r.IDRazrediPredmeti(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString(), imePriimekUcitelja);
+
+            RedovalnicaDatabase o = new RedovalnicaDatabase();
+            o.InsertOcena_Ucenec(idRazredPredmet, treeView2.SelectedNode.ToString(), OcenaCombobox.SelectedItem.ToString(), datum);
         }
     }
 }

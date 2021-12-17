@@ -397,6 +397,7 @@ namespace Redovalnica_App
             this.Btn_InsertOcena.TabIndex = 12;
             this.Btn_InsertOcena.Text = "Vnesi oceno";
             this.Btn_InsertOcena.UseVisualStyleBackColor = true;
+            this.Btn_InsertOcena.Click += new System.EventHandler(this.Btn_InsertOcena_Click);
             // 
             // Form2
             // 

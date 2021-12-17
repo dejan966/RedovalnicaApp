@@ -243,7 +243,7 @@ namespace RedovalnicaData
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN razredi_predmeti rp ON rp.id_razredi = r.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti INNER JOIN solska_leta s ON r.id_solska_leta = s.id_solska_leta INNER JOIN ure_izvedb ui ON ui.id_razredi_predmeti = rp.id_razredi_predmeti INNER JOIN vrste_ur vu ON vu.id_vrste_ur = ui.id_vrste_ur INNER JOIN prisotnosti pr on ui.id_ure_izvedb = pr.id_ure_izvedb INNER JOIN prisotnosti pr2 ON pr2.id_ucenci = u.id_ucenci  WHERE(r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "') AND (s.solsko_leto = '" + solsko_leto + "') AND (vu.vrsta_ure = '" + vrsta_ure + "') AND (ui.datum_cas LIKE '%" + datum + "%');", conn);
+                NpgsqlCommand com = new NpgsqlCommand("SELECT DISTINCT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN razredi_predmeti rp ON rp.id_razredi = r.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti INNER JOIN solska_leta s ON r.id_solska_leta = s.id_solska_leta INNER JOIN ure_izvedb ui ON ui.id_razredi_predmeti = rp.id_razredi_predmeti INNER JOIN vrste_ur vu ON vu.id_vrste_ur = ui.id_vrste_ur INNER JOIN prisotnosti pr on ui.id_ure_izvedb = pr.id_ure_izvedb INNER JOIN ucenci u2 ON pr.id_ucenci = u2.id_ucenci WHERE(r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "') AND (s.solsko_leto = '" + solsko_leto + "') AND (vu.vrsta_ure = '" + vrsta_ure + "') AND (ui.datum_cas LIKE '%" + datum + "%');", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
                 if (bralnik.HasRows)
                 {
@@ -268,6 +268,17 @@ namespace RedovalnicaData
             return ucenci;
         }
 
+        public void InsertOcena_Ucenec(int idRazredPredmet, string ucenec, string ocena, string datum)
+        {
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO ocene_ucenci(id_ucenci, id_ocene, datum, id_razredi_predmeti) VALUES ((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucenec + "')))), (SELECT id_ocene FROM ocene WHERE ocena_st = '" + ocena + "'), '" + datum + "', '" + idRazredPredmet + "')", conn);
+                com.ExecuteNonQuery();
+                com.Dispose();
+                conn.Close();
+            }
+        }
         public void InsertRazrediPredmeti(string predmet, string razred, string solskoLeto, string ucitelj)
         {
             using (conn)
@@ -280,7 +291,7 @@ namespace RedovalnicaData
                     using (NpgsqlConnection conn2 = new NpgsqlConnection("Server=ella.db.elephantsql.com; User Id=finomhzd; Password=qDjavv-S5TXm78zV2dGfIti1PiZZlcer; Database=finomhzd;"))
                     {
                         conn2.Open();
-                        NpgsqlCommand com2 = new NpgsqlCommand("INSERT INTO razredi_predmeti (id_predmeti, id_razredi, id_ucitelji) VALUES ((SELECT id_predmeti FROM predmeti WHERE predmet = '" + predmet + "'), (SELECT r.id_razredi FROM razredi r INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta WHERE (r.razred = '" + razred + "') AND (sl.solsko_leto = '" + solskoLeto + "')), (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucitelj + "'));", conn2);
+                        NpgsqlCommand com2 = new NpgsqlCommand("INSERT INTO razredi_predmeti (id_predmeti, id_razredi, id_ucitelji) VALUES ((SELECT id_predmeti FROM predmeti WHERE predmet = '" + predmet + "'), (SELECT r.id_razredi FROM razredi r INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta WHERE (r.razred = '" + razred + "') AND (sl.solsko_leto = '" + solskoLeto + "')), (SELECT id_ucitelji FROM ucitelji WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucitelj + "'))));", conn2);
                         com2.ExecuteNonQuery();
                         com2.Dispose();
                         conn2.Close();
