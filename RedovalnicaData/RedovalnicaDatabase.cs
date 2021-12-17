@@ -214,14 +214,14 @@ namespace RedovalnicaData
             }
             return razredi;
         } 
-        public List<Ucenec> ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto(string razred, string predmet, string vrsta_ure, string solsko_leto, string datum)
+        public List<Ucenec> ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_Datum(string razred, string predmet, string vrsta_ure, string solsko_leto, string datum)
         {
             List<Ucenec> ucenci = new List<Ucenec>();
 
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN razredi_predmeti rp ON rp.id_razredi = r.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti INNER JOIN solska_leta s ON r.id_solska_leta = s.id_solska_leta INNER JOIN ure_izvedb ui ON ui.id_razredi_predmeti = rp.id_razredi_predmeti INNER JOIN vrste_ur vu ON vu.id_vrste_ur = ui.id_vrste_ur INNER JOIN prisotnosti pr on ui.id_ure_izvedb = pr.id_ure_izvedb INNER JOIN prisotnosti pr2 ON pr2.id_ucenci = u.id_ucenci  WHERE(r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "') AND (s.solsko_leto = '" + solsko_leto + "') AND (vu.vrsta_ure = '" + vrsta_ure + "') AND (ui.datum_cas LIKE '" + datum + "');", conn);
+                NpgsqlCommand com = new NpgsqlCommand("SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN razredi_predmeti rp ON rp.id_razredi = r.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti INNER JOIN solska_leta s ON r.id_solska_leta = s.id_solska_leta INNER JOIN ure_izvedb ui ON ui.id_razredi_predmeti = rp.id_razredi_predmeti INNER JOIN vrste_ur vu ON vu.id_vrste_ur = ui.id_vrste_ur INNER JOIN prisotnosti pr on ui.id_ure_izvedb = pr.id_ure_izvedb INNER JOIN prisotnosti pr2 ON pr2.id_ucenci = u.id_ucenci  WHERE(r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "') AND (s.solsko_leto = '" + solsko_leto + "') AND (vu.vrsta_ure = '" + vrsta_ure + "') AND (ui.datum_cas LIKE '%" + datum + "%');", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
                 if (bralnik.HasRows)
                 {

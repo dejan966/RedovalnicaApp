@@ -39,33 +39,33 @@ namespace Redovalnica_App
             imePriimekUcitelja = rb.ReturnImePriimekUcitelja(uMail);
             label1.Text = "Prijavljeni ste kot " + imePriimekUcitelja;
             
-            Razred_Combobox.Text = "-Select-";
-            Vrsta_Ur_Combobox.Text = "-Select-";
-            SolskoLeto_Combobox.Text = "-Select-";
-            Predmet_Combobox.Text = "-Select-";
+            Razred_ComboboxP.Text = "-Select-";
+            Vrsta_Ur_ComboboxP.Text = "-Select-";
+            SolskoLeto_ComboboxP.Text = "-Select-";
+            Predmet_ComboboxP.Text = "-Select-";
             
             RedovalnicaDatabase r = new RedovalnicaDatabase();
             foreach (Razred item in r.ReturnVseRazrede())
             {
-                Razred_Combobox.Items.Add(item.ImeR);
+                Razred_ComboboxP.Items.Add(item.ImeR);
             }
 
             RedovalnicaDatabase p = new RedovalnicaDatabase();
             foreach (Predmet item in p.ReturnVsePredmete())
             {
-                Predmet_Combobox.Items.Add(item.ImeP);
+                Predmet_ComboboxP.Items.Add(item.ImeP);
             }
 
             RedovalnicaDatabase s = new RedovalnicaDatabase();
             foreach (Solsko_Leto item in s.ReturnVsaSolskaLeta())
             {
-                SolskoLeto_Combobox.Items.Add(item.SLeto);
+                SolskoLeto_ComboboxP.Items.Add(item.SLeto);
             }
 
             RedovalnicaDatabase v = new RedovalnicaDatabase();
             foreach(Vrsta_Ur item in v.ReturnVseVrsteUr())
             {
-                Vrsta_Ur_Combobox.Items.Add(item.Ura);
+                Vrsta_Ur_ComboboxP.Items.Add(item.Ura);
             }
 
             treeView1.Nodes.Add("Učenci");
@@ -94,13 +94,13 @@ namespace Redovalnica_App
         private void Btn_PrisotnostZaNazaj_Click(object sender, EventArgs e)
         {
             string date = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
-            if (Razred_Combobox.Text != "-Select-" && Predmet_Combobox.Text != "-Select-" && Vrsta_Ur_Combobox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
+            if (Razred_ComboboxP.Text != "-Select-" && Predmet_ComboboxP.Text != "-Select-" && Vrsta_Ur_ComboboxP.Text != "-Select-" && SolskoLeto_ComboboxP.Text != "-Select-")
             {
                 treeView1.Nodes.Clear();
                 treeView1.Nodes.Add("Učenci");
 
                 RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto(Razred_Combobox.SelectedItem.ToString(), Predmet_Combobox.SelectedItem.ToString(), Vrsta_Ur_Combobox.SelectedItem.ToString(), SolskoLeto_Combobox.SelectedItem.ToString(), date))
+                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_Datum(Razred_ComboboxP.SelectedItem.ToString(), Predmet_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), date))
                 {
                     treeView1.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
                 }
@@ -115,13 +115,13 @@ namespace Redovalnica_App
             //selectam ucence v treeview za prisotnost
             string Idate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string Sdate = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
-            if (Razred_Combobox.Text != "-Select-" && Predmet_Combobox.Text != "-Select-" && Vrsta_Ur_Combobox.Text != "-Select-" && SolskoLeto_Combobox.Text != "-Select-")
+            if (Razred_ComboboxP.Text != "-Select-" && Predmet_ComboboxP.Text != "-Select-" && Vrsta_Ur_ComboboxP.Text != "-Select-" && SolskoLeto_ComboboxP.Text != "-Select-")
             {
                 RedovalnicaDatabase rp = new RedovalnicaDatabase();
-                rp.InsertRazrediPredmeti(Predmet_Combobox.SelectedItem.ToString(), Razred_Combobox.SelectedItem.ToString(), SolskoLeto_Combobox.SelectedItem.ToString(), imePriimekUcitelja);
+                rp.InsertRazrediPredmeti(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), imePriimekUcitelja);
                 
                 RedovalnicaDatabase ra = new RedovalnicaDatabase();
-                int idRazredPredmet = ra.IDRazrediPredmeti(Predmet_Combobox.SelectedItem.ToString(), Razred_Combobox.SelectedItem.ToString(), SolskoLeto_Combobox.SelectedItem.ToString(), imePriimekUcitelja);
+                int idRazredPredmet = ra.IDRazrediPredmeti(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), imePriimekUcitelja);
                 MessageBox.Show(idRazredPredmet.ToString());
                 
                 /*RedovalnicaDatabase ru = new RedovalnicaDatabase();
@@ -141,10 +141,10 @@ namespace Redovalnica_App
 
         private void Razred_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            if (SolskoLeto_Combobox.Text != "-Select-")
+            if (SolskoLeto_ComboboxP.Text != "-Select-")
             {
                 RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_Combobox.SelectedItem.ToString(), SolskoLeto_Combobox.SelectedItem.ToString()))
+                foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString()))
                 {
                     //preverim a vrne ucence funkcija
                     treeView1.Nodes.Clear();
@@ -165,12 +165,12 @@ namespace Redovalnica_App
         private void SolskoLeto_Combobox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             //pokaže razrede glede na šolsko leto
-            Razred_Combobox.Items.Clear();
-            Razred_Combobox.Text = "";
+            Razred_ComboboxP.Items.Clear();
+            Razred_ComboboxP.Text = "";
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            foreach (Razred item in rd.ReturnRazred_SolskoLeto(SolskoLeto_Combobox.SelectedItem.ToString()))
+            foreach (Razred item in rd.ReturnRazred_SolskoLeto(SolskoLeto_ComboboxP.SelectedItem.ToString()))
             {
-                Razred_Combobox.Items.Add(item.ImeR);
+                Razred_ComboboxP.Items.Add(item.ImeR);
             }
         }
     }

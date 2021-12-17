@@ -31,24 +31,44 @@ namespace Redovalnica_App
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Predmet_Combobox = new System.Windows.Forms.ComboBox();
+            this.Predmet_ComboboxP = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.Btn_PotrdiDanasnjoPrisotnost = new System.Windows.Forms.Button();
             this.Btn_PrisotnostZaNazaj = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.Razred_Combobox = new System.Windows.Forms.ComboBox();
-            this.SolskoLeto_Combobox = new System.Windows.Forms.ComboBox();
-            this.Vrsta_Ur_Combobox = new System.Windows.Forms.ComboBox();
+            this.Razred_ComboboxP = new System.Windows.Forms.ComboBox();
+            this.SolskoLeto_ComboboxP = new System.Windows.Forms.ComboBox();
+            this.Vrsta_Ur_ComboboxP = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Vrsta_Ur_ComboboxO = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.Predmet_ComboboxO = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.Razred_ComboboxO = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.UcenecCombobox = new System.Windows.Forms.ComboBox();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.Btn_InsertOcena = new System.Windows.Forms.Button();
+            this.treeView2 = new System.Windows.Forms.TreeView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.OcenaCombobox = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.SolskoLeto_ComboboxO = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -75,18 +95,25 @@ namespace Redovalnica_App
             this.tabPage1.Text = "Preverjanje prisotnosti";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(512, 202);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(227, 22);
+            this.dateTimePicker1.TabIndex = 9;
+            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.Predmet_Combobox);
+            this.groupBox1.Controls.Add(this.Predmet_ComboboxP);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.Btn_PotrdiDanasnjoPrisotnost);
             this.groupBox1.Controls.Add(this.Btn_PrisotnostZaNazaj);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.treeView1);
-            this.groupBox1.Controls.Add(this.Razred_Combobox);
-            this.groupBox1.Controls.Add(this.SolskoLeto_Combobox);
-            this.groupBox1.Controls.Add(this.Vrsta_Ur_Combobox);
+            this.groupBox1.Controls.Add(this.Razred_ComboboxP);
+            this.groupBox1.Controls.Add(this.SolskoLeto_ComboboxP);
+            this.groupBox1.Controls.Add(this.Vrsta_Ur_ComboboxP);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(24, 15);
             this.groupBox1.Name = "groupBox1";
@@ -95,14 +122,14 @@ namespace Redovalnica_App
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Prisotnost";
             // 
-            // Predmet_Combobox
+            // Predmet_ComboboxP
             // 
-            this.Predmet_Combobox.FormattingEnabled = true;
-            this.Predmet_Combobox.Location = new System.Drawing.Point(119, 64);
-            this.Predmet_Combobox.Name = "Predmet_Combobox";
-            this.Predmet_Combobox.Size = new System.Drawing.Size(148, 24);
-            this.Predmet_Combobox.TabIndex = 13;
-            this.Predmet_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Vrsta_Ur_Combobox_KeyDown);
+            this.Predmet_ComboboxP.FormattingEnabled = true;
+            this.Predmet_ComboboxP.Location = new System.Drawing.Point(119, 64);
+            this.Predmet_ComboboxP.Name = "Predmet_ComboboxP";
+            this.Predmet_ComboboxP.Size = new System.Drawing.Size(148, 24);
+            this.Predmet_ComboboxP.TabIndex = 13;
+            this.Predmet_ComboboxP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Vrsta_Ur_Combobox_KeyDown);
             // 
             // label5
             // 
@@ -158,48 +185,48 @@ namespace Redovalnica_App
             this.treeView1.Size = new System.Drawing.Size(241, 238);
             this.treeView1.TabIndex = 5;
             // 
-            // Razred_Combobox
+            // Razred_ComboboxP
             // 
-            this.Razred_Combobox.FormattingEnabled = true;
-            this.Razred_Combobox.Location = new System.Drawing.Point(119, 24);
-            this.Razred_Combobox.Name = "Razred_Combobox";
-            this.Razred_Combobox.Size = new System.Drawing.Size(148, 24);
-            this.Razred_Combobox.TabIndex = 1;
-            this.Razred_Combobox.SelectionChangeCommitted += new System.EventHandler(this.Razred_Combobox_SelectionChangeCommitted);
-            this.Razred_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Razred_Combobox_KeyDown);
+            this.Razred_ComboboxP.FormattingEnabled = true;
+            this.Razred_ComboboxP.Location = new System.Drawing.Point(119, 24);
+            this.Razred_ComboboxP.Name = "Razred_ComboboxP";
+            this.Razred_ComboboxP.Size = new System.Drawing.Size(148, 24);
+            this.Razred_ComboboxP.TabIndex = 1;
+            this.Razred_ComboboxP.SelectionChangeCommitted += new System.EventHandler(this.Razred_Combobox_SelectionChangeCommitted);
+            this.Razred_ComboboxP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Razred_Combobox_KeyDown);
             // 
-            // SolskoLeto_Combobox
+            // SolskoLeto_ComboboxP
             // 
-            this.SolskoLeto_Combobox.FormattingEnabled = true;
-            this.SolskoLeto_Combobox.Location = new System.Drawing.Point(119, 144);
-            this.SolskoLeto_Combobox.Name = "SolskoLeto_Combobox";
-            this.SolskoLeto_Combobox.Size = new System.Drawing.Size(148, 24);
-            this.SolskoLeto_Combobox.TabIndex = 6;
-            this.SolskoLeto_Combobox.SelectionChangeCommitted += new System.EventHandler(this.SolskoLeto_Combobox_SelectionChangeCommitted);
-            this.SolskoLeto_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SolskoLeto_Combobox_KeyDown);
+            this.SolskoLeto_ComboboxP.FormattingEnabled = true;
+            this.SolskoLeto_ComboboxP.Location = new System.Drawing.Point(119, 144);
+            this.SolskoLeto_ComboboxP.Name = "SolskoLeto_ComboboxP";
+            this.SolskoLeto_ComboboxP.Size = new System.Drawing.Size(148, 24);
+            this.SolskoLeto_ComboboxP.TabIndex = 6;
+            this.SolskoLeto_ComboboxP.SelectionChangeCommitted += new System.EventHandler(this.SolskoLeto_Combobox_SelectionChangeCommitted);
+            this.SolskoLeto_ComboboxP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SolskoLeto_Combobox_KeyDown);
             // 
-            // Vrsta_Ur_Combobox
+            // Vrsta_Ur_ComboboxP
             // 
-            this.Vrsta_Ur_Combobox.FormattingEnabled = true;
-            this.Vrsta_Ur_Combobox.Location = new System.Drawing.Point(119, 104);
-            this.Vrsta_Ur_Combobox.Name = "Vrsta_Ur_Combobox";
-            this.Vrsta_Ur_Combobox.Size = new System.Drawing.Size(148, 24);
-            this.Vrsta_Ur_Combobox.TabIndex = 2;
-            this.Vrsta_Ur_Combobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Predmet_ComboBox_KeyDown);
+            this.Vrsta_Ur_ComboboxP.FormattingEnabled = true;
+            this.Vrsta_Ur_ComboboxP.Location = new System.Drawing.Point(119, 104);
+            this.Vrsta_Ur_ComboboxP.Name = "Vrsta_Ur_ComboboxP";
+            this.Vrsta_Ur_ComboboxP.Size = new System.Drawing.Size(148, 24);
+            this.Vrsta_Ur_ComboboxP.TabIndex = 2;
+            this.Vrsta_Ur_ComboboxP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Predmet_ComboBox_KeyDown);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(23, 107);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 17);
+            this.label3.Size = new System.Drawing.Size(70, 17);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Vrsta ur:";
+            this.label3.Text = "Vrsta ure:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(579, 57);
+            this.label1.Location = new System.Drawing.Point(558, 56);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(160, 17);
             this.label1.TabIndex = 0;
@@ -207,20 +234,183 @@ namespace Redovalnica_App
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.dateTimePicker2);
+            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.treeView2);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(823, 464);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Vnašanje ocen";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // dateTimePicker1
+            // groupBox2
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(518, 258);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(231, 22);
-            this.dateTimePicker1.TabIndex = 9;
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.SolskoLeto_ComboboxO);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.OcenaCombobox);
+            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.Btn_InsertOcena);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.Vrsta_Ur_ComboboxO);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.Predmet_ComboboxO);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.Razred_ComboboxO);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.UcenecCombobox);
+            this.groupBox2.Location = new System.Drawing.Point(24, 15);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(351, 441);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Ocena";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(23, 147);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(70, 17);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Vrsta ure:";
+            // 
+            // Vrsta_Ur_ComboboxO
+            // 
+            this.Vrsta_Ur_ComboboxO.FormattingEnabled = true;
+            this.Vrsta_Ur_ComboboxO.Location = new System.Drawing.Point(119, 144);
+            this.Vrsta_Ur_ComboboxO.Name = "Vrsta_Ur_ComboboxO";
+            this.Vrsta_Ur_ComboboxO.Size = new System.Drawing.Size(148, 24);
+            this.Vrsta_Ur_ComboboxO.TabIndex = 6;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(23, 107);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 17);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "Predmet:";
+            // 
+            // Predmet_ComboboxO
+            // 
+            this.Predmet_ComboboxO.FormattingEnabled = true;
+            this.Predmet_ComboboxO.Location = new System.Drawing.Point(119, 104);
+            this.Predmet_ComboboxO.Name = "Predmet_ComboboxO";
+            this.Predmet_ComboboxO.Size = new System.Drawing.Size(148, 24);
+            this.Predmet_ComboboxO.TabIndex = 4;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(23, 67);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(58, 17);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Razred:";
+            // 
+            // Razred_ComboboxO
+            // 
+            this.Razred_ComboboxO.FormattingEnabled = true;
+            this.Razred_ComboboxO.Location = new System.Drawing.Point(119, 64);
+            this.Razred_ComboboxO.Name = "Razred_ComboboxO";
+            this.Razred_ComboboxO.Size = new System.Drawing.Size(148, 24);
+            this.Razred_ComboboxO.TabIndex = 2;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(23, 27);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(60, 17);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Učenec:";
+            // 
+            // UcenecCombobox
+            // 
+            this.UcenecCombobox.FormattingEnabled = true;
+            this.UcenecCombobox.Location = new System.Drawing.Point(119, 24);
+            this.UcenecCombobox.Name = "UcenecCombobox";
+            this.UcenecCombobox.Size = new System.Drawing.Size(148, 24);
+            this.UcenecCombobox.TabIndex = 0;
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Location = new System.Drawing.Point(491, 122);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(227, 22);
+            this.dateTimePicker2.TabIndex = 10;
+            // 
+            // Btn_InsertOcena
+            // 
+            this.Btn_InsertOcena.Location = new System.Drawing.Point(26, 302);
+            this.Btn_InsertOcena.Name = "Btn_InsertOcena";
+            this.Btn_InsertOcena.Size = new System.Drawing.Size(93, 48);
+            this.Btn_InsertOcena.TabIndex = 12;
+            this.Btn_InsertOcena.Text = "Vnesi oceno";
+            this.Btn_InsertOcena.UseVisualStyleBackColor = true;
+            // 
+            // treeView2
+            // 
+            this.treeView2.Location = new System.Drawing.Point(491, 199);
+            this.treeView2.Name = "treeView2";
+            this.treeView2.Size = new System.Drawing.Size(241, 234);
+            this.treeView2.TabIndex = 13;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(213, 302);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(93, 48);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Statistika za ocene";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // OcenaCombobox
+            // 
+            this.OcenaCombobox.FormattingEnabled = true;
+            this.OcenaCombobox.Location = new System.Drawing.Point(119, 224);
+            this.OcenaCombobox.Name = "OcenaCombobox";
+            this.OcenaCombobox.Size = new System.Drawing.Size(148, 24);
+            this.OcenaCombobox.TabIndex = 15;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(23, 187);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(81, 17);
+            this.label10.TabIndex = 16;
+            this.label10.Text = "Šolsko leto:";
+            // 
+            // SolskoLeto_ComboboxO
+            // 
+            this.SolskoLeto_ComboboxO.FormattingEnabled = true;
+            this.SolskoLeto_ComboboxO.Location = new System.Drawing.Point(119, 184);
+            this.SolskoLeto_ComboboxO.Name = "SolskoLeto_ComboboxO";
+            this.SolskoLeto_ComboboxO.Size = new System.Drawing.Size(148, 24);
+            this.SolskoLeto_ComboboxO.TabIndex = 17;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(23, 227);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(54, 17);
+            this.label11.TabIndex = 18;
+            this.label11.Text = "Ocena:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(558, 56);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(160, 17);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "Prijavljeni ste kot bla bla";
             // 
             // Form2
             // 
@@ -238,6 +428,10 @@ namespace Redovalnica_App
             this.tabPage1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -250,16 +444,34 @@ namespace Redovalnica_App
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox Vrsta_Ur_Combobox;
-        private System.Windows.Forms.ComboBox Razred_Combobox;
+        private System.Windows.Forms.ComboBox Vrsta_Ur_ComboboxP;
+        private System.Windows.Forms.ComboBox Razred_ComboboxP;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox SolskoLeto_Combobox;
+        private System.Windows.Forms.ComboBox SolskoLeto_ComboboxP;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button Btn_PotrdiDanasnjoPrisotnost;
         private System.Windows.Forms.Button Btn_PrisotnostZaNazaj;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox Predmet_Combobox;
+        private System.Windows.Forms.ComboBox Predmet_ComboboxP;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox UcenecCombobox;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox Vrsta_Ur_ComboboxO;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox Predmet_ComboboxO;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox Razred_ComboboxO;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.Button Btn_InsertOcena;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TreeView treeView2;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox OcenaCombobox;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox SolskoLeto_ComboboxO;
+        private System.Windows.Forms.Label label12;
     }
 }
