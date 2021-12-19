@@ -33,6 +33,8 @@ namespace Redovalnica_App
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.Predmet_ComboboxP = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -60,8 +62,6 @@ namespace Redovalnica_App
             this.OcenaCombobox = new System.Windows.Forms.ComboBox();
             this.Btn_Statistika_Ocene = new System.Windows.Forms.Button();
             this.Btn_InsertOcena = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -121,6 +121,22 @@ namespace Redovalnica_App
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Prisotnost";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(23, 173);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 17);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Opomba:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(119, 170);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(148, 22);
+            this.textBox1.TabIndex = 20;
             // 
             // Predmet_ComboboxP
             // 
@@ -256,7 +272,7 @@ namespace Redovalnica_App
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(491, 122);
+            this.dateTimePicker2.Location = new System.Drawing.Point(528, 130);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(227, 22);
             this.dateTimePicker2.TabIndex = 10;
@@ -370,6 +386,7 @@ namespace Redovalnica_App
             this.Btn_Statistika_Ocene.TabIndex = 14;
             this.Btn_Statistika_Ocene.Text = "Statistika za ocene";
             this.Btn_Statistika_Ocene.UseVisualStyleBackColor = true;
+            this.Btn_Statistika_Ocene.Click += new System.EventHandler(this.Btn_Statistika_Ocene_Click);
             // 
             // Btn_InsertOcena
             // 
@@ -380,22 +397,6 @@ namespace Redovalnica_App
             this.Btn_InsertOcena.Text = "Vnesi oceno";
             this.Btn_InsertOcena.UseVisualStyleBackColor = true;
             this.Btn_InsertOcena.Click += new System.EventHandler(this.Btn_InsertOcena_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(119, 170);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(148, 22);
-            this.textBox1.TabIndex = 20;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(23, 173);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 17);
-            this.label6.TabIndex = 21;
-            this.label6.Text = "Opomba:";
             // 
             // Form2
             // 

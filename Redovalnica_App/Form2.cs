@@ -240,15 +240,19 @@ namespace Redovalnica_App
 
         private void Btn_InsertOcena_Click(object sender, EventArgs e)
         {
-            string datum = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
+            string datum = DateTime.Parse(dateTimePicker2.Text).ToString("yyyy-MM-dd");
             string ucenec = treeView2.SelectedNode.Text;
             
             RedovalnicaDatabase r = new RedovalnicaDatabase();
             int idRazredPredmet = r.IDRazrediPredmeti(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString(), imePriimekUcitelja);
 
             RedovalnicaDatabase o = new RedovalnicaDatabase();
-            o.InsertOcena_Ucenec(idRazredPredmet, ucenec, OcenaCombobox.SelectedItem.ToString(), datum);
-            treeView2.SelectedNode.ForeColor = Color.Red;
+            o.InsertOcena_Ucenec(ucenec, OcenaCombobox.SelectedItem.ToString(), datum, idRazredPredmet);
+        }
+
+        private void Btn_Statistika_Ocene_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
