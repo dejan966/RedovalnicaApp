@@ -163,7 +163,18 @@ namespace Redovalnica_App
             {
                 //preverim a vrne ucence funkcija
                 if (item.Ime != "" && item.Priimek != "")
+                {
                     PrisotnostTreeView.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                    mankjkajociUcenci.Add(item.Ime + ' ' + item.Priimek);
+                    mU = mankjkajociUcenci.ToArray();
+
+                    /* tk se doda direkt iz treeview subnode v list
+                    foreach (TreeNode node in PrisotnostTreeView.Nodes[0].Nodes)
+                    {
+                        mankjkajociUcenci.Add(node.Text);
+                    }
+                    */
+                }
                 else
                 {
                     PrisotnostTreeView.Nodes.Clear();
@@ -280,7 +291,7 @@ namespace Redovalnica_App
             //dodam v list to ko selectam in convertam v array
             Btn_PotrdiDanasnjoPrisotnost.Enabled = true;
             PrisotnostTreeView.SelectedNode.ForeColor = Color.Red;
-            mankjkajociUcenci.Add(PrisotnostTreeView.SelectedNode.Text);
+            mankjkajociUcenci.Remove(PrisotnostTreeView.SelectedNode.Text);
             mU = mankjkajociUcenci.ToArray();
         }
     }
