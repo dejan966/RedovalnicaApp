@@ -44,7 +44,7 @@ namespace Redovalnica_App
             this.Btn_PotrdiDanasnjoPrisotnost = new System.Windows.Forms.Button();
             this.Btn_PrisotnostZaNazaj = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.PrisotnostTreeView = new System.Windows.Forms.TreeView();
             this.SolskoLeto_ComboboxP = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -113,7 +113,7 @@ namespace Redovalnica_App
             this.groupBox1.Controls.Add(this.Btn_PotrdiDanasnjoPrisotnost);
             this.groupBox1.Controls.Add(this.Btn_PrisotnostZaNazaj);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.treeView1);
+            this.groupBox1.Controls.Add(this.PrisotnostTreeView);
             this.groupBox1.Controls.Add(this.SolskoLeto_ComboboxP);
             this.groupBox1.Location = new System.Drawing.Point(24, 6);
             this.groupBox1.Name = "groupBox1";
@@ -195,6 +195,7 @@ namespace Redovalnica_App
             // 
             // Btn_PotrdiDanasnjoPrisotnost
             // 
+            this.Btn_PotrdiDanasnjoPrisotnost.Enabled = false;
             this.Btn_PotrdiDanasnjoPrisotnost.Location = new System.Drawing.Point(302, 124);
             this.Btn_PotrdiDanasnjoPrisotnost.Name = "Btn_PotrdiDanasnjoPrisotnost";
             this.Btn_PotrdiDanasnjoPrisotnost.Size = new System.Drawing.Size(93, 48);
@@ -222,12 +223,13 @@ namespace Redovalnica_App
             this.label4.TabIndex = 7;
             this.label4.Text = "Šolsko leto:";
             // 
-            // treeView1
+            // PrisotnostTreeView
             // 
-            this.treeView1.Location = new System.Drawing.Point(26, 211);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(241, 234);
-            this.treeView1.TabIndex = 5;
+            this.PrisotnostTreeView.Location = new System.Drawing.Point(26, 211);
+            this.PrisotnostTreeView.Name = "PrisotnostTreeView";
+            this.PrisotnostTreeView.Size = new System.Drawing.Size(241, 234);
+            this.PrisotnostTreeView.TabIndex = 5;
+            this.PrisotnostTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.PrisotnostTreeView_AfterSelect);
             // 
             // SolskoLeto_ComboboxP
             // 
@@ -428,7 +430,7 @@ namespace Redovalnica_App
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView PrisotnostTreeView;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox SolskoLeto_ComboboxP;
         private System.Windows.Forms.GroupBox groupBox1;

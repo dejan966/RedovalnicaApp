@@ -354,9 +354,19 @@ namespace RedovalnicaData
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO prisotnosti(id_ucenci, id_ure_izvedb, opomba) VALUES((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucenec + "'))), '" + idUraIzvedbe + "', '" + opomba + "')", conn);
-                com.ExecuteNonQuery();
-                com.Dispose();
+                if(opomba == "")
+                {
+                    NpgsqlCommand com = new NpgsqlCommand("INSERT INTO prisotnosti(id_ucenci, id_ure_izvedb) VALUES((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucenec + "'))), '" + idUraIzvedbe + "')", conn);
+                    com.ExecuteNonQuery();
+                    com.Dispose();
+                }
+                else if(opomba != "")
+                {
+                    NpgsqlCommand com = new NpgsqlCommand("INSERT INTO prisotnosti(id_ucenci, id_ure_izvedb, opomba) VALUES((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucenec + "'))), '" + idUraIzvedbe + "', '" + opomba + "')", conn);
+                    com.ExecuteNonQuery();
+                    com.Dispose();
+                }
+                
                 conn.Close();
             }
         }
