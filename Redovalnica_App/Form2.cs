@@ -283,7 +283,8 @@ namespace Redovalnica_App
 
         private void Btn_Statistika_Ocene_Click(object sender, EventArgs e)
         {
-
+            Form3 a = new Form3();
+            a.ShowDialog();
         }
 
         private void PrisotnostTreeView_AfterSelect(object sender, TreeViewEventArgs e)
