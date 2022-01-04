@@ -16,6 +16,7 @@ namespace Redovalnica_App
     {
         //nared da se preveri na keri šoli je učitelj da ne bo vrglo vse razrede ki obstajajo v bazi
         //removanje izbranih nodes - treeView1.Nodes.Remove(treeView1.SelectedNode);
+        Form3 a;
         static string uMail;
         static string imePriimekUcitelja;
         List<string> mankjkajociUcenci = new List<string>();
@@ -271,20 +272,52 @@ namespace Redovalnica_App
 
         private void Btn_InsertOcena_Click(object sender, EventArgs e)
         {
-            string datum = DateTime.Parse(dateTimePicker2.Text).ToString("yyyy-MM-dd");
-            string ucenec = treeView2.SelectedNode.Text;
-            
-            RedovalnicaDatabase r = new RedovalnicaDatabase();
-            int idRazredPredmet = r.IDRazrediPredmeti(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString(), imePriimekUcitelja);
+            if (Razred_ComboboxO.Text != "-Select-" && Predmet_ComboboxO.Text != "-Select-" && SolskoLeto_ComboboxO.Text != "-Select-")
+            {
+                string datum = DateTime.Parse(dateTimePicker2.Text).ToString("yyyy-MM-dd");
+                string ucenec = treeView2.SelectedNode.Text;
 
-            RedovalnicaDatabase o = new RedovalnicaDatabase();
-            o.InsertOcena_Ucenec(ucenec, OcenaCombobox.SelectedItem.ToString(), datum, idRazredPredmet);
+                RedovalnicaDatabase r = new RedovalnicaDatabase();
+                int idRazredPredmet = r.IDRazrediPredmeti(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString(), imePriimekUcitelja);
+
+                RedovalnicaDatabase o = new RedovalnicaDatabase();
+                o.InsertOcena_Ucenec(ucenec, OcenaCombobox.SelectedItem.ToString(), datum, idRazredPredmet);
+            }
+            else
+                MessageBox.Show("Izberite vrednosti iz comboboxov", "Opozorilo");
         }
 
         private void Btn_Statistika_Ocene_Click(object sender, EventArgs e)
         {
-            Form3 a = new Form3();
-            a.ShowDialog();
+            if (Razred_ComboboxO.Text != "-Select-" && Predmet_ComboboxO.Text != "-Select-" && SolskoLeto_ComboboxO.Text != "-Select-")
+            {
+                RedovalnicaDatabase rd = new RedovalnicaDatabase();
+                int st_ucencevR = rd.Return_StUcenci_Razred(SolskoLeto_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString());
+
+                RedovalnicaDatabase rd1 = new RedovalnicaDatabase();
+                int st_Uocen1 = rd1.Return_Ucenci_Ocena1(SolskoLeto_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), Predmet_ComboboxO.SelectedItem.ToString());
+
+                RedovalnicaDatabase rd2 = new RedovalnicaDatabase();
+                int st_Uocen2 = rd2.Return_Ucenci_Ocena2(SolskoLeto_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), Predmet_ComboboxO.SelectedItem.ToString());
+
+                RedovalnicaDatabase rd3 = new RedovalnicaDatabase();
+                int st_Uocen3 = rd3.Return_Ucenci_Ocena3(SolskoLeto_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), Predmet_ComboboxO.SelectedItem.ToString());
+
+                RedovalnicaDatabase rd4 = new RedovalnicaDatabase();
+                int st_Uocen4 = rd4.Return_Ucenci_Ocena4(SolskoLeto_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), Predmet_ComboboxO.SelectedItem.ToString());
+
+                RedovalnicaDatabase rd5 = new RedovalnicaDatabase();
+                int st_Uocen5 = rd5.Return_Ucenci_Ocena5(SolskoLeto_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), Predmet_ComboboxO.SelectedItem.ToString());
+
+                Form3.StUcenci_Razred(st_ucencevR);
+                Form3.Ocene_Ucenci(st_Uocen1, st_Uocen2, st_Uocen3, st_Uocen4, st_Uocen5);
+                
+                if (a == null)
+                    a = new Form3();
+                a.ShowDialog();
+            }
+            else
+                MessageBox.Show("Morate izbrati vrednosti v Comboboxih", "Opozorilo");
         }
 
         private void PrisotnostTreeView_AfterSelect(object sender, TreeViewEventArgs e)

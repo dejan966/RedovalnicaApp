@@ -360,5 +360,135 @@ namespace RedovalnicaData
                 conn.Close();
             }
         }
+
+        public int Return_StUcenci_Razred(string sol_leto, string razred)
+        {
+            int st_ucencevR = 0;
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT COUNT(u.*) FROM ucenci u INNER JOIN ocene_ucenci ou ON ou.id_ucenci = u.id_ucenci INNER JOIN razredi r ON r.id_razredi = u.id_razredi INNER JOIN solska_leta sl ON r.id_solska_leta = sl.id_solska_leta WHERE(sl.solsko_leto = '" + sol_leto + "') AND (r.razred = '" + razred + "')", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                if (bralnik.HasRows)
+                {
+                    while (bralnik.Read())
+                    {
+                        st_ucencevR = bralnik.GetInt32(0);
+                    }
+                }
+                bralnik.Close();
+                com.Dispose();
+                conn.Close();
+            }
+            return st_ucencevR;
+        }
+
+        public int Return_Ucenci_Ocena1(string sol_leto, string razred, string predmet)
+        {
+            int st_ucencevO = 0;
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT COUNT(u.*) FROM ucenci u INNER JOIN ocene_ucenci ou ON ou.id_ucenci = u.id_ucenci INNER JOIN ocene o ON o.id_ocene = ou.id_ocene INNER JOIN razredi_predmeti rp ON rp.id_razredi_predmeti = ou.id_razredi_predmeti INNER JOIN razredi r ON r.id_razredi = rp.id_razredi INNER JOIN solska_leta sl ON r.id_solska_leta = sl.id_solska_leta INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti WHERE(o.ocena_st = 1) AND (sl.solsko_leto = '" + sol_leto + "') AND (r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "') ;", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                if (bralnik.HasRows)
+                {
+                    while (bralnik.Read())
+                    {
+                        st_ucencevO = bralnik.GetInt32(0);
+                    }
+                }
+                bralnik.Close();
+                com.Dispose();
+                conn.Close();
+            }
+            return st_ucencevO;
+        }
+        public int Return_Ucenci_Ocena2(string sol_leto, string razred, string predmet)
+        {
+            int st_ucencevO = 0;
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT COUNT(u.*) FROM ucenci u INNER JOIN ocene_ucenci ou ON ou.id_ucenci = u.id_ucenci INNER JOIN ocene o ON o.id_ocene = ou.id_ocene INNER JOIN razredi_predmeti rp ON rp.id_razredi_predmeti = ou.id_razredi_predmeti INNER JOIN razredi r ON r.id_razredi = rp.id_razredi INNER JOIN solska_leta sl ON r.id_solska_leta = sl.id_solska_leta INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti WHERE(o.ocena_st = 2) AND (sl.solsko_leto = '" + sol_leto + "') AND (r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "') ;", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                if (bralnik.HasRows)
+                {
+                    while (bralnik.Read())
+                    {
+                        st_ucencevO = bralnik.GetInt32(0);
+                    }
+                }
+                bralnik.Close();
+                com.Dispose();
+                conn.Close();
+            }
+            return st_ucencevO;
+        }
+        public int Return_Ucenci_Ocena3(string sol_leto, string razred, string predmet )
+        {
+            int st_ucencevO = 0;
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT COUNT(u.*) FROM ucenci u INNER JOIN ocene_ucenci ou ON ou.id_ucenci = u.id_ucenci INNER JOIN ocene o ON o.id_ocene = ou.id_ocene INNER JOIN razredi_predmeti rp ON rp.id_razredi_predmeti = ou.id_razredi_predmeti INNER JOIN razredi r ON r.id_razredi = rp.id_razredi INNER JOIN solska_leta sl ON r.id_solska_leta = sl.id_solska_leta INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti WHERE(o.ocena_st = 3) AND (sl.solsko_leto = '" + sol_leto + "') AND (r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "') ;", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                if (bralnik.HasRows)
+                {
+                    while (bralnik.Read())
+                    {
+                        st_ucencevO = bralnik.GetInt32(0);
+                    }
+                }
+                bralnik.Close();
+                com.Dispose();
+                conn.Close();
+            }
+            return st_ucencevO;
+        }
+        public int Return_Ucenci_Ocena4(string sol_leto, string razred, string predmet )
+        {
+            int st_ucencevO = 0;
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT COUNT(u.*) FROM ucenci u INNER JOIN ocene_ucenci ou ON ou.id_ucenci = u.id_ucenci INNER JOIN ocene o ON o.id_ocene = ou.id_ocene INNER JOIN razredi_predmeti rp ON rp.id_razredi_predmeti = ou.id_razredi_predmeti INNER JOIN razredi r ON r.id_razredi = rp.id_razredi INNER JOIN solska_leta sl ON r.id_solska_leta = sl.id_solska_leta INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti WHERE(o.ocena_st = 4) AND (sl.solsko_leto = '" + sol_leto + "') AND (r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "') ;", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                if (bralnik.HasRows)
+                {
+                    while (bralnik.Read())
+                    {
+                        st_ucencevO = bralnik.GetInt32(0);
+                    }
+                }
+                bralnik.Close();
+                com.Dispose();
+                conn.Close();
+            }
+            return st_ucencevO;
+        }
+        public int Return_Ucenci_Ocena5(string sol_leto, string razred, string predmet )
+        {
+            int st_ucencevO = 0;
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT COUNT(u.*) FROM ucenci u INNER JOIN ocene_ucenci ou ON ou.id_ucenci = u.id_ucenci INNER JOIN ocene o ON o.id_ocene = ou.id_ocene INNER JOIN razredi_predmeti rp ON rp.id_razredi_predmeti = ou.id_razredi_predmeti INNER JOIN razredi r ON r.id_razredi = rp.id_razredi INNER JOIN solska_leta sl ON r.id_solska_leta = sl.id_solska_leta INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti WHERE(o.ocena_st = 5) AND (sl.solsko_leto = '" + sol_leto + "') AND (r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "') ;", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                if (bralnik.HasRows)
+                {
+                    while (bralnik.Read())
+                    {
+                        st_ucencevO = bralnik.GetInt32(0);
+                    }
+                }
+                bralnik.Close();
+                com.Dispose();
+                conn.Close();
+            }
+            return st_ucencevO;
+        }
     }
 }
+
+

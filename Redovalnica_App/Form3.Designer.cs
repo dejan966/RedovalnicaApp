@@ -47,7 +47,7 @@ namespace Redovalnica_App
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series1.Legend = "Legend1";
-            series1.Name = "ocenaSeries";
+            series1.Name = "ocene";
             this.ocenaChart.Series.Add(series1);
             this.ocenaChart.Size = new System.Drawing.Size(300, 300);
             this.ocenaChart.TabIndex = 0;
