@@ -47,5 +47,10 @@ namespace Redovalnica_App
             ocenaChart.Series["ocene"].Points.AddXY("odl(5)", st_ucencev5);
             ocenaChart.Series["ocene"].Points.AddXY("Niso pisali", st_ucenci_razred);
         }
+
+        private void Form3_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Close();
+        }
     }
 }

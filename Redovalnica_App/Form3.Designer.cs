@@ -62,6 +62,7 @@ namespace Redovalnica_App
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Form3";
             this.Text = "Ocene";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form3_FormClosed);
             this.Load += new System.EventHandler(this.Form3_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ocenaChart)).EndInit();
             this.ResumeLayout(false);

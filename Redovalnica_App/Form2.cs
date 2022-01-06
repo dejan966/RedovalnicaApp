@@ -312,8 +312,7 @@ namespace Redovalnica_App
                 Form3.StUcenci_Razred(st_ucencevR);
                 Form3.Ocene_Ucenci(st_Uocen1, st_Uocen2, st_Uocen3, st_Uocen4, st_Uocen5);
                 
-                if (a == null)
-                    a = new Form3();
+                a = new Form3();
                 a.ShowDialog();
             }
             else
