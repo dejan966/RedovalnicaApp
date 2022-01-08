@@ -38,7 +38,7 @@ namespace Redovalnica_App
         private void Form3_Load(object sender, EventArgs e)
         {
             st_ucenci_razred = st_ucenci_razred - st_ucencev1 - st_ucencev2 - st_ucencev3 - st_ucencev4 - st_ucencev5;
-            //MessageBox.Show(st_ucenci_razred.ToString());
+            
             ocenaChart.Titles.Add("Ocene v razredu");
             ocenaChart.Series["ocene"].Points.AddXY("nzd(1)", st_ucencev1);
             ocenaChart.Series["ocene"].Points.AddXY("zd(2)", st_ucencev2);
@@ -51,6 +51,11 @@ namespace Redovalnica_App
         private void Form3_FormClosed(object sender, FormClosedEventArgs e)
         {
             Close();
+        }
+
+        private void ocenaChart_MouseHover(object sender, EventArgs e)
+        {
+            ocenaChart.Series[0].ToolTip = "#VALY";
         }
     }
 }

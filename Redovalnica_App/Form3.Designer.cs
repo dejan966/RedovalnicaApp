@@ -52,6 +52,7 @@ namespace Redovalnica_App
             this.ocenaChart.Size = new System.Drawing.Size(300, 300);
             this.ocenaChart.TabIndex = 0;
             this.ocenaChart.Text = "chart1";
+            this.ocenaChart.MouseHover += new System.EventHandler(this.ocenaChart_MouseHover);
             // 
             // Form3
             // 

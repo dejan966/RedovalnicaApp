@@ -367,7 +367,7 @@ namespace RedovalnicaData
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT COUNT(u.*) FROM ucenci u INNER JOIN ocene_ucenci ou ON ou.id_ucenci = u.id_ucenci INNER JOIN razredi r ON r.id_razredi = u.id_razredi INNER JOIN solska_leta sl ON r.id_solska_leta = sl.id_solska_leta WHERE(sl.solsko_leto = '" + sol_leto + "') AND (r.razred = '" + razred + "')", conn);
+                NpgsqlCommand com = new NpgsqlCommand("SELECT COUNT(u.*) FROM ucenci u INNER JOIN razredi r ON r.id_razredi = u.id_razredi INNER JOIN solska_leta sl ON r.id_solska_leta = sl.id_solska_leta WHERE(sl.solsko_leto = '" + sol_leto + "') AND (r.razred = '" + razred + "')", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
                 if (bralnik.HasRows)
                 {
