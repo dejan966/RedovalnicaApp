@@ -32,46 +32,52 @@ namespace Redovalnica_App
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.ocenaChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            ((System.ComponentModel.ISupportInitialize)(this.ocenaChart)).BeginInit();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            this.OcenaChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            ((System.ComponentModel.ISupportInitialize)(this.OcenaChart)).BeginInit();
             this.SuspendLayout();
             // 
-            // ocenaChart
+            // OcenaChart
             // 
             chartArea1.Name = "ChartArea1";
-            this.ocenaChart.ChartAreas.Add(chartArea1);
+            this.OcenaChart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
-            this.ocenaChart.Legends.Add(legend1);
-            this.ocenaChart.Location = new System.Drawing.Point(25, 13);
-            this.ocenaChart.Name = "ocenaChart";
+            this.OcenaChart.Legends.Add(legend1);
+            this.OcenaChart.Location = new System.Drawing.Point(25, 13);
+            this.OcenaChart.Name = "OcenaChart";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series1.Legend = "Legend1";
             series1.Name = "ocene";
-            this.ocenaChart.Series.Add(series1);
-            this.ocenaChart.Size = new System.Drawing.Size(300, 300);
-            this.ocenaChart.TabIndex = 0;
-            this.ocenaChart.Text = "chart1";
-            this.ocenaChart.MouseHover += new System.EventHandler(this.ocenaChart_MouseHover);
+            this.OcenaChart.Series.Add(series1);
+            this.OcenaChart.Size = new System.Drawing.Size(300, 300);
+            this.OcenaChart.TabIndex = 0;
+            this.OcenaChart.Text = "chart1";
+            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            title1.ForeColor = System.Drawing.Color.Red;
+            title1.Name = "OcenaTitle";
+            title1.Text = "Ocene v razredu";
+            this.OcenaChart.Titles.Add(title1);
+            this.OcenaChart.MouseHover += new System.EventHandler(this.OcenaChart_MouseHover);
             // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(371, 325);
-            this.Controls.Add(this.ocenaChart);
+            this.Controls.Add(this.OcenaChart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Form3";
             this.Text = "Ocene";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form3_FormClosed);
             this.Load += new System.EventHandler(this.Form3_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.ocenaChart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OcenaChart)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataVisualization.Charting.Chart ocenaChart;
+        private System.Windows.Forms.DataVisualization.Charting.Chart OcenaChart;
     }
 }
