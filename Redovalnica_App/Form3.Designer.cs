@@ -41,13 +41,14 @@ namespace Redovalnica_App
             // 
             chartArea1.Name = "ChartArea1";
             this.OcenaChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
+            legend1.HeaderSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.Line;
+            legend1.Name = "OcenaLegend";
             this.OcenaChart.Legends.Add(legend1);
             this.OcenaChart.Location = new System.Drawing.Point(25, 13);
             this.OcenaChart.Name = "OcenaChart";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series1.Legend = "Legend1";
+            series1.Legend = "OcenaLegend";
             series1.Name = "ocene";
             this.OcenaChart.Series.Add(series1);
             this.OcenaChart.Size = new System.Drawing.Size(300, 300);

@@ -39,25 +39,14 @@ namespace Redovalnica_App
         {
             st_ucenci_razred = st_ucenci_razred - st_ucencev1 - st_ucencev2 - st_ucencev3 - st_ucencev4 - st_ucencev5;
 
-            OcenaChart.Series["ocene"].Points.AddXY("nzd(1)", st_ucencev1);
-            OcenaChart.Series["ocene"].Points.AddXY("zd(2)", st_ucencev2);
-            OcenaChart.Series["ocene"].Points.AddXY("db(3)", st_ucencev3);
-            OcenaChart.Series["ocene"].Points.AddXY("pdb(4)", st_ucencev4);
-            OcenaChart.Series["ocene"].Points.AddXY("odl(5)", st_ucencev5);
-            OcenaChart.Series["ocene"].Points.AddXY("Niso pisali", st_ucenci_razred);
+            int[] st_ucencev = new int[] { st_ucencev1, st_ucencev2, st_ucencev3, st_ucencev4, st_ucencev5, st_ucenci_razred};
+            string[] vrste_ocen = new string[] { "nzd(1)", "zd(2)", "db(3)", "pdb(4)", "odl(5)", "Niso pisali" };
+            
+            OcenaChart.Series["ocene"].Points.DataBindXY(vrste_ocen, st_ucencev);
+            OcenaChart.Series["ocene"].Label = "#PERCENT";
 
-            //remova text od ocen v tortnem diagramu, če je vrednost 0, remova pa tud legende za tte ocene, kjer je vrednost 0
-            foreach (System.Windows.Forms.DataVisualization.Charting.DataPoint point in OcenaChart.Series["ocene"].Points)
-            {
-                if (point.YValues.Length > 0 && (double)point.YValues.GetValue(0) == 0)
-                {
-                    point.IsEmpty = true;
-                }
-                else
-                {
-                    point.IsEmpty = false;
-                }
-            }
+            for(int i = 0; i<vrste_ocen.Length; i++)
+                OcenaChart.Series["ocene"].Points[i].LegendText = vrste_ocen[i];
         }
 
         private void Form3_FormClosed(object sender, FormClosedEventArgs e)
