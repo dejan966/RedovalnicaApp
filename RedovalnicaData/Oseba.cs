@@ -170,8 +170,6 @@ namespace RedovalnicaData
     }
     public class Razred: Solsko_Leto
     {
-        //Solsko leto bo blo na vrhu programa pa bom v WHERE delu selectu solsko leto enako temu
-        //SELECT id FROM razred WHERE ime = bla bla AND id_solska_leta = (SELECT id FROM solska_leta WHERE solsko_leto = bla bla
         public string ImeR { get; set; }
         public int St { get; set; }
         public Razred()
@@ -194,7 +192,7 @@ namespace RedovalnicaData
         }
         
     }
-    public class Predmet:Razred
+    public class Predmet
     {
         public string ImeP { get; set; }
         public string KraticaP { get; set; }
@@ -214,6 +212,9 @@ namespace RedovalnicaData
     }
     public class Ocena : Predmet
     {
+        public string Ucenec { get; set; }
+        public string RazredU { get; set; }
+        public string Ucitelj { get; set; }
         public string UOcena { get; set; }
         public int StO { get; set; }
         public string DatumOcena { get; set; }
@@ -225,10 +226,13 @@ namespace RedovalnicaData
         {
             StO = stO;
         }
-        public Ocena(string uOcena, int stO)
+        public Ocena(string ucenec, string uOcena, string datum, string predmet, string razred, string ucitelj):base(predmet)
         {
+            Ucenec = ucenec;
             UOcena = uOcena;
-            StO = stO;
+            DatumOcena = datum;
+            RazredU = razred;
+            Ucitelj = ucitelj;
         }
        
     }
@@ -244,33 +248,33 @@ namespace RedovalnicaData
             Ura = vrsta_ur;
         }
     }
-    public class UreIzvedbe:Ocena
+    public class UreIzvedbe:Vrsta_Ur
     {
-        public string VrstaUr { get; set; }
+        public string Predmet { get; set; }
+        public string Razred { get; set; }
+        public string Ucitelj { get; set; }
         public string DatumCas { get; set; }
         public UreIzvedbe()
         {
 
         }
-        public UreIzvedbe(string vrstaUr, string datumCas)
+        public UreIzvedbe(string predmet, string razred, string ucitelj, string vrstaUr, string datumCas):base(vrstaUr)
         {
-            VrstaUr = vrstaUr;
             DatumCas = datumCas;
         }
         
     }
-    public class Prisotnost:UreIzvedbe
+    public class Prisotnost:Ucenec
     {
         public string UraIzvedbe { get; set; }
-        public string Ucenec { get; set; }
         public string Opomba { get; set; }
         public Prisotnost()
         {
 
         }
-        public Prisotnost(string ucenec, string uraizvedbe, string opomba)
+        public Prisotnost(string imeU, string priimekU, string uraizvedbe, string opomba):base(imeU, priimekU)
         {
-            Ucenec = ucenec;
+            UraIzvedbe = uraizvedbe;
             Opomba = opomba;
         }
         
