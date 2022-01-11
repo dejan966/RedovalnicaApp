@@ -390,6 +390,17 @@ namespace RedovalnicaData
             }
             return id;
         }
+        public void InsertPrisotnostiR(Prisotnost dPrisotnost)
+        {
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO prisotnosti(id_ucenci, id_ure_izvedb, opomba) VALUES((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + dPrisotnost.Ucenec + "'))), (SELECT ui.id_ure_izvedb FROM ure_izvedb ui INNER JOIN vrste_ur vu ON vu.id_vrste_ur = ui.id_vrste_ur INNER JOIN razredi_predmeti rp ON rp.id_razredi_predmeti = ui.id_razredi_predmeti INNER JOIN razredi r ON r.id_razredi = rp.id_razredi INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta INNER JOIN predmeti p ON p.id_predmeti = rp.id_predmeti INNER JOIN ucitelji u ON u.id_ucitelji = rp.id_ucitelji INNER JOIN osebe o ON o.id_osebe = u.id_osebe WHERE (p.predmet = '" + dPrisotnost.Predmet + "') AND (r.razred = '" + dPrisotnost.Razred + "') AND (o.ime || ' ' || o.priimek = '" + dPrisotnost.Ucitelj + "') AND (vu.vrsta_ure = '" + dPrisotnost.VrstaUre + "') AND (sl.solsko_leto = '" + dPrisotnost.SolskoLeto + "') AND (ui.datum_cas = '" + dPrisotnost.DatumCas + "')), '" + dPrisotnost.Opomba + "')", conn);
+                com.ExecuteNonQuery();
+                com.Dispose();
+                conn.Close();
+            }
+        }
         public void InsertPrisotnosti(string ucenec, int idUraIzvedbe, string opomba)
         {
             using (conn)
@@ -401,7 +412,6 @@ namespace RedovalnicaData
                 conn.Close();
             }
         }
-
         public int Return_StUcenci_Razred(string sol_leto, string razred)
         {
             int st_ucencevR = 0;

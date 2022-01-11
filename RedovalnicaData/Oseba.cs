@@ -279,20 +279,26 @@ namespace RedovalnicaData
     }
     public class Prisotnost:UreIzvedbe
     {
+        //public int StU { get; set; }
+        //public string[] Ucenec => new string[StU];
+        public List<string> Ucenci = new List<string>();
         public string Ucenec { get; set; }
         public string SolskoLeto { get; set; }
         public string Opomba { get; set; }
         public Prisotnost()
         {
-
+            //Ucenec = Ucenci.ToArray();
+            //Ucenec = new string[StU];
         }
+        
         public Prisotnost(string predmet, string razred, string vrstaure, string solskoLeto, string datum):base(predmet, razred, vrstaure, datum)
         {
             SolskoLeto = solskoLeto;
         }
-        public Prisotnost(string ucenec, string predmet, string razred, string vrstaure, string datum, string ucitelj, string opomba) : base(predmet, razred, ucitelj, vrstaure, datum)
+        public Prisotnost(string ucenec, string predmet, string razred, string vrstaure, string solskoLeto, string datum, string ucitelj, string opomba) : base(predmet, razred, ucitelj, vrstaure, datum)
         {
             Ucenec = ucenec;
+            SolskoLeto = solskoLeto;
             Opomba = opomba;
         }
     }

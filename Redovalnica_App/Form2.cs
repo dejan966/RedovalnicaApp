@@ -91,6 +91,7 @@ namespace Redovalnica_App
         private void Btn_PrisotnostZaNazaj_Click(object sender, EventArgs e)
         {
             //morem nardit da izpise vse ucenci tud mankjkajoce(naj jih izpise z rdeco), da lahko odstranim da so manjkali
+            //poglej se mal ko ne dela query
             string date = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
             if (Razred_ComboboxP.Text != "-Select-" && Predmet_ComboboxP.Text != "-Select-" && Vrsta_Ur_ComboboxP.Text != "-Select-" && SolskoLeto_ComboboxP.Text != "-Select-")
             {
@@ -117,7 +118,7 @@ namespace Redovalnica_App
 
         private void Btn_PotrdiDanasnjoPrisotnost_Click(object sender, EventArgs e)
         {
-            //selectam ucence v treeview za prisotnost
+            //selectam ucence v treeview za prisotnost v funkciji PrisotnostTreeView_AfterSelect
             string Idate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string Sdate = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
             if (Razred_ComboboxP.Text != "-Select-" && Predmet_ComboboxP.Text != "-Select-" && Vrsta_Ur_ComboboxP.Text != "-Select-" && SolskoLeto_ComboboxP.Text != "-Select-")
@@ -133,14 +134,25 @@ namespace Redovalnica_App
 
                 RedovalnicaDatabase rd = new RedovalnicaDatabase();
                 int idUreIzvedb = rd.IDUreIzvedb(idRazredPredmet, Vrsta_Ur_ComboboxP.SelectedItem.ToString(), Sdate);
-
-                string opomba = textBox1.Text;
-                for (int i = 0; i < mU.Length; i++)
-                {
-                    RedovalnicaDatabase re = new RedovalnicaDatabase();
-                    re.InsertPrisotnosti(mU[i], idUreIzvedb, opomba);
-                }
                 
+                //nared za on shit zgori constructorje
+                string opomba = textBox1.Text;
+                try
+                {
+                    for (int i = 0; i < mU.Length; i++)
+                    {
+                        Prisotnost danasnjaPrisotnost = new Prisotnost(mU[i], Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), Idate, imePriimekUcitelja, opomba);
+                        RedovalnicaDatabase re = new RedovalnicaDatabase();
+                        re.InsertPrisotnostiR(danasnjaPrisotnost);
+                    }
+                    MessageBox.Show("Uspešno dodana prisotnost za ta dan.", "Prisotnost", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ni bilo mogoče dodati prisotnosti za ta dan.\n'" + ex.Message + "'", "Prisotnost", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
                 PrisotnostTreeView.Nodes.Clear();
                 PrisotnostTreeView.Nodes.Add("Učenci");
                 RedovalnicaDatabase rd2 = new RedovalnicaDatabase();
