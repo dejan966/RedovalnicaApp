@@ -267,7 +267,17 @@ namespace RedovalnicaData
 
             return ucenci;
         }
-
+        public void InsertOcena_Ucenec(Ocena ocenaZaUcenca)
+        {
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO ocene_ucenci(id_ucenci, id_ocene, datum, id_razredi_predmeti) VALUES ((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ocenaZaUcenca.Ucenec + "'))), (SELECT id_ocene FROM ocene WHERE ocena_st = '" + ocenaZaUcenca.UOcena + "'), '" + ocenaZaUcenca.DatumOcena + "', (SELECT rp.id_razredi_predmeti FROM razredi_predmeti rp INNER JOIN razredi r ON r.id_razredi = rp.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti INNER JOIN ucitelji u ON u.id_ucitelji = rp.id_ucitelji INNER JOIN osebe o ON o.id_osebe = u.id_osebe WHERE (r.razred = '" + ocenaZaUcenca.RazredU + "') AND (p.predmet = '" + ocenaZaUcenca.ImeP + "') AND (o.ime || ' ' || o.priimek = '" + ocenaZaUcenca.Ucitelj + "')))", conn);
+                com.ExecuteNonQuery();
+                com.Dispose();
+                conn.Close();
+            }
+        }
         public void InsertOcena_Ucenec(string ucenec, string ocena, string datum, int idRazredPredmet)
         {
             using (conn)

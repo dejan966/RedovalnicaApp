@@ -277,11 +277,22 @@ namespace Redovalnica_App
                 string datum = DateTime.Parse(dateTimePicker2.Text).ToString("yyyy-MM-dd");
                 string ucenec = treeView2.SelectedNode.Text;
 
-                RedovalnicaDatabase r = new RedovalnicaDatabase();
-                int idRazredPredmet = r.IDRazrediPredmeti(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString(), imePriimekUcitelja);
-
-                RedovalnicaDatabase o = new RedovalnicaDatabase();
-                o.InsertOcena_Ucenec(ucenec, OcenaCombobox.SelectedItem.ToString(), datum, idRazredPredmet);
+                try
+                {
+                    Ocena ocena = new Ocena(ucenec, OcenaCombobox.SelectedItem.ToString(), datum, Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), imePriimekUcitelja);
+                    RedovalnicaDatabase o = new RedovalnicaDatabase();
+                    o.InsertOcena_Ucenec(ocena);
+                }
+                catch(Exception ex)
+                {
+                    //fail
+                    MessageBox.Show("Ocene ni bilo mogoče dodati za učenca '" + ucenec + "'.\n'" + ex.Message + "'", "Ocena", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    //success
+                    MessageBox.Show("Uspešno dodana ocena za učenca '" + ucenec + "'.", "Ocena", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             else
                 MessageBox.Show("Izberite vrednosti iz comboboxov", "Opozorilo");
