@@ -253,30 +253,47 @@ namespace RedovalnicaData
         public string Predmet { get; set; }
         public string Razred { get; set; }
         public string Ucitelj { get; set; }
+        public string VrstaUre { get; set; }
         public string DatumCas { get; set; }
         public UreIzvedbe()
         {
 
         }
-        public UreIzvedbe(string predmet, string razred, string ucitelj, string vrstaUr, string datumCas):base(vrstaUr)
+        public UreIzvedbe(string vrstaure):base(vrstaure)
         {
+            VrstaUre = vrstaure;
+        }
+        public UreIzvedbe(string predmet, string razred, string vrstaure, string datumCas):this(vrstaure)
+        {
+            Predmet = predmet;
+            Razred = razred;
             DatumCas = datumCas;
         }
-        
+        public UreIzvedbe(string predmet, string razred, string ucitelj, string vrstaure, string datumCas) : this(vrstaure)
+        {
+            Predmet = predmet;
+            Razred = razred;
+            Ucitelj = ucitelj;
+            DatumCas = datumCas;
+        }
     }
-    public class Prisotnost:Ucenec
+    public class Prisotnost:UreIzvedbe
     {
-        public string UraIzvedbe { get; set; }
+        public string Ucenec { get; set; }
+        public string SolskoLeto { get; set; }
         public string Opomba { get; set; }
         public Prisotnost()
         {
 
         }
-        public Prisotnost(string imeU, string priimekU, string uraizvedbe, string opomba):base(imeU, priimekU)
+        public Prisotnost(string predmet, string razred, string vrstaure, string solskoLeto, string datum):base(predmet, razred, vrstaure, datum)
         {
-            UraIzvedbe = uraizvedbe;
+            SolskoLeto = solskoLeto;
+        }
+        public Prisotnost(string ucenec, string predmet, string razred, string vrstaure, string datum, string ucitelj, string opomba) : base(predmet, razred, ucitelj, vrstaure, datum)
+        {
+            Ucenec = ucenec;
             Opomba = opomba;
         }
-        
     }
 }

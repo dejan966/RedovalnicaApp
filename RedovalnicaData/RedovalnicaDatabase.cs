@@ -267,6 +267,37 @@ namespace RedovalnicaData
 
             return ucenci;
         }
+        public List<Ucenec> ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_DatumR(Prisotnost pZaNazaj)
+        {
+            List<Ucenec> ucenci = new List<Ucenec>();
+
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT DISTINCT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN razredi_predmeti rp ON rp.id_razredi = r.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti INNER JOIN solska_leta s ON r.id_solska_leta = s.id_solska_leta INNER JOIN ure_izvedb ui ON ui.id_razredi_predmeti = rp.id_razredi_predmeti INNER JOIN vrste_ur vu ON vu.id_vrste_ur = ui.id_vrste_ur INNER JOIN prisotnosti pr on ui.id_ure_izvedb = pr.id_ure_izvedb INNER JOIN ucenci u2 ON pr.id_ucenci = u2.id_ucenci WHERE(r.razred = '" + pZaNazaj.Razred + "') AND (p.predmet = '" + pZaNazaj.Predmet + "') AND (s.solsko_leto = '" + pZaNazaj.SolskoLeto + "') AND (vu.vrsta_ure = '" + pZaNazaj.VrstaUre + "') AND (ui.datum_cas LIKE '%" + pZaNazaj.DatumCas + "%');", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                if (bralnik.HasRows)
+                {
+                    while (bralnik.Read())
+                    {
+                        string ime = bralnik.GetString(0);
+                        string priimek = bralnik.GetString(1);
+                        Ucenec u = new Ucenec(ime, priimek);
+                        ucenci.Add(u);
+                    }
+                }
+                else
+                {
+                    Ucenec u = new Ucenec("", "");
+                    ucenci.Add(u);
+                }
+                bralnik.Close();
+                com.Dispose();
+                conn.Close();
+            }
+
+            return ucenci;
+        }
         public void InsertOcena_Ucenec(Ocena ocenaZaUcenca)
         {
             using (conn)
