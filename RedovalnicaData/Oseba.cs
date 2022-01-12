@@ -185,36 +185,43 @@ namespace RedovalnicaData
             ImeR = imeR;
             St = st;
         }
-        public Razred(string imeR, int st, string s_leto):base(s_leto)
+        public Razred(string imeR, string s_leto):base(s_leto)
         {
             ImeR = imeR;
-            St = st;
         }
         
     }
-    public class Predmet
+    public class RazredPredmet:Razred
     {
+        public int Id_R_P_U { get; set; }
         public string ImeP { get; set; }
         public string KraticaP { get; set; }
-        public Predmet()
+        public string UciteljP{ get; set; }
+        public RazredPredmet()
         {
 
         }
-        public Predmet(string imeP)
+        public RazredPredmet(int id_p_r_u)
+        {
+            Id_R_P_U = id_p_r_u;
+        }
+        public RazredPredmet(string imeP)
         {
             ImeP = imeP;
         }
-        public Predmet(string imeP, string kratica)
+        public RazredPredmet(string imeP, string imeR):base(imeR)
         {
             ImeP = imeP;
-            KraticaP = kratica;
+        }
+        public RazredPredmet(string predmet, string razred, string ucitelj, string solsko_leto):base(razred, solsko_leto)
+        {
+            ImeP = predmet;
+            UciteljP = ucitelj;
         }
     }
-    public class Ocena : Predmet
+    public class Ocena : RazredPredmet
     {
         public string Ucenec { get; set; }
-        public string RazredU { get; set; }
-        public string Ucitelj { get; set; }
         public string UOcena { get; set; }
         public int StO { get; set; }
         public string DatumOcena { get; set; }
@@ -226,13 +233,17 @@ namespace RedovalnicaData
         {
             StO = stO;
         }
-        public Ocena(string ucenec, string uOcena, string datum, string predmet, string razred, string ucitelj):base(predmet)
+        public Ocena(string ucenec, string uOcena, string datum, int id_p_r_u) : base(id_p_r_u)
         {
             Ucenec = ucenec;
             UOcena = uOcena;
             DatumOcena = datum;
-            RazredU = razred;
-            Ucitelj = ucitelj;
+        }
+        public Ocena(string ucenec, string uOcena, string datum, string predmet, string razred, string solsko_leto, string ucitelj):base(predmet, razred, ucitelj, solsko_leto)
+        {
+            Ucenec = ucenec;
+            UOcena = uOcena;
+            DatumOcena = datum;
         }
        
     }
@@ -248,57 +259,50 @@ namespace RedovalnicaData
             Ura = vrsta_ur;
         }
     }
-    public class UreIzvedbe:Vrsta_Ur
+    public class UreIzvedbe: RazredPredmet
     {
-        public string Predmet { get; set; }
-        public string Razred { get; set; }
-        public string Ucitelj { get; set; }
+        public int IdUr { get; set; }
         public string VrstaUre { get; set; }
         public string DatumCas { get; set; }
         public UreIzvedbe()
         {
 
         }
-        public UreIzvedbe(string vrstaure):base(vrstaure)
+        public UreIzvedbe(int idUr)
+        {
+            IdUr = idUr;
+        }
+        
+        public UreIzvedbe(string predmet, string razred, string vrstaure, string datumCas):base(predmet, razred)
         {
             VrstaUre = vrstaure;
-        }
-        public UreIzvedbe(string predmet, string razred, string vrstaure, string datumCas):this(vrstaure)
-        {
-            Predmet = predmet;
-            Razred = razred;
             DatumCas = datumCas;
         }
-        public UreIzvedbe(string predmet, string razred, string ucitelj, string vrstaure, string datumCas) : this(vrstaure)
+        public UreIzvedbe(int id_razredi_predmeti, string vrsta_ure, string datumCas):base(id_razredi_predmeti)
         {
-            Predmet = predmet;
-            Razred = razred;
-            Ucitelj = ucitelj;
+            VrstaUre = vrsta_ure;
+            DatumCas = datumCas;
+        }
+        public UreIzvedbe(string predmet, string razred, string solsko_leto, string ucitelj, string vrstaure, string datumCas):base(predmet, razred, solsko_leto, ucitelj)
+        {
+            VrstaUre = vrstaure;
             DatumCas = datumCas;
         }
     }
     public class Prisotnost:UreIzvedbe
     {
-        //public int StU { get; set; }
-        //public string[] Ucenec => new string[StU];
-        public List<string> Ucenci = new List<string>();
         public string Ucenec { get; set; }
-        public string SolskoLeto { get; set; }
+        public int Id_Ure_Izvedbe { get; set; }
         public string Opomba { get; set; }
         public Prisotnost()
         {
-            //Ucenec = Ucenci.ToArray();
-            //Ucenec = new string[StU];
+            
         }
         
-        public Prisotnost(string predmet, string razred, string vrstaure, string solskoLeto, string datum):base(predmet, razred, vrstaure, datum)
-        {
-            SolskoLeto = solskoLeto;
-        }
-        public Prisotnost(string ucenec, string predmet, string razred, string vrstaure, string solskoLeto, string datum, string ucitelj, string opomba) : base(predmet, razred, ucitelj, vrstaure, datum)
+        public Prisotnost(string ucenec,int id_ure_izvedbe, string opomba):base(id_ure_izvedbe)
         {
             Ucenec = ucenec;
-            SolskoLeto = solskoLeto;
+            Id_Ure_Izvedbe = id_ure_izvedbe;
             Opomba = opomba;
         }
     }

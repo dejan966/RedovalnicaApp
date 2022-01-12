@@ -195,7 +195,6 @@ namespace Redovalnica_App
             // 
             // Btn_PotrdiDanasnjoPrisotnost
             // 
-            this.Btn_PotrdiDanasnjoPrisotnost.Enabled = false;
             this.Btn_PotrdiDanasnjoPrisotnost.Location = new System.Drawing.Point(302, 124);
             this.Btn_PotrdiDanasnjoPrisotnost.Name = "Btn_PotrdiDanasnjoPrisotnost";
             this.Btn_PotrdiDanasnjoPrisotnost.Size = new System.Drawing.Size(93, 48);

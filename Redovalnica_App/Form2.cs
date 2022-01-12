@@ -63,7 +63,7 @@ namespace Redovalnica_App
             }
 
             RedovalnicaDatabase p = new RedovalnicaDatabase();
-            foreach (Predmet item in p.ReturnVsePredmete())
+            foreach (RazredPredmet item in p.ReturnVsePredmete())
             {
                 Predmet_ComboboxP.Items.Add(item.ImeP);
                 Predmet_ComboboxO.Items.Add(item.ImeP);
@@ -98,18 +98,18 @@ namespace Redovalnica_App
                 PrisotnostTreeView.Nodes.Clear();
                 PrisotnostTreeView.Nodes.Add("Učenci");
 
-                Prisotnost prisotnostZaNazaj = new Prisotnost(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), date);
+                //Prisotnost prisotnostZaNazaj = new Prisotnost(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), date);
                 RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_DatumR(prisotnostZaNazaj))
+                /*foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_DatumR(prisotnostZaNazaj))
                 {
                     if (item.Ime != "" && item.Priimek != "")
                         PrisotnostTreeView.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-                }
-                /*foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_Datum(Razred_ComboboxP.SelectedItem.ToString(), Predmet_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), date))
+                }*/
+                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_Datum(Razred_ComboboxP.SelectedItem.ToString(), Predmet_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), date))
                 {
                     if(item.Ime != "" && item.Priimek != "")
                         PrisotnostTreeView.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-                }*/
+                }
             }
             else
                 MessageBox.Show("Morate izbrati vrednosti v Comboboxih", "Opozorilo");
@@ -123,27 +123,30 @@ namespace Redovalnica_App
             string Sdate = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
             if (Razred_ComboboxP.Text != "-Select-" && Predmet_ComboboxP.Text != "-Select-" && Vrsta_Ur_ComboboxP.Text != "-Select-" && SolskoLeto_ComboboxP.Text != "-Select-")
             {
-                RedovalnicaDatabase rp = new RedovalnicaDatabase();
-                rp.InsertRazrediPredmeti(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), imePriimekUcitelja);
-                
-                RedovalnicaDatabase ra = new RedovalnicaDatabase();
-                int idRazredPredmet = ra.IDRazrediPredmeti(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), imePriimekUcitelja);
-                
-                RedovalnicaDatabase ru = new RedovalnicaDatabase();
-                ru.InsertUreIzvedb(idRazredPredmet, Vrsta_Ur_ComboboxP.SelectedItem.ToString(), Idate);
-
-                RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                int idUreIzvedb = rd.IDUreIzvedb(idRazredPredmet, Vrsta_Ur_ComboboxP.SelectedItem.ToString(), Sdate);
-                
-                //nared za on shit zgori constructorje
                 string opomba = textBox1.Text;
                 try
                 {
+                    RedovalnicaDatabase rp = new RedovalnicaDatabase();
+                    RazredPredmet razredPredmet = new RazredPredmet(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), imePriimekUcitelja, SolskoLeto_ComboboxP.SelectedItem.ToString());
+                    rp.InsertRazrediPredmeti(razredPredmet);
+
+                    RedovalnicaDatabase ra = new RedovalnicaDatabase();
+                    RazredPredmet idrazredPredmet = new RazredPredmet(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), imePriimekUcitelja, SolskoLeto_ComboboxP.SelectedItem.ToString());
+                    int idRazredPredmetR = ra.IDRazrediPredmeti(idrazredPredmet);
+
+                    RedovalnicaDatabase ru = new RedovalnicaDatabase();
+                    UreIzvedbe ure = new UreIzvedbe(idRazredPredmetR, Vrsta_Ur_ComboboxP.SelectedItem.ToString(), Idate);
+                    ru.InsertUreIzvedb(ure);
+
+                    RedovalnicaDatabase rd = new RedovalnicaDatabase();
+                    UreIzvedbe idure = new UreIzvedbe(idRazredPredmetR, Vrsta_Ur_ComboboxP.SelectedItem.ToString(), Sdate);
+                    int idUreIzvedbR = rd.IDUreIzvedb(idure);
+
                     for (int i = 0; i < mU.Length; i++)
                     {
-                        Prisotnost danasnjaPrisotnost = new Prisotnost(mU[i], Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), Idate, imePriimekUcitelja, opomba);
+                        Prisotnost danasnjaPrisotnost = new Prisotnost(mU[i], idUreIzvedbR, opomba);
                         RedovalnicaDatabase re = new RedovalnicaDatabase();
-                        re.InsertPrisotnostiR(danasnjaPrisotnost);
+                        re.InsertPrisotnosti(danasnjaPrisotnost);
                     }
                     MessageBox.Show("Uspešno dodana prisotnost za ta dan.", "Prisotnost", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -156,7 +159,8 @@ namespace Redovalnica_App
                 PrisotnostTreeView.Nodes.Clear();
                 PrisotnostTreeView.Nodes.Add("Učenci");
                 RedovalnicaDatabase rd2 = new RedovalnicaDatabase();
-                foreach (Ucenec item in rd2.ReturnUcenci_Razred(Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString()))
+                Razred rU = new Razred(Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString());
+                foreach (Ucenec item in rd2.ReturnUcenci_Razred(rU))
                 {
                     //preverim a vrne ucence funkcija
                     if (item.Ime != "" && item.Priimek != "")
@@ -297,7 +301,7 @@ namespace Redovalnica_App
 
                 try
                 {
-                    Ocena ocena = new Ocena(ucenec, OcenaCombobox.SelectedItem.ToString(), datum, Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), imePriimekUcitelja);
+                    Ocena ocena = new Ocena(ucenec, OcenaCombobox.SelectedItem.ToString(), datum, Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString(), imePriimekUcitelja);
                     RedovalnicaDatabase o = new RedovalnicaDatabase();
                     o.InsertOcena_Ucenec(ocena);
                     MessageBox.Show("Uspešno dodana ocena za učenca '" + ucenec + "'.", "Ocena", MessageBoxButtons.OK, MessageBoxIcon.Information);

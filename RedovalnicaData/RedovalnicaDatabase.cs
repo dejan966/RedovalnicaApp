@@ -94,9 +94,9 @@ namespace RedovalnicaData
             return razredi;
         }
 
-        public List<Predmet> ReturnVsePredmete()
+        public List<RazredPredmet> ReturnVsePredmete()
         {
-            List<Predmet> predmeti = new List<Predmet>();
+            List<RazredPredmet> predmeti = new List<RazredPredmet>();
             using (conn)
             {
                 conn.Open();
@@ -105,7 +105,7 @@ namespace RedovalnicaData
                 while (bralnik.Read())
                 {
                     string predmet = bralnik.GetString(0);
-                    Predmet p = new Predmet(predmet);
+                    RazredPredmet p = new RazredPredmet(predmet);
                     predmeti.Add(p);
                 }
                 bralnik.Close();
@@ -208,6 +208,37 @@ namespace RedovalnicaData
 
             return ucenci;
         }
+        public List<Ucenec> ReturnUcenci_Razred(Razred ru)
+        {
+            List<Ucenec> ucenci = new List<Ucenec>();
+
+            using (conn)
+            {
+                conn.Open();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN solska_leta sl on sl.id_solska_leta = r.id_solska_leta WHERE(r.razred = '" + ru.ImeR + "') AND (sl.solsko_leto = '" + ru.SLeto + "');", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
+                if (bralnik.HasRows)
+                {
+                    while (bralnik.Read())
+                    {
+                        string ime = bralnik.GetString(0);
+                        string priimek = bralnik.GetString(1);
+                        Ucenec u = new Ucenec(ime, priimek);
+                        ucenci.Add(u);
+                    }
+                }
+                else
+                {
+                    Ucenec u = new Ucenec("", "");
+                    ucenci.Add(u);
+                }
+                bralnik.Close();
+                com.Dispose();
+                conn.Close();
+            }
+
+            return ucenci;
+        }
         public List<Razred> ReturnRazred_SolskoLeto(string solskoLeto)
         {
             List<Razred> razredi = new List<Razred>();
@@ -267,7 +298,7 @@ namespace RedovalnicaData
 
             return ucenci;
         }
-        public List<Ucenec> ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_DatumR(Prisotnost pZaNazaj)
+        /*public List<Ucenec> ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_DatumR(Prisotnost pZaNazaj)
         {
             List<Ucenec> ucenci = new List<Ucenec>();
 
@@ -297,61 +328,51 @@ namespace RedovalnicaData
             }
 
             return ucenci;
-        }
+        }*/
         public void InsertOcena_Ucenec(Ocena ocenaZaUcenca)
         {
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO ocene_ucenci(id_ucenci, id_ocene, datum, id_razredi_predmeti) VALUES ((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ocenaZaUcenca.Ucenec + "'))), (SELECT id_ocene FROM ocene WHERE ocena_st = '" + ocenaZaUcenca.UOcena + "'), '" + ocenaZaUcenca.DatumOcena + "', (SELECT rp.id_razredi_predmeti FROM razredi_predmeti rp INNER JOIN razredi r ON r.id_razredi = rp.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti INNER JOIN ucitelji u ON u.id_ucitelji = rp.id_ucitelji INNER JOIN osebe o ON o.id_osebe = u.id_osebe WHERE (r.razred = '" + ocenaZaUcenca.RazredU + "') AND (p.predmet = '" + ocenaZaUcenca.ImeP + "') AND (o.ime || ' ' || o.priimek = '" + ocenaZaUcenca.Ucitelj + "')))", conn);
+                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO ocene_ucenci(id_ucenci, id_ocene, datum, id_razredi_predmeti) VALUES ((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ocenaZaUcenca.Ucenec + "'))), (SELECT id_ocene FROM ocene WHERE ocena_st = '" + ocenaZaUcenca.UOcena + "'), '" + ocenaZaUcenca.DatumOcena + "', (SELECT rp.id_razredi_predmeti FROM razredi_predmeti rp INNER JOIN razredi r ON r.id_razredi = rp.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti INNER JOIN ucitelji u ON u.id_ucitelji = rp.id_ucitelji INNER JOIN osebe o ON o.id_osebe = u.id_osebe WHERE (r.razred = '" + ocenaZaUcenca.ImeR + "') AND (p.predmet = '" + ocenaZaUcenca.ImeP + "') AND (o.ime || ' ' || o.priimek = '" + ocenaZaUcenca.UciteljP + "')))", conn);
                 com.ExecuteNonQuery();
                 com.Dispose();
                 conn.Close();
             }
         }
-        public void InsertOcena_Ucenec(string ucenec, string ocena, string datum, int idRazredPredmet)
+        
+        public void InsertRazrediPredmeti(RazredPredmet rp)
         {
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO ocene_ucenci(id_ucenci, id_ocene, datum, id_razredi_predmeti) VALUES ((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucenec + "'))), (SELECT id_ocene FROM ocene WHERE ocena_st = '" + ocena + "'), '" + datum + "', '" + idRazredPredmet + "')", conn);
-                com.ExecuteNonQuery();
-                com.Dispose();
-                conn.Close();
-            }
-        }
-        public void InsertRazrediPredmeti(string predmet, string razred, string solskoLeto, string ucitelj)
-        {
-            using (conn)
-            {
-                conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT p.predmet, r.razred, o.ime || ' ' || o.priimek FROM osebe o INNER JOIN ucitelji u on o.id_osebe = u.id_osebe INNER JOIN razredi_predmeti rp on u.id_ucitelji = rp.id_ucitelji INNER JOIN razredi r on rp.id_razredi = r.id_razredi INNER JOIN predmeti p on rp.id_predmeti = p.id_predmeti WHERE (p.predmet = '" + predmet + "') AND (r.razred = '" + razred + "') AND (ime || ' ' || priimek = '" + ucitelj + "');", conn);
-                NpgsqlDataReader bralnik =  com.ExecuteReader();
+                NpgsqlCommand com = new NpgsqlCommand("SELECT p.predmet, r.razred, o.ime || ' ' || o.priimek FROM osebe o INNER JOIN ucitelji u on o.id_osebe = u.id_osebe INNER JOIN razredi_predmeti rp on u.id_ucitelji = rp.id_ucitelji INNER JOIN razredi r on rp.id_razredi = r.id_razredi INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta INNER JOIN predmeti p on rp.id_predmeti = p.id_predmeti WHERE (p.predmet = '" + rp.ImeP + "') AND (r.razred = '" + rp.ImeR + "') AND (sl.solsko_leto = '" + rp.SLeto + "') AND (ime || ' ' || priimek = '" + rp.UciteljP + "');", conn);
+                NpgsqlDataReader bralnik = com.ExecuteReader();
                 if (!bralnik.HasRows)
                 {
                     using (NpgsqlConnection conn2 = new NpgsqlConnection("Server=ella.db.elephantsql.com; User Id=finomhzd; Password=qDjavv-S5TXm78zV2dGfIti1PiZZlcer; Database=finomhzd;"))
                     {
                         conn2.Open();
-                        NpgsqlCommand com2 = new NpgsqlCommand("INSERT INTO razredi_predmeti (id_predmeti, id_razredi, id_ucitelji) VALUES ((SELECT id_predmeti FROM predmeti WHERE predmet = '" + predmet + "'), (SELECT r.id_razredi FROM razredi r INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta WHERE (r.razred = '" + razred + "') AND (sl.solsko_leto = '" + solskoLeto + "')), (SELECT id_ucitelji FROM ucitelji WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucitelj + "'))));", conn2);
+                        NpgsqlCommand com2 = new NpgsqlCommand("INSERT INTO razredi_predmeti (id_predmeti, id_razredi, id_ucitelji) VALUES ((SELECT id_predmeti FROM predmeti WHERE predmet = '" + rp.ImeP + "'), (SELECT r.id_razredi FROM razredi r INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta WHERE (r.razred = '" + rp.ImeR + "') AND (sl.solsko_leto = '" + rp.SLeto + "')), (SELECT id_ucitelji FROM ucitelji WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + rp.UciteljP + "'))));", conn2);
                         com2.ExecuteNonQuery();
                         com2.Dispose();
                         conn2.Close();
                     }
-                        
-                }
-                bralnik.Close();
-                com.Dispose();
-                conn.Close();
-            }
-        }
 
-        public int IDRazrediPredmeti(string predmet, string razred, string solskoLeto, string ucitelj)
+                }
+                bralnik.Close();
+                com.Dispose();
+                conn.Close();
+            }
+        }
+        
+        public int IDRazrediPredmeti(RazredPredmet rp)
         {
             int id = 1;
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT id_razredi_predmeti FROM razredi_predmeti WHERE (id_predmeti = (SELECT id_predmeti FROM predmeti WHERE predmet = '" + predmet + "')) AND (id_razredi = (SELECT r.id_razredi FROM razredi r INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta WHERE (r.razred = '" + razred + "') AND (sl.solsko_leto = '" + solskoLeto + "'))) AND (id_ucitelji = (SELECT id_ucitelji FROM ucitelji WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucitelj + "'))));", conn);
+                NpgsqlCommand com = new NpgsqlCommand("SELECT id_razredi_predmeti FROM razredi_predmeti WHERE (id_predmeti = (SELECT id_predmeti FROM predmeti WHERE predmet = '" + rp.ImeP + "')) AND (id_razredi = (SELECT r.id_razredi FROM razredi r INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta WHERE (r.razred = '" + rp.ImeR + "') AND (sl.solsko_leto = '" + rp.SLeto + "'))) AND (id_ucitelji = (SELECT id_ucitelji FROM ucitelji WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + rp.UciteljP + "'))));", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
                 while (bralnik.Read())
                 {
@@ -361,24 +382,24 @@ namespace RedovalnicaData
             }
             return id;
         }
-        public void InsertUreIzvedb(int idRazredPredmet, string vrsta_ure, string datum)
+        public void InsertUreIzvedb(UreIzvedbe ure)
         {
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO ure_izvedb(id_razredi_predmeti, id_vrste_ur, datum_cas) VALUES ('" + idRazredPredmet + "', (SELECT id_vrste_ur FROM vrste_ur WHERE vrsta_ure = '" + vrsta_ure + "'), '" + datum + "');", conn);
+                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO ure_izvedb(id_razredi_predmeti, id_vrste_ur, datum_cas) VALUES ('" + ure.Id_R_P_U + "', (SELECT id_vrste_ur FROM vrste_ur WHERE vrsta_ure = '" + ure.VrstaUre + "'), '" + ure.DatumCas + "');", conn);
                 com.ExecuteNonQuery();
                 com.Dispose();
                 conn.Close();
             }
         }
-        public int IDUreIzvedb(int idRazredPredmet, string vrsta_ure, string datum)
+        public int IDUreIzvedb(UreIzvedbe ure)
         {
             int id = 1;
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT id_ure_izvedb FROM ure_izvedb WHERE (id_razredi_predmeti = '" + idRazredPredmet + "') AND (id_vrste_ur = (SELECT id_vrste_ur FROM vrste_ur WHERE vrsta_ure = '" + vrsta_ure + "')) AND (datum_cas LIKE '%" + datum + "%');", conn);
+                NpgsqlCommand com = new NpgsqlCommand("SELECT id_ure_izvedb FROM ure_izvedb WHERE (id_razredi_predmeti = '" + ure.Id_R_P_U + "') AND (id_vrste_ur = (SELECT id_vrste_ur FROM vrste_ur WHERE vrsta_ure = '" + ure.VrstaUre + "')) AND (datum_cas LIKE '%" + ure.DatumCas + "%');", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
                 while (bralnik.Read())
                 {
@@ -390,23 +411,12 @@ namespace RedovalnicaData
             }
             return id;
         }
-        public void InsertPrisotnostiR(Prisotnost dPrisotnost)
+        public void InsertPrisotnosti(Prisotnost dPrisotnost)
         {
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO prisotnosti(id_ucenci, id_ure_izvedb, opomba) VALUES((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + dPrisotnost.Ucenec + "'))), (SELECT ui.id_ure_izvedb FROM ure_izvedb ui INNER JOIN vrste_ur vu ON vu.id_vrste_ur = ui.id_vrste_ur INNER JOIN razredi_predmeti rp ON rp.id_razredi_predmeti = ui.id_razredi_predmeti INNER JOIN razredi r ON r.id_razredi = rp.id_razredi INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta INNER JOIN predmeti p ON p.id_predmeti = rp.id_predmeti INNER JOIN ucitelji u ON u.id_ucitelji = rp.id_ucitelji INNER JOIN osebe o ON o.id_osebe = u.id_osebe WHERE (p.predmet = '" + dPrisotnost.Predmet + "') AND (r.razred = '" + dPrisotnost.Razred + "') AND (o.ime || ' ' || o.priimek = '" + dPrisotnost.Ucitelj + "') AND (vu.vrsta_ure = '" + dPrisotnost.VrstaUre + "') AND (sl.solsko_leto = '" + dPrisotnost.SolskoLeto + "') AND (ui.datum_cas = '" + dPrisotnost.DatumCas + "')), '" + dPrisotnost.Opomba + "')", conn);
-                com.ExecuteNonQuery();
-                com.Dispose();
-                conn.Close();
-            }
-        }
-        public void InsertPrisotnosti(string ucenec, int idUraIzvedbe, string opomba)
-        {
-            using (conn)
-            {
-                conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO prisotnosti(id_ucenci, id_ure_izvedb, opomba) VALUES((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + ucenec + "'))), '" + idUraIzvedbe + "', '" + opomba + "')", conn);
+                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO prisotnosti(id_ucenci, id_ure_izvedb, opomba) VALUES((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + dPrisotnost.Ucenec + "'))), '" + dPrisotnost.Id_Ure_Izvedbe + "', '" + dPrisotnost.Opomba + "')", conn);
                 com.ExecuteNonQuery();
                 com.Dispose();
                 conn.Close();
