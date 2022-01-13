@@ -17,7 +17,7 @@ namespace Redovalnica_App
         //nared da se preveri na keri šoli je učitelj da ne bo vrglo vse razrede ki obstajajo v bazi
         //removanje izbranih nodes - treeView1.Nodes.Remove(treeView1.SelectedNode);
         Form3 a;
-        static string uMail;
+        static string sMail;
         static string imePriimekUcitelja;
         List<string> mankjkajociUcenci = new List<string>();
         string[] mU;
@@ -28,7 +28,7 @@ namespace Redovalnica_App
 
         public static void MailUcitelja(string mail)
         {
-            uMail = mail;
+            sMail = mail;
         }
 
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
@@ -39,7 +39,8 @@ namespace Redovalnica_App
         private void Form2_Load(object sender, EventArgs e)
         {
             RedovalnicaDatabase rb = new RedovalnicaDatabase();
-            imePriimekUcitelja = rb.ReturnImePriimekUcitelja(uMail);
+            Ucitelj mail = new Ucitelj(sMail);
+            imePriimekUcitelja = rb.ReturnImePriimekUcitelja(mail);
             label1.Text = "Prijavljeni ste kot " + imePriimekUcitelja;
             label12.Text = "Prijavljeni ste kot " + imePriimekUcitelja;
 
@@ -90,7 +91,6 @@ namespace Redovalnica_App
 
         private void Btn_PrisotnostZaNazaj_Click(object sender, EventArgs e)
         {
-            //morem nardit da izpise vse ucenci tud mankjkajoce(naj jih izpise z rdeco), da lahko odstranim da so manjkali
             //poglej se mal ko ne dela query
             string date = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
             if (Razred_ComboboxP.Text != "-Select-" && Predmet_ComboboxP.Text != "-Select-" && Vrsta_Ur_ComboboxP.Text != "-Select-" && SolskoLeto_ComboboxP.Text != "-Select-")
@@ -182,7 +182,8 @@ namespace Redovalnica_App
             PrisotnostTreeView.Nodes.Clear();
             PrisotnostTreeView.Nodes.Add("Učenci");
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString()))
+            Razred rU = new Razred(Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString());
+            foreach (Ucenec item in rd.ReturnUcenci_Razred(rU))
             {
                 //preverim a vrne ucence funkcija
                 if (item.Ime != "" && item.Priimek != "")
@@ -232,18 +233,23 @@ namespace Redovalnica_App
             Razred_ComboboxP.Items.Clear();
             Razred_ComboboxP.Text = "";
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            foreach (Razred item in rd.ReturnRazred_SolskoLeto(SolskoLeto_ComboboxP.SelectedItem.ToString()))
+            Solsko_Leto sl = new Solsko_Leto(SolskoLeto_ComboboxP.SelectedItem.ToString());
+            foreach (Razred item in rd.ReturnRazred_SolskoLeto(sl))
             {
                 Razred_ComboboxP.Items.Add(item.ImeR);
             }
+            PrisotnostTreeView.Nodes.Clear();
+            PrisotnostTreeView.Nodes.Add("Učenci");
         }
 
         private void Razred_ComboboxO_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            //prikaže učence glede na razred
             treeView2.Nodes.Clear();
             treeView2.Nodes.Add("Učenci");
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            foreach (Ucenec item in rd.ReturnUcenci_Razred(Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString()))
+            Razred rU = new Razred(Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString());
+            foreach (Ucenec item in rd.ReturnUcenci_Razred(rU))
             {
                 //preverim a vrne ucence funkcija
                 if (item.Ime != "" && item.Priimek != "")
@@ -261,10 +267,13 @@ namespace Redovalnica_App
             Razred_ComboboxO.Items.Clear();
             Razred_ComboboxO.Text = "";
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
-            foreach (Razred item in rd.ReturnRazred_SolskoLeto(SolskoLeto_ComboboxO.SelectedItem.ToString()))
+            Solsko_Leto sl = new Solsko_Leto(SolskoLeto_ComboboxO.SelectedItem.ToString());
+            foreach (Razred item in rd.ReturnRazred_SolskoLeto(sl))
             {
                 Razred_ComboboxO.Items.Add(item.ImeR);
             }
+            PrisotnostTreeView.Nodes.Clear();
+            PrisotnostTreeView.Nodes.Add("Učenci");
         }
 
         private void SolskoLeto_ComboboxO_KeyDown(object sender, KeyEventArgs e)
@@ -320,22 +329,28 @@ namespace Redovalnica_App
             if (Razred_ComboboxO.Text != "-Select-" && Predmet_ComboboxO.Text != "-Select-" && SolskoLeto_ComboboxO.Text != "-Select-")
             {
                 RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                int st_ucencevR = rd.Return_StUcenci_Razred(SolskoLeto_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString());
+                Razred ra = new Razred(Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString());
+                int st_ucencevR = rd.Return_StUcenci_Razred(ra);
 
                 RedovalnicaDatabase rd1 = new RedovalnicaDatabase();
-                int st_Uocen1 = rd1.Return_Ucenci_Ocena1(SolskoLeto_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), Predmet_ComboboxO.SelectedItem.ToString());
+                RazredPredmet rp1 = new RazredPredmet(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString());
+                int st_Uocen1 = rd1.Return_Ucenci_Ocena1(rp1);
 
                 RedovalnicaDatabase rd2 = new RedovalnicaDatabase();
-                int st_Uocen2 = rd2.Return_Ucenci_Ocena2(SolskoLeto_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), Predmet_ComboboxO.SelectedItem.ToString());
+                RazredPredmet rp2 = new RazredPredmet(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString());
+                int st_Uocen2 = rd2.Return_Ucenci_Ocena2(rp2);
 
                 RedovalnicaDatabase rd3 = new RedovalnicaDatabase();
-                int st_Uocen3 = rd3.Return_Ucenci_Ocena3(SolskoLeto_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), Predmet_ComboboxO.SelectedItem.ToString());
+                RazredPredmet rp3 = new RazredPredmet(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString());
+                int st_Uocen3 = rd3.Return_Ucenci_Ocena3(rp3);
 
                 RedovalnicaDatabase rd4 = new RedovalnicaDatabase();
-                int st_Uocen4 = rd4.Return_Ucenci_Ocena4(SolskoLeto_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), Predmet_ComboboxO.SelectedItem.ToString());
+                RazredPredmet rp4 = new RazredPredmet(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString());
+                int st_Uocen4 = rd4.Return_Ucenci_Ocena4(rp4);
 
                 RedovalnicaDatabase rd5 = new RedovalnicaDatabase();
-                int st_Uocen5 = rd5.Return_Ucenci_Ocena5(SolskoLeto_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), Predmet_ComboboxO.SelectedItem.ToString());
+                RazredPredmet rp5 = new RazredPredmet(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString());
+                int st_Uocen5 = rd5.Return_Ucenci_Ocena5(rp5);
 
                 Form3.StUcenci_Razred(st_ucencevR);
                 Form3.Ocene_Ucenci(st_Uocen1, st_Uocen2, st_Uocen3, st_Uocen4, st_Uocen5);

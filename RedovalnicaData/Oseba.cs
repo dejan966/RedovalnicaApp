@@ -135,10 +135,13 @@ namespace RedovalnicaData
         public string Telefon { get; set; }
         public string SolskiEmail { get; set; }
         public string Geslo { get; set; }
-
         public Ucitelj()
         {
 
+        }
+        public Ucitelj(string email)
+        {
+            SolskiEmail = email;
         }
         public Ucitelj(string sEmail, string geslo)
         {
@@ -180,16 +183,10 @@ namespace RedovalnicaData
         {
             ImeR = imeR;
         }
-        public Razred(string imeR, int st)
-        {
-            ImeR = imeR;
-            St = st;
-        }
         public Razred(string imeR, string s_leto):base(s_leto)
         {
             ImeR = imeR;
         }
-        
     }
     public class RazredPredmet:Razred
     {
@@ -210,6 +207,10 @@ namespace RedovalnicaData
             ImeP = imeP;
         }
         public RazredPredmet(string imeP, string imeR):base(imeR)
+        {
+            ImeP = imeP;
+        }
+        public RazredPredmet(string imeP, string imeR, string sLeto):base(imeR, sLeto)
         {
             ImeP = imeP;
         }
