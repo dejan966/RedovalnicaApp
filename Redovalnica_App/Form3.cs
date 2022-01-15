@@ -54,11 +54,15 @@ namespace Redovalnica_App
 
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
             RazredPredmet rs = new RazredPredmet(predmet, razred, solskoLeto);
-
-
-            ListViewItem LVitem = new ListViewItem("sdf", "sf");
-            LVitem.SubItems.Add("sh");
-            listView1.Items.Add(LVitem);
+            ListViewItem LVitem = new ListViewItem();
+            foreach (Ocena UPOcene in rd.ReturnRazredUcenciOcena(rs))
+            {
+                LVitem = new ListViewItem(UPOcene.Ucenec);
+                listView1.Items.Add(LVitem);
+                //shran ocene za predmete v array
+            }
+            //LVitem.SubItems.Add(UPOcene.StO.ToString());
+            
         }
 
         private void Form3_FormClosed(object sender, FormClosedEventArgs e)

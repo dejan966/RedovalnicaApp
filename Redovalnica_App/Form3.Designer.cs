@@ -29,10 +29,10 @@ namespace Redovalnica_App
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.OcenaChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.listView1 = new System.Windows.Forms.ListView();
             this.UcenecColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -47,26 +47,26 @@ namespace Redovalnica_App
             // 
             // OcenaChart
             // 
-            chartArea3.Name = "ChartArea1";
-            this.OcenaChart.ChartAreas.Add(chartArea3);
-            legend3.HeaderSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.Line;
-            legend3.Name = "OcenaLegend";
-            this.OcenaChart.Legends.Add(legend3);
+            chartArea2.Name = "ChartArea1";
+            this.OcenaChart.ChartAreas.Add(chartArea2);
+            legend2.HeaderSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.Line;
+            legend2.Name = "OcenaLegend";
+            this.OcenaChart.Legends.Add(legend2);
             this.OcenaChart.Location = new System.Drawing.Point(25, 13);
             this.OcenaChart.Name = "OcenaChart";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series3.Legend = "OcenaLegend";
-            series3.Name = "ocene";
-            this.OcenaChart.Series.Add(series3);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.Legend = "OcenaLegend";
+            series2.Name = "ocene";
+            this.OcenaChart.Series.Add(series2);
             this.OcenaChart.Size = new System.Drawing.Size(300, 309);
             this.OcenaChart.TabIndex = 0;
             this.OcenaChart.Text = "chart1";
-            title3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            title3.ForeColor = System.Drawing.Color.Red;
-            title3.Name = "OcenaTitle";
-            title3.Text = "Ocene v razredu";
-            this.OcenaChart.Titles.Add(title3);
+            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            title2.ForeColor = System.Drawing.Color.Red;
+            title2.Name = "OcenaTitle";
+            title2.Text = "Ocene v razredu";
+            this.OcenaChart.Titles.Add(title2);
             this.OcenaChart.MouseHover += new System.EventHandler(this.OcenaChart_MouseHover);
             // 
             // listView1
@@ -82,7 +82,7 @@ namespace Redovalnica_App
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(360, 13);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(741, 309);
+            this.listView1.Size = new System.Drawing.Size(390, 309);
             this.listView1.TabIndex = 16;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -90,7 +90,7 @@ namespace Redovalnica_App
             // UcenecColumnHeader
             // 
             this.UcenecColumnHeader.Text = "Ucenec";
-            this.UcenecColumnHeader.Width = 110;
+            this.UcenecColumnHeader.Width = 100;
             // 
             // columnHeader1
             // 
@@ -126,7 +126,7 @@ namespace Redovalnica_App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1113, 334);
+            this.ClientSize = new System.Drawing.Size(766, 334);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.OcenaChart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
