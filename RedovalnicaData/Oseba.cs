@@ -234,6 +234,11 @@ namespace RedovalnicaData
         {
             StO = stO;
         }
+        public Ocena(string ucenec, int stO)
+        {
+            Ucenec = ucenec;
+            StO = stO;
+        }
         public Ocena(string ucenec, string uOcena, string datum, int id_p_r_u) : base(id_p_r_u)
         {
             Ucenec = ucenec;

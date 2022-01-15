@@ -354,6 +354,7 @@ namespace Redovalnica_App
 
                 Form3.StUcenci_Razred(st_ucencevR);
                 Form3.Ocene_Ucenci(st_Uocen1, st_Uocen2, st_Uocen3, st_Uocen4, st_Uocen5);
+                Form3.Razred_SolskoLeto(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString());
                 
                 a = new Form3();
                 a.ShowDialog();

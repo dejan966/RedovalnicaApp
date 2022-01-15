@@ -77,7 +77,7 @@ namespace Redovalnica_App
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(831, 493);
+            this.tabControl1.Size = new System.Drawing.Size(798, 493);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -88,9 +88,9 @@ namespace Redovalnica_App
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(823, 464);
+            this.tabPage1.Size = new System.Drawing.Size(994, 464);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Preverjanje prisotnosti";
+            this.tabPage1.Text = "Prisotnost";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // dateTimePicker1
@@ -257,9 +257,9 @@ namespace Redovalnica_App
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(823, 464);
+            this.tabPage2.Size = new System.Drawing.Size(790, 464);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Vnašanje ocen";
+            this.tabPage2.Text = "Ocene";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // label12
@@ -293,7 +293,7 @@ namespace Redovalnica_App
             this.groupBox2.Controls.Add(this.Btn_InsertOcena);
             this.groupBox2.Location = new System.Drawing.Point(24, 15);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(412, 441);
+            this.groupBox2.Size = new System.Drawing.Size(412, 451);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ocena";
@@ -381,7 +381,7 @@ namespace Redovalnica_App
             // 
             // Btn_Statistika_Ocene
             // 
-            this.Btn_Statistika_Ocene.Location = new System.Drawing.Point(302, 243);
+            this.Btn_Statistika_Ocene.Location = new System.Drawing.Point(295, 250);
             this.Btn_Statistika_Ocene.Name = "Btn_Statistika_Ocene";
             this.Btn_Statistika_Ocene.Size = new System.Drawing.Size(93, 48);
             this.Btn_Statistika_Ocene.TabIndex = 14;
@@ -391,7 +391,7 @@ namespace Redovalnica_App
             // 
             // Btn_InsertOcena
             // 
-            this.Btn_InsertOcena.Location = new System.Drawing.Point(302, 124);
+            this.Btn_InsertOcena.Location = new System.Drawing.Point(295, 131);
             this.Btn_InsertOcena.Name = "Btn_InsertOcena";
             this.Btn_InsertOcena.Size = new System.Drawing.Size(93, 48);
             this.Btn_InsertOcena.TabIndex = 12;
@@ -403,11 +403,11 @@ namespace Redovalnica_App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(831, 493);
+            this.ClientSize = new System.Drawing.Size(798, 493);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form2";
-            this.Text = "Aplikacija";
+            this.Text = "Redovalnica";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form2_FormClosed);
             this.Load += new System.EventHandler(this.Form2_Load);
             this.tabControl1.ResumeLayout(false);

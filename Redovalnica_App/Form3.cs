@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RedovalnicaData;
 using Npgsql;
 
 namespace Redovalnica_App
@@ -14,11 +15,8 @@ namespace Redovalnica_App
     public partial class Form3 : Form
     {
         static int st_ucenci_razred;
-        static int st_ucencev1;
-        static int st_ucencev2;
-        static int st_ucencev3;
-        static int st_ucencev4;
-        static int st_ucencev5;
+        static int st_ucencev1, st_ucencev2, st_ucencev3, st_ucencev4, st_ucencev5;
+        static string razred, solskoLeto, predmet;
         public Form3()
         {
             InitializeComponent();
@@ -35,6 +33,12 @@ namespace Redovalnica_App
         {
             st_ucenci_razred = st;
         }
+        public static void Razred_SolskoLeto(string p, string r, string s)
+        {
+            predmet = p;
+            razred = r;
+            solskoLeto = s;
+        }
         private void Form3_Load(object sender, EventArgs e)
         {
             st_ucenci_razred = st_ucenci_razred - st_ucencev1 - st_ucencev2 - st_ucencev3 - st_ucencev4 - st_ucencev5;
@@ -47,6 +51,14 @@ namespace Redovalnica_App
 
             for(int i = 0; i<vrste_ocen.Length; i++)
                 OcenaChart.Series["ocene"].Points[i].LegendText = vrste_ocen[i];
+
+            RedovalnicaDatabase rd = new RedovalnicaDatabase();
+            RazredPredmet rs = new RazredPredmet(predmet, razred, solskoLeto);
+
+
+            ListViewItem LVitem = new ListViewItem("sdf", "sf");
+            LVitem.SubItems.Add("sh");
+            listView1.Items.Add(LVitem);
         }
 
         private void Form3_FormClosed(object sender, FormClosedEventArgs e)
