@@ -278,8 +278,8 @@ namespace RedovalnicaData
         {
             IdUr = idUr;
         }
-        
-        public UreIzvedbe(string predmet, string razred, string vrstaure, string datumCas):base(predmet, razred)
+
+        public UreIzvedbe(string predmet, string razred, string sLeto, string vrstaure, string datumCas):base(predmet, razred, sLeto)
         {
             VrstaUre = vrstaure;
             DatumCas = datumCas;
@@ -304,7 +304,10 @@ namespace RedovalnicaData
         {
             
         }
-        
+        public Prisotnost(string predmet, string razred, string solsko_leto, string vrsta_ure, string datum):base(predmet, razred, solsko_leto, vrsta_ure, datum)
+        {
+
+        }
         public Prisotnost(string ucenec,int id_ure_izvedbe, string opomba):base(id_ure_izvedbe)
         {
             Ucenec = ucenec;

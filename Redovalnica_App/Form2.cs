@@ -98,18 +98,18 @@ namespace Redovalnica_App
                 PrisotnostTreeView.Nodes.Clear();
                 PrisotnostTreeView.Nodes.Add("Učenci");
 
-                //Prisotnost prisotnostZaNazaj = new Prisotnost(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), date);
+                Prisotnost prisotnostZaNazaj = new Prisotnost(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), date);
                 RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                /*foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_DatumR(prisotnostZaNazaj))
+                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_DatumR(prisotnostZaNazaj))
                 {
                     if (item.Ime != "" && item.Priimek != "")
                         PrisotnostTreeView.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-                }*/
-                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_Datum(Razred_ComboboxP.SelectedItem.ToString(), Predmet_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), date))
+                }
+                /*foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_Datum(Razred_ComboboxP.SelectedItem.ToString(), Predmet_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), date))
                 {
                     if(item.Ime != "" && item.Priimek != "")
                         PrisotnostTreeView.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-                }
+                }*/
             }
             else
                 MessageBox.Show("Morate izbrati vrednosti v Comboboxih", "Opozorilo");

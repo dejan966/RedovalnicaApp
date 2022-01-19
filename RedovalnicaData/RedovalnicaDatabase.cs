@@ -243,7 +243,8 @@ namespace RedovalnicaData
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT DISTINCT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN razredi_predmeti rp ON rp.id_razredi = r.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti INNER JOIN solska_leta s ON r.id_solska_leta = s.id_solska_leta INNER JOIN ure_izvedb ui ON ui.id_razredi_predmeti = rp.id_razredi_predmeti INNER JOIN vrste_ur vu ON vu.id_vrste_ur = ui.id_vrste_ur INNER JOIN prisotnosti pr on ui.id_ure_izvedb = pr.id_ure_izvedb INNER JOIN ucenci u2 ON pr.id_ucenci = u2.id_ucenci WHERE(r.razred = '" + razred + "') AND (p.predmet = '" + predmet + "') AND (s.solsko_leto = '" + solsko_leto + "') AND (vu.vrsta_ure = '" + vrsta_ure + "') AND (ui.datum_cas LIKE '%" + datum + "%');", conn);
+                NpgsqlCommand com = new NpgsqlCommand("(SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN prisotnosti p on p.id_ucenci = u.id_ucenci INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN razredi_predmeti rp on r.id_razredi = rp.id_razredi INNER JOIN predmeti pr on pr.id_predmeti = rp.id_predmeti WHERE (r.razred = '" + razred + "') AND (pr.predmet = '" + predmet + "'))" +
+                "UNION (SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN prisotnosti p on p.id_ucenci = u.id_ucenci INNER JOIN ure_izvedb ui on ui.id_ure_izvedb = p.id_ure_izvedb INNER JOIN vrste_ur vu on vu.id_vrste_ur = ui.id_vrste_ur INNER JOIN razredi_predmeti rp on rp.id_razredi_predmeti = ui.id_razredi_predmeti INNER JOIN razredi r on r.id_razredi = rp.id_razredi INNER JOIN predmeti pr on pr.id_predmeti = rp.id_predmeti WHERE(ui.datum_cas LIKE '%" + datum + "%') AND(r.razred = '" + razred + "') AND(pr.predmet = '" + predmet +"') AND(vu.vrsta_ure = '" + vrsta_ure + "'))", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
                 if (bralnik.HasRows)
                 {
@@ -267,14 +268,15 @@ namespace RedovalnicaData
 
             return ucenci;
         }
-        /*public List<Ucenec> ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_DatumR(Prisotnost pZaNazaj)
+        public List<Ucenec> ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_DatumR(Prisotnost pZaNazaj)
         {
             List<Ucenec> ucenci = new List<Ucenec>();
 
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT DISTINCT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN razredi_predmeti rp ON rp.id_razredi = r.id_razredi INNER JOIN predmeti p ON rp.id_predmeti = p.id_predmeti INNER JOIN solska_leta s ON r.id_solska_leta = s.id_solska_leta INNER JOIN ure_izvedb ui ON ui.id_razredi_predmeti = rp.id_razredi_predmeti INNER JOIN vrste_ur vu ON vu.id_vrste_ur = ui.id_vrste_ur INNER JOIN prisotnosti pr on ui.id_ure_izvedb = pr.id_ure_izvedb INNER JOIN ucenci u2 ON pr.id_ucenci = u2.id_ucenci WHERE(r.razred = '" + pZaNazaj.Razred + "') AND (p.predmet = '" + pZaNazaj.Predmet + "') AND (s.solsko_leto = '" + pZaNazaj.SolskoLeto + "') AND (vu.vrsta_ure = '" + pZaNazaj.VrstaUre + "') AND (ui.datum_cas LIKE '%" + pZaNazaj.DatumCas + "%');", conn);
+                NpgsqlCommand com = new NpgsqlCommand("(SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN prisotnosti p on p.id_ucenci = u.id_ucenci INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta INNER JOIN razredi_predmeti rp on r.id_razredi = rp.id_razredi INNER JOIN predmeti pr on pr.id_predmeti = rp.id_predmeti WHERE (r.razred = '" + pZaNazaj.ImeR + "') AND (pr.predmet = '" + pZaNazaj.ImeP + "') AND (sl.solsko_leto = '" + pZaNazaj.SLeto + "'))" +
+                "UNION (SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN prisotnosti p on p.id_ucenci = u.id_ucenci INNER JOIN ure_izvedb ui on ui.id_ure_izvedb = p.id_ure_izvedb INNER JOIN vrste_ur vu on vu.id_vrste_ur = ui.id_vrste_ur INNER JOIN razredi_predmeti rp on rp.id_razredi_predmeti = ui.id_razredi_predmeti INNER JOIN razredi r on r.id_razredi = rp.id_razredi INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta INNER JOIN predmeti pr on pr.id_predmeti = rp.id_predmeti WHERE(ui.datum_cas LIKE '%" + pZaNazaj.DatumCas + "%') AND(r.razred = '" + pZaNazaj.ImeR + "') AND(pr.predmet = '" + pZaNazaj.ImeP + "') AND(vu.vrsta_ure = '" + pZaNazaj.VrstaUre + "') AND (sl.solsko_leto = '" + pZaNazaj.SLeto + "'))", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
                 if (bralnik.HasRows)
                 {
@@ -297,7 +299,7 @@ namespace RedovalnicaData
             }
 
             return ucenci;
-        }*/
+        }
         public List<Ocena> ReturnRazredUcenciOcena(RazredPredmet prs)
         {
             List<Ocena> ocene = new List<Ocena>();
