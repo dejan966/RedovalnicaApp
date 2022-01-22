@@ -236,39 +236,7 @@ namespace RedovalnicaData
             }
             return razredi;
         } 
-        public List<Ucenec> ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_Datum(string razred, string predmet, string vrsta_ure, string solsko_leto, string datum)
-        {
-            List<Ucenec> ucenci = new List<Ucenec>();
-
-            using (conn)
-            {
-                conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("(SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN prisotnosti p on p.id_ucenci = u.id_ucenci INNER JOIN razredi r ON u.id_razredi = r.id_razredi INNER JOIN razredi_predmeti rp on r.id_razredi = rp.id_razredi INNER JOIN predmeti pr on pr.id_predmeti = rp.id_predmeti WHERE (r.razred = '" + razred + "') AND (pr.predmet = '" + predmet + "'))" +
-                "UNION (SELECT o.ime, o.priimek FROM osebe o INNER JOIN ucenci u ON u.id_osebe = o.id_osebe INNER JOIN prisotnosti p on p.id_ucenci = u.id_ucenci INNER JOIN ure_izvedb ui on ui.id_ure_izvedb = p.id_ure_izvedb INNER JOIN vrste_ur vu on vu.id_vrste_ur = ui.id_vrste_ur INNER JOIN razredi_predmeti rp on rp.id_razredi_predmeti = ui.id_razredi_predmeti INNER JOIN razredi r on r.id_razredi = rp.id_razredi INNER JOIN predmeti pr on pr.id_predmeti = rp.id_predmeti WHERE(ui.datum_cas LIKE '%" + datum + "%') AND(r.razred = '" + razred + "') AND(pr.predmet = '" + predmet +"') AND(vu.vrsta_ure = '" + vrsta_ure + "'))", conn);
-                NpgsqlDataReader bralnik = com.ExecuteReader();
-                if (bralnik.HasRows)
-                {
-                    while (bralnik.Read())
-                    {
-                        string ime = bralnik.GetString(0);
-                        string priimek = bralnik.GetString(1);
-                        Ucenec u = new Ucenec(ime, priimek);
-                        ucenci.Add(u);
-                    }
-                }
-                else
-                {
-                    Ucenec u = new Ucenec("", "");
-                    ucenci.Add(u);
-                }
-                bralnik.Close();
-                com.Dispose();
-                conn.Close();
-            }
-
-            return ucenci;
-        }
-        public List<Ucenec> ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_DatumR(Prisotnost pZaNazaj)
+        public List<Ucenec> ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_Datum(Prisotnost pZaNazaj)
         {
             List<Ucenec> ucenci = new List<Ucenec>();
 
@@ -407,7 +375,7 @@ namespace RedovalnicaData
             using (conn)
             {
                 conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO prisotnosti(id_ucenci, id_ure_izvedb, opomba) VALUES((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + dPrisotnost.Ucenec + "'))), '" + dPrisotnost.Id_Ure_Izvedbe + "', '" + dPrisotnost.Opomba + "')", conn);
+                NpgsqlCommand com = new NpgsqlCommand("INSERT INTO prisotnosti(id_ucenci, id_ure_izvedb, opomba) VALUES((SELECT id_ucenci FROM ucenci WHERE (id_osebe = (SELECT id_osebe FROM osebe WHERE ime || ' ' || priimek = '" + dPrisotnost.Ucenec + "'))), '" + dPrisotnost.IdUr + "', '" + dPrisotnost.Opomba + "')", conn);
                 com.ExecuteNonQuery();
                 com.Dispose();
                 conn.Close();

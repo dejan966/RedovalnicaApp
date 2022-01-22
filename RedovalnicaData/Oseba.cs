@@ -298,7 +298,6 @@ namespace RedovalnicaData
     public class Prisotnost:UreIzvedbe
     {
         public string Ucenec { get; set; }
-        public int Id_Ure_Izvedbe { get; set; }
         public string Opomba { get; set; }
         public Prisotnost()
         {
@@ -311,7 +310,6 @@ namespace RedovalnicaData
         public Prisotnost(string ucenec,int id_ure_izvedbe, string opomba):base(id_ure_izvedbe)
         {
             Ucenec = ucenec;
-            Id_Ure_Izvedbe = id_ure_izvedbe;
             Opomba = opomba;
         }
     }

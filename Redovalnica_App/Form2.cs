@@ -15,7 +15,6 @@ namespace Redovalnica_App
     public partial class Form2 : Form
     {
         //nared da se preveri na keri šoli je učitelj da ne bo vrglo vse razrede ki obstajajo v bazi
-        //removanje izbranih nodes - treeView1.Nodes.Remove(treeView1.SelectedNode);
         Form3 a;
         static string sMail;
         static string imePriimekUcitelja;
@@ -91,7 +90,6 @@ namespace Redovalnica_App
 
         private void Btn_PrisotnostZaNazaj_Click(object sender, EventArgs e)
         {
-            //poglej se mal ko ne dela query
             string date = DateTime.Parse(dateTimePicker1.Text).ToString("yyyy-MM-dd");
             if (Razred_ComboboxP.Text != "-Select-" && Predmet_ComboboxP.Text != "-Select-" && Vrsta_Ur_ComboboxP.Text != "-Select-" && SolskoLeto_ComboboxP.Text != "-Select-")
             {
@@ -100,16 +98,11 @@ namespace Redovalnica_App
 
                 Prisotnost prisotnostZaNazaj = new Prisotnost(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), date);
                 RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_DatumR(prisotnostZaNazaj))
+                foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_Datum(prisotnostZaNazaj))
                 {
                     if (item.Ime != "" && item.Priimek != "")
                         PrisotnostTreeView.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
                 }
-                /*foreach (Ucenec item in rd.ReturnUcenci_Razred_Predmet_Vrsta_Ure_SolskoLeto_Datum(Razred_ComboboxP.SelectedItem.ToString(), Predmet_ComboboxP.SelectedItem.ToString(), Vrsta_Ur_ComboboxP.SelectedItem.ToString(), SolskoLeto_ComboboxP.SelectedItem.ToString(), date))
-                {
-                    if(item.Ime != "" && item.Priimek != "")
-                        PrisotnostTreeView.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-                }*/
             }
             else
                 MessageBox.Show("Morate izbrati vrednosti v Comboboxih", "Opozorilo");
@@ -305,6 +298,7 @@ namespace Redovalnica_App
         {
             if (Razred_ComboboxO.Text != "-Select-" && Predmet_ComboboxO.Text != "-Select-" && SolskoLeto_ComboboxO.Text != "-Select-")
             {
+                //error za učenca Miha Bum
                 string datum = DateTime.Parse(dateTimePicker2.Text).ToString("yyyy-MM-dd");
                 string ucenec = treeView2.SelectedNode.Text;
 
