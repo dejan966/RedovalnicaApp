@@ -216,18 +216,10 @@ namespace RedovalnicaData
                 conn.Open();
                 NpgsqlCommand com = new NpgsqlCommand("SELECT r.razred FROM razredi r INNER JOIN solska_leta sl ON sl.id_solska_leta = r.id_solska_leta WHERE (sl.solsko_leto = '" + s.SLeto + "')", conn);
                 NpgsqlDataReader bralnik = com.ExecuteReader();
-                if (bralnik.HasRows)
+                while (bralnik.Read())
                 {
-                    while (bralnik.Read())
-                    {
-                        string r = bralnik.GetString(0);
-                        Razred u = new Razred(r);
-                        razredi.Add(u);
-                    }
-                }
-                else
-                {
-                    Razred u = new Razred("");
+                    string r = bralnik.GetString(0);
+                    Razred u = new Razred(r);
                     razredi.Add(u);
                 }
                 bralnik.Close();

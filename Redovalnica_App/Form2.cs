@@ -14,7 +14,6 @@ namespace Redovalnica_App
 {
     public partial class Form2 : Form
     {
-        //nared da se preveri na keri šoli je učitelj da ne bo vrglo vse razrede ki obstajajo v bazi
         Form3 a;
         static string sMail;
         static string imePriimekUcitelja;
@@ -298,12 +297,15 @@ namespace Redovalnica_App
         {
             if (Razred_ComboboxO.Text != "-Select-" && Predmet_ComboboxO.Text != "-Select-" && SolskoLeto_ComboboxO.Text != "-Select-")
             {
-                //error za učenca Miha Bum
                 string datum = DateTime.Parse(dateTimePicker2.Text).ToString("yyyy-MM-dd");
                 string ucenec = treeView2.SelectedNode.Text;
 
                 try
                 {
+                    RedovalnicaDatabase rp = new RedovalnicaDatabase();
+                    RazredPredmet razredPredmet = new RazredPredmet(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), imePriimekUcitelja, SolskoLeto_ComboboxO.SelectedItem.ToString());
+                    rp.InsertRazrediPredmeti(razredPredmet);
+
                     Ocena ocena = new Ocena(ucenec, OcenaCombobox.SelectedItem.ToString(), datum, Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString(), imePriimekUcitelja);
                     RedovalnicaDatabase o = new RedovalnicaDatabase();
                     o.InsertOcena_Ucenec(ocena);
