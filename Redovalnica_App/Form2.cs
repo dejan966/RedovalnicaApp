@@ -324,10 +324,6 @@ namespace Redovalnica_App
         {
             if (Razred_ComboboxO.Text != "-Select-" && Predmet_ComboboxO.Text != "-Select-" && SolskoLeto_ComboboxO.Text != "-Select-")
             {
-                /*RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                Razred ra = new Razred(Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString());
-                int st_ucencevR = rd.Return_StUcenci_Razred(ra); */
-
                 RedovalnicaDatabase rd1 = new RedovalnicaDatabase();
                 RazredPredmet rp1 = new RazredPredmet(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString());
                 int st_Uocen1 = rd1.Return_Ucenci_Ocena1(rp1);
@@ -348,9 +344,7 @@ namespace Redovalnica_App
                 RazredPredmet rp5 = new RazredPredmet(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString());
                 int st_Uocen5 = rd5.Return_Ucenci_Ocena5(rp5);
 
-                //Form3.StUcenci_Razred(st_ucencevR);
                 Form3.Ocene_Ucenci(st_Uocen1, st_Uocen2, st_Uocen3, st_Uocen4, st_Uocen5);
-                Form3.Razred_SolskoLeto(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString());
                 
                 a = new Form3();
                 a.ShowDialog();

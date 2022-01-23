@@ -373,27 +373,6 @@ namespace RedovalnicaData
                 conn.Close();
             }
         }
-        public int Return_StUcenci_Razred(Razred r)
-        {
-            int st_ucencevR = 0;
-            using (conn)
-            {
-                conn.Open();
-                NpgsqlCommand com = new NpgsqlCommand("SELECT COUNT(u.*) FROM ucenci u INNER JOIN razredi r ON r.id_razredi = u.id_razredi INNER JOIN solska_leta sl ON r.id_solska_leta = sl.id_solska_leta WHERE(sl.solsko_leto = '" + r.SLeto + "') AND (r.razred = '" + r.ImeR + "')", conn);
-                NpgsqlDataReader bralnik = com.ExecuteReader();
-                if (bralnik.HasRows)
-                {
-                    while (bralnik.Read())
-                    {
-                        st_ucencevR = bralnik.GetInt32(0);
-                    }
-                }
-                bralnik.Close();
-                com.Dispose();
-                conn.Close();
-            }
-            return st_ucencevR;
-        }
 
         public int Return_Ucenci_Ocena1(RazredPredmet r1)
         {
