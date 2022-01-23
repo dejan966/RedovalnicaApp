@@ -41,10 +41,12 @@ namespace Redovalnica_App
         }
         private void Form3_Load(object sender, EventArgs e)
         {
-            st_ucenci_razred = st_ucenci_razred - st_ucencev1 - st_ucencev2 - st_ucencev3 - st_ucencev4 - st_ucencev5;
+            //st_ucenci_razred = st_ucenci_razred - st_ucencev1 - st_ucencev2 - st_ucencev3 - st_ucencev4 - st_ucencev5;
 
-            int[] st_ucencev = new int[] { st_ucencev1, st_ucencev2, st_ucencev3, st_ucencev4, st_ucencev5, st_ucenci_razred};
-            string[] vrste_ocen = new string[] { "nzd(1)", "zd(2)", "db(3)", "pdb(4)", "odl(5)", "Niso pisali" };
+            int[] st_ucencev = new int[] { st_ucencev1, st_ucencev2, st_ucencev3, st_ucencev4, st_ucencev5};
+            //int[] st_ucencev = new int[] { st_ucencev1, st_ucencev2, st_ucencev3, st_ucencev4, st_ucencev5, st_ucenci_razred};
+            string[] vrste_ocen = new string[] { "nzd(1)", "zd(2)", "db(3)", "pdb(4)", "odl(5)" };
+            //string[] vrste_ocen = new string[] { "nzd(1)", "zd(2)", "db(3)", "pdb(4)", "odl(5)", "Niso pisali" };
             
             OcenaChart.Series["ocene"].Points.DataBindXY(vrste_ocen, st_ucencev);
             OcenaChart.Series["ocene"].Label = "#PERCENT";
@@ -62,7 +64,6 @@ namespace Redovalnica_App
                 //shran ocene za predmete v array
             }
             //LVitem.SubItems.Add(UPOcene.StO.ToString());
-            
         }
 
         private void Form3_FormClosed(object sender, FormClosedEventArgs e)
