@@ -17,7 +17,7 @@ namespace Redovalnica_App
         Form3 a;
         static string sMail;
         static string imePriimekUcitelja;
-        List<string> mankjkajociUcenci = new List<string>();
+        List<string> manjkajociUcenci = new List<string>();
         string[] mU;
         public Form2()
         {
@@ -120,20 +120,15 @@ namespace Redovalnica_App
                 {
                     RedovalnicaDatabase rp = new RedovalnicaDatabase();
                     RazredPredmet razredPredmet = new RazredPredmet(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), imePriimekUcitelja, SolskoLeto_ComboboxP.SelectedItem.ToString());
-                    rp.InsertRazrediPredmeti(razredPredmet);
-
-                    RedovalnicaDatabase ra = new RedovalnicaDatabase();
-                    RazredPredmet idrazredPredmet = new RazredPredmet(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), imePriimekUcitelja, SolskoLeto_ComboboxP.SelectedItem.ToString());
-                    int idRazredPredmetR = ra.IDRazrediPredmeti(idrazredPredmet);
-
+                    int idRazredPredmetR = rp.InsertRazrediPredmeti(razredPredmet);
+                    MessageBox.Show(idRazredPredmetR.ToString());
+              
                     RedovalnicaDatabase ru = new RedovalnicaDatabase();
-                    UreIzvedbe ure = new UreIzvedbe(idRazredPredmetR, Vrsta_Ur_ComboboxP.SelectedItem.ToString(), Idate);
-                    ru.InsertUreIzvedb(ure);
+                    UreIzvedbe ure = new UreIzvedbe(idRazredPredmetR, Vrsta_Ur_ComboboxP.SelectedItem.ToString(), Sdate, Idate);
+                    int idUreIzvedbR  = ru.InsertUreIzvedb(ure);
+                    MessageBox.Show(idUreIzvedbR.ToString());
 
-                    RedovalnicaDatabase rd = new RedovalnicaDatabase();
-                    UreIzvedbe idure = new UreIzvedbe(idRazredPredmetR, Vrsta_Ur_ComboboxP.SelectedItem.ToString(), Sdate);
-                    int idUreIzvedbR = rd.IDUreIzvedb(idure);
-
+                    //problem da doda večkrat v bazo ker se v list shranijo učenci za vsako izberem nek drug razred
                     for (int i = 0; i < mU.Length; i++)
                     {
                         Prisotnost danasnjaPrisotnost = new Prisotnost(mU[i], idUreIzvedbR, opomba);
@@ -180,16 +175,20 @@ namespace Redovalnica_App
                 //preverim a vrne ucence funkcija
                 if (item.Ime != "" && item.Priimek != "")
                 {
+                    if (!manjkajociUcenci.Any())
+                    {
+                        for (int i = 0; i < manjkajociUcenci.Count(); i++)
+                            manjkajociUcenci.RemoveAt(i);
+                    }
                     PrisotnostTreeView.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
-                    mankjkajociUcenci.Add(item.Ime + ' ' + item.Priimek);
-                    mU = mankjkajociUcenci.ToArray();
+                    manjkajociUcenci.Add(item.Ime + ' ' + item.Priimek);
+                    mU = manjkajociUcenci.ToArray();
 
                     /* tk se doda direkt iz treeview subnode v list
                     foreach (TreeNode node in PrisotnostTreeView.Nodes[0].Nodes)
                     {
-                        mankjkajociUcenci.Add(node.Text);
-                    }
-                    */
+                        manjkajociUcenci.Add(node.Text);
+                    } */
                 }
                 else
                 {
@@ -358,8 +357,8 @@ namespace Redovalnica_App
             //dodam v list to ko selectam in convertam v array
             Btn_PotrdiDanasnjoPrisotnost.Enabled = true;
             PrisotnostTreeView.SelectedNode.ForeColor = Color.Red;
-            mankjkajociUcenci.Remove(PrisotnostTreeView.SelectedNode.Text);
-            mU = mankjkajociUcenci.ToArray();
+            manjkajociUcenci.Remove(PrisotnostTreeView.SelectedNode.Text);
+            mU = manjkajociUcenci.ToArray();
         }
     }
 }

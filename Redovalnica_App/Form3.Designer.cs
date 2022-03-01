@@ -29,36 +29,36 @@ namespace Redovalnica_App
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.OcenaChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.OcenaChart)).BeginInit();
             this.SuspendLayout();
             // 
             // OcenaChart
             // 
-            chartArea2.Name = "ChartArea1";
-            this.OcenaChart.ChartAreas.Add(chartArea2);
-            legend2.HeaderSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.Line;
-            legend2.Name = "OcenaLegend";
-            this.OcenaChart.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.OcenaChart.ChartAreas.Add(chartArea1);
+            legend1.HeaderSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.Line;
+            legend1.Name = "OcenaLegend";
+            this.OcenaChart.Legends.Add(legend1);
             this.OcenaChart.Location = new System.Drawing.Point(25, 13);
             this.OcenaChart.Name = "OcenaChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Legend = "OcenaLegend";
-            series2.Name = "ocene";
-            this.OcenaChart.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "OcenaLegend";
+            series1.Name = "ocene";
+            this.OcenaChart.Series.Add(series1);
             this.OcenaChart.Size = new System.Drawing.Size(300, 309);
             this.OcenaChart.TabIndex = 0;
             this.OcenaChart.Text = "chart1";
-            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            title2.ForeColor = System.Drawing.Color.Red;
-            title2.Name = "OcenaTitle";
-            title2.Text = "Ocene v razredu";
-            this.OcenaChart.Titles.Add(title2);
+            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            title1.ForeColor = System.Drawing.Color.Red;
+            title1.Name = "OcenaTitle";
+            title1.Text = "Ocene v razredu";
+            this.OcenaChart.Titles.Add(title1);
             this.OcenaChart.MouseHover += new System.EventHandler(this.OcenaChart_MouseHover);
             // 
             // Form3

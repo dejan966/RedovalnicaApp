@@ -269,6 +269,7 @@ namespace RedovalnicaData
     {
         public int IdUr { get; set; }
         public string VrstaUre { get; set; }
+        public string Datum { get; set; }
         public string DatumCas { get; set; }
         public UreIzvedbe()
         {
@@ -284,14 +285,15 @@ namespace RedovalnicaData
             VrstaUre = vrstaure;
             DatumCas = datumCas;
         }
-        public UreIzvedbe(int id_razredi_predmeti, string vrsta_ure, string datumCas):base(id_razredi_predmeti)
+        public UreIzvedbe(int id_razredi_predmeti, string vrsta_ure, string datum, string datumCas):base(id_razredi_predmeti)
         {
             VrstaUre = vrsta_ure;
+            Datum = datum;
             DatumCas = datumCas;
         }
         public UreIzvedbe(string predmet, string razred, string solsko_leto, string ucitelj, string vrstaure, string datumCas):base(predmet, razred, solsko_leto, ucitelj)
         {
-            VrstaUre = vrstaure;
+            VrstaUre = vrstaure;         
             DatumCas = datumCas;
         }
     }
