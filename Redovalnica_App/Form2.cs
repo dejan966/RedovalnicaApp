@@ -18,7 +18,8 @@ namespace Redovalnica_App
         static string sMail;
         static string imePriimekUcitelja;
         List<string> manjkajociUcenci = new List<string>();
-        string[] mU;
+        List<string> oceneUcenci = new List<string>();
+        List<int> ocene = new List<int>();
         public Form2()
         {
             InitializeComponent();
@@ -84,7 +85,7 @@ namespace Redovalnica_App
                 OcenaCombobox.Items.Add(item.StO);
 
             PrisotnostTreeView.Nodes.Add("Učenci");
-            treeView2.Nodes.Add("Učenci");
+            OcenaTreeView.Nodes.Add("Učenci");
         }
 
         private void Btn_PrisotnostZaNazaj_Click(object sender, EventArgs e)
@@ -120,18 +121,17 @@ namespace Redovalnica_App
                 {
                     RedovalnicaDatabase rp = new RedovalnicaDatabase();
                     RazredPredmet razredPredmet = new RazredPredmet(Predmet_ComboboxP.SelectedItem.ToString(), Razred_ComboboxP.SelectedItem.ToString(), imePriimekUcitelja, SolskoLeto_ComboboxP.SelectedItem.ToString());
-                    int idRazredPredmetR = rp.InsertRazrediPredmeti(razredPredmet);
+                    int idRazredPredmetR = rp.InsertSelectRazrediPredmeti(razredPredmet);
                     MessageBox.Show(idRazredPredmetR.ToString());
               
                     RedovalnicaDatabase ru = new RedovalnicaDatabase();
                     UreIzvedbe ure = new UreIzvedbe(idRazredPredmetR, Vrsta_Ur_ComboboxP.SelectedItem.ToString(), Sdate, Idate);
-                    int idUreIzvedbR  = ru.InsertUreIzvedb(ure);
+                    int idUreIzvedbR  = ru.InsertSelectUreIzvedb(ure);
                     MessageBox.Show(idUreIzvedbR.ToString());
 
-                    //problem da doda večkrat v bazo ker se v list shranijo učenci za vsako izberem nek drug razred
-                    for (int i = 0; i < mU.Length; i++)
+                    for (int i = 0; i < manjkajociUcenci.Count; i++)
                     {
-                        Prisotnost danasnjaPrisotnost = new Prisotnost(mU[i], idUreIzvedbR, opomba);
+                        Prisotnost danasnjaPrisotnost = new Prisotnost(manjkajociUcenci[i], idUreIzvedbR, opomba);
                         RedovalnicaDatabase re = new RedovalnicaDatabase();
                         re.InsertPrisotnosti(danasnjaPrisotnost);
                     }
@@ -158,7 +158,6 @@ namespace Redovalnica_App
                         PrisotnostTreeView.Nodes.Add("Učenci");
                     }
                 }
-
             }
             else
                 MessageBox.Show("Morate izbrati vrednosti v Comboboxih", "Opozorilo");
@@ -182,7 +181,6 @@ namespace Redovalnica_App
                     }
                     PrisotnostTreeView.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
                     manjkajociUcenci.Add(item.Ime + ' ' + item.Priimek);
-                    mU = manjkajociUcenci.ToArray();
 
                     /* tk se doda direkt iz treeview subnode v list
                     foreach (TreeNode node in PrisotnostTreeView.Nodes[0].Nodes)
@@ -236,20 +234,28 @@ namespace Redovalnica_App
         private void Razred_ComboboxO_SelectionChangeCommitted(object sender, EventArgs e)
         {
             //prikaže učence glede na razred
-            treeView2.Nodes.Clear();
-            treeView2.Nodes.Add("Učenci");
+            OcenaTreeView.Nodes.Clear();
+            OcenaTreeView.Nodes.Add("Učenci");
             RedovalnicaDatabase rd = new RedovalnicaDatabase();
             Razred rU = new Razred(Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString());
             foreach (Ucenec item in rd.ReturnUcenci_Razred(rU))
             {
                 //preverim a vrne ucence funkcija
                 if (item.Ime != "" && item.Priimek != "")
-                    treeView2.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
+                    OcenaTreeView.Nodes[0].Nodes.Add(item.Ime + ' ' + item.Priimek);
                 else
                 {
-                    treeView2.Nodes.Clear();
-                    treeView2.Nodes.Add("Učenci");
+                    OcenaTreeView.Nodes.Clear();
+                    OcenaTreeView.Nodes.Add("Učenci");
                 }
+            }
+            if (!ocene.Any() || !oceneUcenci.Any())
+            {
+                for (int i = 0; i < ocene.Count(); i++)
+                    ocene.RemoveAt(i);
+
+                for (int i = 0; i < oceneUcenci.Count(); i++)
+                    oceneUcenci.RemoveAt(i);
             }
         }
 
@@ -297,22 +303,23 @@ namespace Redovalnica_App
             if (Razred_ComboboxO.Text != "-Select-" && Predmet_ComboboxO.Text != "-Select-" && SolskoLeto_ComboboxO.Text != "-Select-")
             {
                 string datum = DateTime.Parse(dateTimePicker2.Text).ToString("yyyy-MM-dd");
-                string ucenec = treeView2.SelectedNode.Text;
-
                 try
                 {
                     RedovalnicaDatabase rp = new RedovalnicaDatabase();
                     RazredPredmet razredPredmet = new RazredPredmet(Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), imePriimekUcitelja, SolskoLeto_ComboboxO.SelectedItem.ToString());
-                    rp.InsertRazrediPredmeti(razredPredmet);
+                    int id_rp = rp.InsertSelectRazrediPredmeti(razredPredmet);
 
-                    Ocena ocena = new Ocena(ucenec, OcenaCombobox.SelectedItem.ToString(), datum, Predmet_ComboboxO.SelectedItem.ToString(), Razred_ComboboxO.SelectedItem.ToString(), SolskoLeto_ComboboxO.SelectedItem.ToString(), imePriimekUcitelja);
-                    RedovalnicaDatabase o = new RedovalnicaDatabase();
-                    o.InsertOcena_Ucenec(ocena);
-                    MessageBox.Show("Uspešno dodana ocena za učenca '" + ucenec + "'.", "Ocena", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    for(int i = 0; i<oceneUcenci.Count; i++)
+                    {
+                        Ocena ocena = new Ocena(oceneUcenci[i], ocene[i], datum, id_rp);
+                        RedovalnicaDatabase o = new RedovalnicaDatabase();
+                        o.InsertOcena_Ucenec(ocena);
+                    }
+                    MessageBox.Show("Uspešno dodane ocene za učence.", "Ocena", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Ocene ni bilo mogoče dodati za učenca '" + ucenec + "'.\n'" + ex.Message + "'", "Ocena", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ocen ni bilo mogoče dodati.\n'" + ex.Message + "'", "Ocena", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -354,11 +361,32 @@ namespace Redovalnica_App
 
         private void PrisotnostTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            //dodam v list to ko selectam in convertam v array
             Btn_PotrdiDanasnjoPrisotnost.Enabled = true;
             PrisotnostTreeView.SelectedNode.ForeColor = Color.Red;
             manjkajociUcenci.Remove(PrisotnostTreeView.SelectedNode.Text);
-            mU = manjkajociUcenci.ToArray();
+            
+            /*TreeNode tn = PrisotnostTreeView.GetNodeAt(PrisotnostTreeView.PointToClient(Control.MousePosition));
+            if (tn != null) {
+                //dodam v list to ko selectam in convertam v array
+                Btn_PotrdiDanasnjoPrisotnost.Enabled = true;
+                PrisotnostTreeView.SelectedNode.ForeColor = Color.Red;
+                manjkajociUcenci.Remove(PrisotnostTreeView.SelectedNode.Text);
+                mU = manjkajociUcenci.ToArray();
+            }
+            else
+                Btn_PotrdiDanasnjoPrisotnost.Enabled = false;*/
+        }
+
+        private void OcenaTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            Btn_InsertOcena.Enabled = true;
+            OcenaTreeView.SelectedNode.ForeColor = Color.Red;
+            oceneUcenci.Add(OcenaTreeView.SelectedNode.Text);
+        }
+
+        private void OcenaCombobox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            ocene.Add(Convert.ToInt32(OcenaCombobox.SelectedItem));
         }
     }
 }

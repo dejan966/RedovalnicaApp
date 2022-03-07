@@ -58,7 +58,7 @@ namespace Redovalnica_App
             this.label11 = new System.Windows.Forms.Label();
             this.SolskoLeto_ComboboxO = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.treeView2 = new System.Windows.Forms.TreeView();
+            this.OcenaTreeView = new System.Windows.Forms.TreeView();
             this.OcenaCombobox = new System.Windows.Forms.ComboBox();
             this.Btn_Statistika_Ocene = new System.Windows.Forms.Button();
             this.Btn_InsertOcena = new System.Windows.Forms.Button();
@@ -88,7 +88,7 @@ namespace Redovalnica_App
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(994, 464);
+            this.tabPage1.Size = new System.Drawing.Size(790, 464);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Prisotnost";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -127,7 +127,7 @@ namespace Redovalnica_App
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(23, 173);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 17);
+            this.label6.Size = new System.Drawing.Size(63, 16);
             this.label6.TabIndex = 21;
             this.label6.Text = "Opomba:";
             // 
@@ -152,7 +152,7 @@ namespace Redovalnica_App
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(23, 97);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 17);
+            this.label5.Size = new System.Drawing.Size(61, 16);
             this.label5.TabIndex = 18;
             this.label5.Text = "Predmet:";
             // 
@@ -161,7 +161,7 @@ namespace Redovalnica_App
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(23, 59);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 17);
+            this.label2.Size = new System.Drawing.Size(54, 16);
             this.label2.TabIndex = 16;
             this.label2.Text = "Razred:";
             // 
@@ -189,12 +189,13 @@ namespace Redovalnica_App
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(23, 135);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 17);
+            this.label3.Size = new System.Drawing.Size(63, 16);
             this.label3.TabIndex = 17;
             this.label3.Text = "Vrsta ure:";
             // 
             // Btn_PotrdiDanasnjoPrisotnost
             // 
+            this.Btn_PotrdiDanasnjoPrisotnost.Enabled = false;
             this.Btn_PotrdiDanasnjoPrisotnost.Location = new System.Drawing.Point(302, 124);
             this.Btn_PotrdiDanasnjoPrisotnost.Name = "Btn_PotrdiDanasnjoPrisotnost";
             this.Btn_PotrdiDanasnjoPrisotnost.Size = new System.Drawing.Size(93, 48);
@@ -218,7 +219,7 @@ namespace Redovalnica_App
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(23, 21);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(81, 17);
+            this.label4.Size = new System.Drawing.Size(77, 16);
             this.label4.TabIndex = 7;
             this.label4.Text = "Šolsko leto:";
             // 
@@ -245,7 +246,7 @@ namespace Redovalnica_App
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(558, 56);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(160, 17);
+            this.label1.Size = new System.Drawing.Size(151, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Prijavljeni ste kot bla bla";
             // 
@@ -267,7 +268,7 @@ namespace Redovalnica_App
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(558, 56);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(160, 17);
+            this.label12.Size = new System.Drawing.Size(151, 16);
             this.label12.TabIndex = 14;
             this.label12.Text = "Prijavljeni ste kot bla bla";
             // 
@@ -287,7 +288,7 @@ namespace Redovalnica_App
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.SolskoLeto_ComboboxO);
             this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.treeView2);
+            this.groupBox2.Controls.Add(this.OcenaTreeView);
             this.groupBox2.Controls.Add(this.OcenaCombobox);
             this.groupBox2.Controls.Add(this.Btn_Statistika_Ocene);
             this.groupBox2.Controls.Add(this.Btn_InsertOcena);
@@ -303,7 +304,7 @@ namespace Redovalnica_App
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(23, 107);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 17);
+            this.label8.Size = new System.Drawing.Size(61, 16);
             this.label8.TabIndex = 22;
             this.label8.Text = "Predmet:";
             // 
@@ -321,7 +322,7 @@ namespace Redovalnica_App
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(23, 67);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(58, 17);
+            this.label7.Size = new System.Drawing.Size(54, 16);
             this.label7.TabIndex = 20;
             this.label7.Text = "Razred:";
             // 
@@ -340,7 +341,7 @@ namespace Redovalnica_App
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(23, 147);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(54, 17);
+            this.label11.Size = new System.Drawing.Size(50, 16);
             this.label11.TabIndex = 18;
             this.label11.Text = "Ocena:";
             // 
@@ -359,16 +360,17 @@ namespace Redovalnica_App
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(23, 27);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(81, 17);
+            this.label10.Size = new System.Drawing.Size(77, 16);
             this.label10.TabIndex = 16;
             this.label10.Text = "Šolsko leto:";
             // 
-            // treeView2
+            // OcenaTreeView
             // 
-            this.treeView2.Location = new System.Drawing.Point(26, 186);
-            this.treeView2.Name = "treeView2";
-            this.treeView2.Size = new System.Drawing.Size(241, 242);
-            this.treeView2.TabIndex = 13;
+            this.OcenaTreeView.Location = new System.Drawing.Point(26, 186);
+            this.OcenaTreeView.Name = "OcenaTreeView";
+            this.OcenaTreeView.Size = new System.Drawing.Size(241, 242);
+            this.OcenaTreeView.TabIndex = 13;
+            this.OcenaTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.OcenaTreeView_AfterSelect);
             // 
             // OcenaCombobox
             // 
@@ -377,6 +379,7 @@ namespace Redovalnica_App
             this.OcenaCombobox.Name = "OcenaCombobox";
             this.OcenaCombobox.Size = new System.Drawing.Size(148, 24);
             this.OcenaCombobox.TabIndex = 15;
+            this.OcenaCombobox.SelectionChangeCommitted += new System.EventHandler(this.OcenaCombobox_SelectionChangeCommitted);
             this.OcenaCombobox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OcenaCombobox_KeyDown);
             // 
             // Btn_Statistika_Ocene
@@ -391,6 +394,7 @@ namespace Redovalnica_App
             // 
             // Btn_InsertOcena
             // 
+            this.Btn_InsertOcena.Enabled = false;
             this.Btn_InsertOcena.Location = new System.Drawing.Point(295, 131);
             this.Btn_InsertOcena.Name = "Btn_InsertOcena";
             this.Btn_InsertOcena.Size = new System.Drawing.Size(93, 48);
@@ -440,7 +444,7 @@ namespace Redovalnica_App
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Button Btn_InsertOcena;
         private System.Windows.Forms.Button Btn_Statistika_Ocene;
-        private System.Windows.Forms.TreeView treeView2;
+        private System.Windows.Forms.TreeView OcenaTreeView;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox OcenaCombobox;
         private System.Windows.Forms.Label label11;

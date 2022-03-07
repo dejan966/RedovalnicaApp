@@ -239,16 +239,16 @@ namespace RedovalnicaData
             Ucenec = ucenec;
             StO = stO;
         }
-        public Ocena(string ucenec, string uOcena, string datum, int id_p_r_u) : base(id_p_r_u)
+        public Ocena(string ucenec, int stO, string datum, int id_p_r_u) : base(id_p_r_u)
         {
             Ucenec = ucenec;
-            UOcena = uOcena;
+            StO = stO;
             DatumOcena = datum;
         }
-        public Ocena(string ucenec, string uOcena, string datum, string predmet, string razred, string solsko_leto, string ucitelj):base(predmet, razred, ucitelj, solsko_leto)
+        public Ocena(string ucenec, int stO, string datum, string predmet, string razred, string solsko_leto, string ucitelj):base(predmet, razred, ucitelj, solsko_leto)
         {
             Ucenec = ucenec;
-            UOcena = uOcena;
+            StO = stO;
             DatumOcena = datum;
         }
        
